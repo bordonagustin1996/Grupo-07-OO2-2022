@@ -69,6 +69,7 @@ public class UserController {
 			user.setCreatedAt(userOld.getCreatedAt());
 			user.setUsername(userOld.getUsername());
 			user.setPassword(userOld.getPassword());
+			user.setEmail(userOld.getEmail());
 		}
 		this.userService.insertOrUpdate(user);
 		return new RedirectView(ViewRouteHelper.USER_ROOT);

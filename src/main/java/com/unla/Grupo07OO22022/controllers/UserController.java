@@ -31,7 +31,8 @@ public class UserController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView("user/index");	
-		mAV.addObject("users", this.userService.getAll());
+		//mAV.addObject("users", this.userService.getAll());
+		mAV.addObject("users", this.userService.findByEnabled());
 		return mAV;
 	}
 	

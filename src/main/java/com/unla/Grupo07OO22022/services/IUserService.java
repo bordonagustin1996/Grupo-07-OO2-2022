@@ -9,6 +9,8 @@ import com.unla.Grupo07OO22022.models.UserModel;
 public interface IUserService {
 	
 	public List<User> getAll();
+	
+	public List<User> findByEnabled();
 		
 	public User findById(int id);
 	

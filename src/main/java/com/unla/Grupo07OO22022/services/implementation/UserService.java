@@ -31,20 +31,7 @@ public class UserService implements IUserService{
 	public UserModel insertOrUpdate(User user) {
 		User userNew = this.userRepository.save(user);		
 		return this.modelMapper.map(userNew, UserModel.class);
-	}
-
-	@Override
-	public List<User> getAll() { 
-		// Filtro solo los que estan activos
-		// TODO Verificar si se puede hacer mediante funcionalidad nativa de spring
-		List<User> userEnabled = new ArrayList<User>();
-		for(User user : this.userRepository.findAll()) {
-			if(user.isEnabled()) {
-				userEnabled.add(user);
-			}
-		}		
-		return userEnabled;
-	}
+	}	
 	
 	@Override
 	public boolean remove(int id) {
@@ -54,5 +41,15 @@ public class UserService implements IUserService{
 		}catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public List<User> getAll() {		
+		return userRepository.findAll();
+	}
+
+	@Override
+	public List<User> findByEnabled() {
+		return userRepository.findByEnabled(true);
 	}
 }

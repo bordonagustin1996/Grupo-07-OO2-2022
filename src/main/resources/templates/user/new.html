@@ -1,0 +1,10 @@
+<form action="#" th:action="@{/user/create}" th:object="${user}" method="post">
+	<p>Name: <input type="text" th:field="*{name}" /></p>
+	<p>Apellido: <input type="text" th:field="*{surname}" /></p>	
+	<p>Tipo de documento: <input type="text" th:field="*{documentType}" /></p>	
+	<p>Numero de documento: <input type="text" th:field="*{documentNumber}" /></p>			
+	<p>Email: <input type="text" th:field="*{email}" /></p>
+	<p>Usuario: <input type="text" th:field="*{username}" /></p>
+	<p>Password: <input type="password" th:field="*{password}" /></p>	
+	<input type="submit" value="crear"/>
+</form>

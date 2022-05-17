@@ -1,0 +1,26 @@
+<table border="1px">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Apellido</th>
+			<th>Tipo de documento</th>
+			<th>Numero De documento</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="user : ${users}">
+			<td>
+				<span th:text="${user.name}" /></td>
+			<td>
+				<span th:text="${user.surname}" /></td>
+			<td>
+				<span th:text="${user.documentType}" /></td>
+			<td>
+				<span th:text="${user.documentNumber}" /></td>
+			<td>
+				<a th:href="@{/user/{id}(id=${user.id})}">Ver</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<a href="/user/new">Crear Usuario</a>

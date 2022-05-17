@@ -8,16 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@NoArgsConstructor
+
+@SQLDelete(sql = "UPDATE user SET enabled = false WHERE id=?")
+@Where(clause = "enabled=true") // Con estos decoradores puedo updatear la columna de enabled cuando elimino un usuario desde la interfaz de usuario.
+
 public class User {
 
 	@Id
@@ -46,7 +49,7 @@ public class User {
 	private String password;	
 	
 	@Column(name="enabled")
-	private boolean enabled;
+	private boolean enabled = true;
 	
 	@Column(name="createdat")
 	@CreationTimestamp
@@ -55,15 +58,105 @@ public class User {
 	@Column(name="updatedat")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
-
-	public User(String name, String surname, String documentType, long documentNumber, String email, String username, String password, boolean enabled) {
+	
+	public User() {}
+	
+	public User(String name, String surname, String documentType, long documentNumber, String email, String username, String password) {
 		this.name = name;
 		this.surname = surname;
 		this.documentType = documentType;
 		this.documentNumber = documentNumber;
 		this.email = email;
 		this.username = username;
+		this.password = password;		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	public String getDocumentType() {
+		return documentType;
+	}
+
+	public void setDocumentType(String documentType) {
+		this.documentType = documentType;
+	}
+
+	public long getDocumentNumber() {
+		return documentNumber;
+	}
+
+	public void setDocumentNumber(long documentNumber) {
+		this.documentNumber = documentNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	
 }

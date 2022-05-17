@@ -15,7 +15,6 @@ public interface IUserRepository extends JpaRepository<User, Serializable>{
 
 	public abstract User findById(int id);
 	
-	//@Query("FROM user WHERE enabled = true")
 	public abstract List<User> findByEnabled(boolean enabled);
 	
 }

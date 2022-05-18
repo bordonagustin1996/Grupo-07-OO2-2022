@@ -32,7 +32,7 @@ public class UserController {
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView("user/index");	
 		//mAV.addObject("users", this.userService.getAll());
-		mAV.addObject("users", this.userService.findByEnabled());
+		mAV.addObject("users", this.userService.findByEnabled(true));
 		return mAV;
 	}
 	

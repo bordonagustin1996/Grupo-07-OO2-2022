@@ -42,7 +42,7 @@ public class UserService{
 		return userRepository.findAll();
 	}
 
-	public List<User> findByEnabled() {
-		return userRepository.findByEnabled(true);
+	public List<User> findByEnabled(boolean enable) {
+		return userRepository.findByEnabled(enable);
 	}
 }

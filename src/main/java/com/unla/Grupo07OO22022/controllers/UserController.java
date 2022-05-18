@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.Grupo07OO22022.entities.User;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.UserModel;
-import com.unla.Grupo07OO22022.services.IUserService;
+import com.unla.Grupo07OO22022.services.implementation.UserService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class UserController {
 
 	@Autowired
 	@Qualifier("userService")
-	private IUserService userService;
+	private UserService userService;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 		

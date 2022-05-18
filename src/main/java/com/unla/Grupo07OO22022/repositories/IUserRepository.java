@@ -17,4 +17,7 @@ public interface IUserRepository extends JpaRepository<User, Serializable>{
 	
 	public abstract List<User> findByEnabled(boolean enabled);
 	
+	// Metodo utilizado para buscar por usuario (Implementar cuando se agregue el login)
+	public abstract User findByUsername(String username);
+	
 }

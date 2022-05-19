@@ -1,0 +1,7 @@
+<form action="#" th:action="@{/user-role/update}" th:object="${userRole}" method="post">
+	<input type="hidden" th:field="*{id}" />
+	</p>
+	<p>
+		Nombre: <input type="text" th:field="*{name}"/>
+	</p>
+</form>

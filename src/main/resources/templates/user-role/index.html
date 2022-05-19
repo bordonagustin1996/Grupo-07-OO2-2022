@@ -1,0 +1,18 @@
+<table border="1px">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="userRole : ${userRoles}">
+			<td>
+				<span th:text="${userRole.name}"/>
+			</td>
+			<td>
+				<a th:href="@{/user-role/{id}(id=${userRole.id})}">Ver</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<a href="/user-role/new">Crear</a>

@@ -74,6 +74,6 @@ public class UserController {
 		}
 		this.userService.insertOrUpdate(user);
 		return new RedirectView(ViewRouteHelper.USER_ROOT);
-	}	
+	}
 	
 }

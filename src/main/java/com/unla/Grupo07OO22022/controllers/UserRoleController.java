@@ -54,4 +54,15 @@ public class UserRoleController {
 		return mAV;
 	}
 	
+	@PostMapping("/update")
+	public RedirectView update(@ModelAttribute("userRole") UserRoleModel userRoleModel) {
+		UserRole userRole = modelMapper.map(userRoleModel, UserRole.class);
+		if (userRoleModel.getId() > 0) {
+			UserRole userRoleOld = userRoleService.findById(userRoleModel.getId());
+			userRole.setCreatedAt(userRoleOld.getCreatedAt());
+		}
+		userRoleService.insertOrUpdate(userRole);
+		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);
+	}
+	
 }

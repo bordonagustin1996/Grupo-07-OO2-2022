@@ -15,4 +15,6 @@ public interface IUserRoleService {
 	
 	public UserRoleModel insertOrUpdate(UserRole userRole);
 	
+	public boolean remove(int id);
+	
 }

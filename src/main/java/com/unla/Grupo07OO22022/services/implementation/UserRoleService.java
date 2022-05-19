@@ -41,5 +41,15 @@ public class UserRoleService implements IUserRoleService {
 		UserRole userRoleNew = userRoleRepository.save(userRole);
 		return modelMapper.map(userRoleNew, UserRoleModel.class);
 	}
+
+	@Override
+	public boolean remove(int id) {
+		try {
+			userRoleRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
 }

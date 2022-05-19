@@ -6,3 +6,6 @@
 	</p>
 	<input type="submit" value="Editar"/>
 </form>
+<form action="#" th:action="@{/user-role/delete/{id}(id=${userRole.id})}" method="post">
+	<input type="submit" value="Eliminar"/>
+</form>

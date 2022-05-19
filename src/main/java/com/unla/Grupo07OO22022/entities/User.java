@@ -7,20 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.annotations.Where;
-
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
 
 @SQLDelete(sql = "UPDATE user SET enabled = false WHERE id=?")
-@Where(clause = "enabled=true") // Con estos decoradores puedo updatear la columna de enabled cuando elimino un usuario desde la interfaz de usuario.
-
 public class User {
 
 	@Id
@@ -59,6 +57,10 @@ public class User {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
+	@ManyToOne()
+	@JoinColumn(name="user_role_id")
+	private UserRole userRole;
+	
 	public User() {}
 	
 	public User(String name, String surname, String documentType, long documentNumber, String email, String username, String password) {
@@ -70,7 +72,15 @@ public class User {
 		this.username = username;
 		this.password = password;		
 	}
+	
+	public UserRole getUserRole() {
+		return userRole;
+	}
 
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
+	
 	public int getId() {
 		return id;
 	}

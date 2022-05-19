@@ -1,4 +1,6 @@
 package com.unla.Grupo07OO22022.models;
+import com.unla.Grupo07OO22022.entities.UserRole;
+
 import lombok.NoArgsConstructor;
 
 
@@ -21,6 +23,8 @@ public class UserModel {
 	
 	private long documentNumber;	
 
+	private UserRole userRole;
+	
 	public UserModel() {}
 	
 	public UserModel(int id, String name, String surname, String email, String documentType, long documentNumber, String password) {
@@ -96,5 +100,14 @@ public class UserModel {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}	
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
+
 }

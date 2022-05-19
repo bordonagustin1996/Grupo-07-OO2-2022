@@ -5,18 +5,26 @@
 			<th>Apellido</th>
 			<th>Tipo de documento</th>
 			<th>Numero De documento</th>
+			<th>Rol</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr th:each="user : ${users}">
 			<td>
-				<span th:text="${user.name}" /></td>
+				<span th:text="${user.name}" />
+			</td>
 			<td>
-				<span th:text="${user.surname}" /></td>
+				<span th:text="${user.surname}" />
+			</td>
 			<td>
-				<span th:text="${user.documentType}" /></td>
+				<span th:text="${user.documentType}" />
+			</td>
 			<td>
-				<span th:text="${user.documentNumber}" /></td>
+				<span th:text="${user.documentNumber}"/>
+			</td>
+			<td>
+				<span th:text="${user.userRole}"/>
+			</td>
 			<td>
 				<a th:href="@{/user/{id}(id=${user.id})}">Ver</a>
 			</td>

@@ -54,7 +54,8 @@ public class UserService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User usuario = this.userRepository.findByUsername(username);		
 		List<GrantedAuthority> userRole = new ArrayList<>();
-		userRole.add(new SimpleGrantedAuthority("ADMIN")); // Traer desde la base de datos.
+		//userRole.add(new SimpleGrantedAuthority(usuario.getUserRole().getName())); //Asegurarse que el nombre sea ADMIN.
+		userRole.add(new SimpleGrantedAuthority("ADMIN"));
 		UserDetails userDetails = new org.springframework.security.core.userdetails.User(usuario.getUsername(), usuario.getPassword(), userRole);
 		return userDetails;
 	}

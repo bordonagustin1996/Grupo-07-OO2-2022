@@ -39,7 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest()
 			.authenticated()
 			.and()
-			.httpBasic();			
+			.formLogin().permitAll() //loginPage("/login") //Si usamos un template para el login
+			.and()
+			.logout().permitAll();
+			//.httpBasic();			
 	}	
 	
 }

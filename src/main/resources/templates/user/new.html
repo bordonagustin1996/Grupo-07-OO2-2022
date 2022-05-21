@@ -1,11 +1,58 @@
-<form action="#" th:action="@{/user/create}" th:object="${user}" method="post">
-	<p>Nombre: <input type="text" th:field="*{name}" /></p>
-	<p>Apellido: <input type="text" th:field="*{surname}" /></p>	
-	<p>Tipo de documento: <input type="text" th:field="*{documentType}" /></p>	
-	<p>Numero de documento: <input type="text" th:field="*{documentNumber}" /></p>			
-	<p>Email: <input type="text" th:field="*{email}" /></p>
-	<p>Usuario: <input type="text" th:field="*{username}" /></p>
-	<p>Password: <input type="password" th:field="*{password}" /></p>	
-	<p>Rol: <input type="userRole" th:field="*{userRole}" /></p>	
-	<input type="submit" value="crear"/>
-</form>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	</head>
+	<body>
+		<div class="container mt-4">
+			<div class="col-sm-6">
+				<form action="#" th:action="@{/user/create}" th:object="${user}" method="post">
+					<div class="card">
+						<div class="card-header">
+							<h3>Usuario</h3>
+						</div>
+						<div class="card-body">
+							<input type="hidden" th:field="*{id}">
+							<div class="form-group">
+								<label>Nombre</label>
+								<input type="text" th:field="*{name}" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Apellido</label>
+								<input type="text" th:field="*{surname}" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Tipo de documento</label>
+								<select name="document-type" th:field="*{documentType}" class="form-select">
+									<option th:value="DNI" th:text="DNI"> <!-- Documento Nacional de Identidad -->
+									<option th:value="LC" th:text="LC"> <!-- Libreta Cívica -->
+									<option th:value="CI" th:text="CI"> <!-- Cédula de Identidad -->
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Número documento</label>
+								<input type="text" th:field="*{documentNumber}" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Correo electrónico</label>
+								<input type="text" th:field="*{email}" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Usuario</label>
+								<input type="text" th:field="*{username}" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Contraseña</label>
+								<input type="password" th:field="*{password}" class="form-control">
+							</div>
+						</div>
+						<div class="card-footer">
+							<input type="submit" value="Crear" class="btn btn-primary">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

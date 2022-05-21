@@ -11,9 +11,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import com.unla.Grupo07OO22022.config.SecurityConfig;
 import com.unla.Grupo07OO22022.entities.User;
 import com.unla.Grupo07OO22022.models.UserModel;
 import com.unla.Grupo07OO22022.repositories.IUserRepository;
+
 
 @Service("userService")
 public class UserService implements UserDetailsService{
@@ -23,13 +25,14 @@ public class UserService implements UserDetailsService{
 	private IUserRepository userRepository;
 	
 	private ModelMapper modelMapper = new ModelMapper();
-	
+		
 	public User findById(int id) {
 		return this.userRepository.findById(id);
 	}
 
 	public UserModel insertOrUpdate(User user) {
-		User userNew = this.userRepository.save(user);		
+		user.setPassword(SecurityConfig.passwordEncoder().encode(user.getPassword()));	
+		User userNew = this.userRepository.save(user);			
 		return this.modelMapper.map(userNew, UserModel.class);
 	}	
 	

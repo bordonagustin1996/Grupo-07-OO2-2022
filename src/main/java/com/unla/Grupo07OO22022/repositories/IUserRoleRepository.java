@@ -1,6 +1,5 @@
 package com.unla.Grupo07OO22022.repositories;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.unla.Grupo07OO22022.entities.UserRole;
 
 @Repository("userRoleRepository")
-public interface IUserRoleRepository extends JpaRepository<UserRole, Serializable> {
+public interface IUserRoleRepository extends JpaRepository<UserRole, Integer> {
 
 	public abstract UserRole findById(int id);
 	

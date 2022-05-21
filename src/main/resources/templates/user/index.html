@@ -40,7 +40,7 @@
 							<span th:text="${user.username}">
 						</td>
 						<td>
-							<span th:text="${user.userRole}">
+							<span th:text="${user.userRole.name}">
 						</td>
 						<td>
 							<a th:href="@{/user/{id}(id=${user.id})}" class="btn btn-primary">Ver</a>

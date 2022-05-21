@@ -46,6 +46,12 @@
 								<label>Contraseña</label>
 								<input type="password" th:field="*{password}" class="form-control">
 							</div>
+							<div class="form-group">
+								<label>Rol</label>
+								<select th:field="*{userRole}" class="form-select">
+									<option th:each="userRole : ${userRoles}" th:value="${userRole.id}" th:text="${userRole.name}">
+								</select>
+							</div>
 						</div>
 						<div class="card-footer">
 							<input type="submit" value="Editar" class="btn btn-primary">

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.Grupo07OO22022.entities.User;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.UserModel;
+import com.unla.Grupo07OO22022.services.implementation.UserRoleService;
 import com.unla.Grupo07OO22022.services.implementation.UserService;
 
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,10 @@ public class UserController {
 	@Autowired
 	@Qualifier("userService")
 	private UserService userService;
+	
+	@Autowired
+	@Qualifier("userRoleService")
+	private UserRoleService userRoleService;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 		
@@ -40,6 +45,7 @@ public class UserController {
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE);
 		mAV.addObject("user", this.userService.findById(id));
+		mAV.addObject("userRoles", userRoleService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -47,6 +53,7 @@ public class UserController {
 	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_NEW);
 		mAV.addObject("user", new UserModel());
+		mAV.addObject("userRoles", userRoleService.findByEnabled(true));
 		return mAV;
 	}
 	

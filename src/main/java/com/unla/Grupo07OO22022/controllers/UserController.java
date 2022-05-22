@@ -70,7 +70,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("person") UserModel userModel) {
+	public RedirectView update(@ModelAttribute("user") UserModel userModel) {
 		User user = modelMapper.map(userModel, User.class);
 		if(userModel.getId() > 0) {
 			User userOld = this.userService.findById(userModel.getId());

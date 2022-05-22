@@ -6,7 +6,9 @@
 	</head>
 	<body>
 		<div class="container mt-4">
-			<a href="/user/new" class="btn btn-primary">Nuevo</a>
+			<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+				<a href="/user/new" class="btn btn-primary">Nuevo</a>
+			</div>
 			<table class="table">
 				<thead>
 					<tr>

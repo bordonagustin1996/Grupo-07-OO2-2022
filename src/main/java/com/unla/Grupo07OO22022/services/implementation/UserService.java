@@ -5,20 +5,20 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.unla.Grupo07OO22022.config.SecurityConfig;
 import com.unla.Grupo07OO22022.entities.User;
 import com.unla.Grupo07OO22022.models.UserModel;
 import com.unla.Grupo07OO22022.repositories.IUserRepository;
 
 
 @Service("userService")
-public class UserService implements UserDetailsService{
+public class UserService {
 	
 	@Autowired
 	@Qualifier("userRepository")
@@ -31,10 +31,16 @@ public class UserService implements UserDetailsService{
 	}
 
 	public UserModel insertOrUpdate(User user) {
-		user.setPassword(SecurityConfig.passwordEncoder().encode(user.getPassword()));	
-		User userNew = this.userRepository.save(user);			
+		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		User userNew = this.userRepository.save(user);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		List<GrantedAuthority> authorities = new ArrayList<>(auth.getAuthorities());
+		authorities.clear();
+		authorities.add(new SimpleGrantedAuthority(userNew.getUserRole().getName()));
+		Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), authorities);
+		SecurityContextHolder.getContext().setAuthentication(newAuth);
 		return this.modelMapper.map(userNew, UserModel.class);
-	}	
+	}
 	
 	public boolean remove(int id) {
 		try {
@@ -52,14 +58,5 @@ public class UserService implements UserDetailsService{
 	public List<User> findByEnabled(boolean enable) {
 		return userRepository.findByEnabled(enable);
 	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User usuario = this.userRepository.findByUsername(username);		
-		List<GrantedAuthority> userRole = new ArrayList<>();
-		//userRole.add(new SimpleGrantedAuthority(usuario.getUserRole().getName())); //Asegurarse que el nombre sea ADMIN.
-		userRole.add(new SimpleGrantedAuthority("ADMIN"));
-		UserDetails userDetails = new org.springframework.security.core.userdetails.User(usuario.getUsername(), usuario.getPassword(), userRole);
-		return userDetails;
-	}
+	
 }

@@ -53,12 +53,12 @@
 								</select>
 							</div>
 						</div>
-						<div class="card-footer">
+						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							<input type="submit" value="Editar" class="btn btn-primary">
 						</div>
 					</div>
 				</form>
-				<form action="#" th:action="@{/user/delete/{id}(id=${user.id})}" method="post">
+				<form action="#" th:action="@{/user/delete/{id}(id=${user.id})}" method="post" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 					<input type="submit" value="Eliminar" class="btn btn-danger">
 				</form>
 			</div>

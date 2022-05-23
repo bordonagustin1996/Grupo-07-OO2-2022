@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.unla.Grupo07OO22022.services.IOrderNoteServices;
+import com.unla.Grupo07OO22022.services.IOrderNoteService;
 
 @Controller
 @RequestMapping("/orderNote")
@@ -13,7 +13,7 @@ public class OrderNoteController {
 
 	@Autowired
 	@Qualifier("orderNoteService")
-	private IOrderNoteServices orderNoteService;
+	private IOrderNoteService orderNoteService;
 	
 	
 	

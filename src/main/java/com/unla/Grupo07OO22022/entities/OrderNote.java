@@ -10,21 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.boot.model.source.spi.InheritanceType;
 
-import lombok.NoArgsConstructor;
 
 @Entity
-
 @SQLDelete(sql = "UPDATE OrderNote SET enabled = false WHERE id=?")
-@Inheritance(strategy = javax.persistence.InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class OrderNote{
 
 	@Id

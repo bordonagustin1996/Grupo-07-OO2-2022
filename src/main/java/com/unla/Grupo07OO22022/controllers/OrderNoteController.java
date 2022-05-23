@@ -1,0 +1,20 @@
+package com.unla.Grupo07OO22022.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.unla.Grupo07OO22022.services.IOrderNoteServices;
+
+@Controller
+@RequestMapping("/orderNote")
+public class OrderNoteController {
+
+	@Autowired
+	@Qualifier("orderNoteService")
+	private IOrderNoteServices orderNoteService;
+	
+	
+	
+}

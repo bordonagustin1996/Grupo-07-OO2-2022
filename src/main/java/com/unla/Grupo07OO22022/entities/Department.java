@@ -13,28 +13,59 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import lombok.NoArgsConstructor;
+
 @Entity
-@Table(name = "matter")
-@SQLDelete(sql = "UPDATE matter SET enabled = false WHERE id = ?")
-public class Matter {
+@NoArgsConstructor
+@Table(name = "Department")
+@SQLDelete(sql = "UPDATE Department SET enabled = false WHERE id=?")
+public class Department {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int idDepartment;
 	
-	@Column(name="name")
-	private String name;	
+	@Column(name = "name")
+	private String name;
 	
-	@Column(name="enabled")
+	@Column(name = "enabled")
 	private boolean enabled = true;
 	
-	@Column(name="createdat")
+	@Column(name = "created_at")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	
-	@Column(name="updatedat")
+	@Column(name = "updated_at")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
+
+	public Department() {
+		super();
+	}
+
+	public int getIdDepartment() {
+		return idDepartment;
+	}
+
+	public void setIdDepartment(int idDepartment) {
+		this.idDepartment = idDepartment;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
@@ -43,7 +74,7 @@ public class Matter {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
@@ -51,13 +82,7 @@ public class Matter {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
+	
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-  }
-  
 }

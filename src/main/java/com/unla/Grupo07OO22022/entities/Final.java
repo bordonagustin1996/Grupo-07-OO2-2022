@@ -31,5 +31,5 @@ public class Final extends OrderNote{
 	public void setExamDate(LocalDate examDate) {
 		this.examDate = examDate;
 	}	
-	
+  
 }

@@ -1,7 +1,5 @@
 package com.unla.Grupo07OO22022.models;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 public class MatterModel {
 	
 	private int id;
@@ -24,6 +22,6 @@ public class MatterModel {
 
 	public void setId(int id) {
 		this.id = id;
-	}		
-
+	}	
+  
 }

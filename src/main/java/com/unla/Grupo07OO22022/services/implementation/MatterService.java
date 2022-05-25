@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import com.unla.Grupo07OO22022.entities.Matter;
 import com.unla.Grupo07OO22022.models.MatterModel;
 import com.unla.Grupo07OO22022.repositories.IMatterRepository;
@@ -19,7 +20,7 @@ public class MatterService implements IMatterService{
 	private IMatterRepository matterRepository;
 	
 	private ModelMapper modelMapper = new ModelMapper();
-
+  
 	@Override
 	public List<Matter> getAll() {
 		return matterRepository.findAll();

@@ -4,10 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-public class FinalModel extends OrderNoteModel{
+public class FinalModel extends OrderNoteModel {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate examDate;
@@ -21,4 +18,5 @@ public class FinalModel extends OrderNoteModel{
 	public void setExamDate(LocalDate examDate) {
 		this.examDate = examDate;
 	}	
+  
 }

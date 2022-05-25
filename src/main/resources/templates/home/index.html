@@ -15,65 +15,11 @@
         <link th:href="@{/css/styles.css}" rel="stylesheet" />
     </head>
     <body>
-        <div class="d-flex" id="wrapper">            
-            <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Menú principal</div>
-                <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
-                		<form th:action="@{/user-role/}" method="get">
-                        	<button class="btn btn-primary-outline" type="summit">Roles</button>
-                    	</form>
-                	</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3">
-                    	<form th:action="@{/user/}" method="get">                    		
-                    		<button class="btn btn-primary-outline" type="summit">Usuarios</button>                    		
-                    	</form>
-                	</a>
-                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
-                		<form th:action="@{/matter/}" method="get"> <!--Agregar acción a vista de lista-->   
-                        	<button class="btn btn-primary-outline" type="summit">Materias</button>
-                    	</form>
-                	</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3">
-                    	<form th:action="@{/order-note/final}" method="get"> <!--Agregar acción a vista de lista-->                 		
-                    		<button class="btn btn-primary-outline" type="summit">Finales</button>                    		
-                    	</form>
-                	</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3">
-                    	<form th:action="@{/order-note/course}" method="get"> <!--Agregar acción a vista de lista-->                 		
-                    		<button class="btn btn-primary-outline" type="summit">Cursos</button>                    		
-                    	</form>
-                	</a>
-                </div>
-            </div>
+        <div class="d-flex" id="wrapper">          
             <!-- Page content wrapper-->
             <div id="page-content-wrapper">
                 <!-- Top navigation-->
-                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                    <div class="container-fluid">
-                        <button class="btn btn-primary" id="sidebarToggle">Ocultar Menu</button>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                                <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
-                                <li class="nav-item dropdown">                                	
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    	<span sec:authentication="name"></span>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">                                    	                                   	
-                                        <a class="dropdown-item" href="#!">Perfil</a>
-                                        <a class="dropdown-item" href="#!">Cambiar contraseña</a>
-                                        <div class="dropdown-divider"></div>
-                                        <form th:action="@{/logout}" method="post">
-                                        	<button type="submit" class="dropdown-item">Cerrar sesion</button>
-                                        </form>                                      
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+                <nav th:replace="fragments/navbar :: navbar"></nav>
                 <!-- Page content-->
                 <div class="container-fluid">
                     <h1 class="mt-4">Simple Sidebar</h1>
@@ -93,6 +39,4 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
     </body>
-
 </html>
-

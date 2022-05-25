@@ -1,4 +1,5 @@
 package com.unla.Grupo07OO22022.repositories;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface IOrderNoteRepository extends JpaRepository<OrderNote, Integer>{
 	public abstract List<OrderNote> findByEnabled(boolean enabled);
 	
 	public abstract OrderNote findByDate(LocalDate date);
-
+  
 }

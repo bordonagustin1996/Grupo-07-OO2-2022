@@ -17,7 +17,6 @@ public interface IOrderNoteService {
 	 
 	public List<OrderNote> findByEnabled(boolean enabled, boolean course);
 	
-	
 	public OrderNoteModel insertOrUpdate(OrderNote orderNote);
 	
 	public CourseModel insertOrUpdateCourse(Course course);
@@ -25,5 +24,5 @@ public interface IOrderNoteService {
 	public FinalModel insertOrUpdateFinal(Final finalr);
 	
 	public boolean remove(int id);
-	
+
 }

@@ -15,9 +15,17 @@ import com.unla.Grupo07OO22022.models.UserModel;
 import com.unla.Grupo07OO22022.services.implementation.UserRoleService;
 import com.unla.Grupo07OO22022.services.implementation.UserService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Controller
 @RequestMapping("/user")
@@ -35,8 +43,7 @@ public class UserController {
 		
 	@GetMapping("")
 	public ModelAndView index() {
-		ModelAndView mAV = new ModelAndView("user/index");	
-		//mAV.addObject("users", this.userService.getAll());
+		ModelAndView mAV = new ModelAndView("user/index");
 		mAV.addObject("users", this.userService.findByEnabled(true));
 		return mAV;
 	}
@@ -63,9 +70,9 @@ public class UserController {
 		return new RedirectView(ViewRouteHelper.USER_ROOT);
 	}
 	
-	@PostMapping("/delete/{id}")
+	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {		
-		this.userService.remove(id);
+		userService.remove(id);
 		return new RedirectView(ViewRouteHelper.USER_ROOT);
 	}
 	
@@ -80,6 +87,13 @@ public class UserController {
 			user.setEmail(userOld.getEmail());
 		}
 		this.userService.insertOrUpdate(user);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth.getName().equals(userModel.getUsername())) {
+			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+			authorities.add(new SimpleGrantedAuthority(userModel.getUserRole().getName()));
+			Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), authorities);
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+		}
 		return new RedirectView(ViewRouteHelper.USER_ROOT);
 	}
 	

@@ -1,11 +1,9 @@
 package com.unla.Grupo07OO22022.entities;
 
 import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "course")
@@ -28,6 +26,6 @@ public class Course extends OrderNote{
 
 	public void setCode(String code) {
 		this.code = code;
-	}
-			
+	}	
+  
 }

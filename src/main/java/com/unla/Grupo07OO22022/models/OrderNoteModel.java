@@ -7,9 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.unla.Grupo07OO22022.entities.Matter;
 import com.unla.Grupo07OO22022.entities.User;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
 public class OrderNoteModel {	
 	
 	private int id;
@@ -37,7 +34,7 @@ public class OrderNoteModel {
 		this.date = date;
 	}
 
-	public char getTurn() {
+  public char getTurn() {
 		return turn;
 	}
 
@@ -83,8 +80,6 @@ public class OrderNoteModel {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	
-
+	}	
+  
 }

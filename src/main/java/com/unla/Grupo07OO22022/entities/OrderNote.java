@@ -17,17 +17,15 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.NoArgsConstructor;
-
 @Entity
-@NoArgsConstructor
 @Table(name = "order_note")
 @SQLDelete(sql = "UPDATE order_note SET enabled = false WHERE id = ?")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class OrderNote {
-	
+  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -83,13 +81,13 @@ public class OrderNote {
 	}
 
 	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+		this.enabled = enabled;	
 	}
 
 	public int getId() {
 		return id;
-	}
-	
+  }
+  
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -105,7 +103,7 @@ public class OrderNote {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
+  
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -118,7 +116,7 @@ public class OrderNote {
 		this.date = date;
 	}
 
-	public char getTurn() {
+  public char getTurn() {
 		return turn;
 	}
 
@@ -157,4 +155,5 @@ public class OrderNote {
 	public void setUser(User user) {
 		this.user = user;
 	}
+  
 }

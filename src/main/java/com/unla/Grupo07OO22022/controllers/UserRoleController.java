@@ -65,7 +65,7 @@ public class UserRoleController {
 		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);
 	}
 	
-	@PostMapping("/delete/{id}")
+	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
 		userRoleService.remove(id);
 		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);

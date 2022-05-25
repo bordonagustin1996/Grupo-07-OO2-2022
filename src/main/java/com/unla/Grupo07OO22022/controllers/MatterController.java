@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import com.unla.Grupo07OO22022.entities.Matter;
+import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.MatterModel;
 import com.unla.Grupo07OO22022.services.implementation.MatterService;
 
@@ -28,21 +29,21 @@ public class MatterController {
 	
 	@GetMapping("")
 	public ModelAndView index(){
-		ModelAndView mAV = new ModelAndView("matter/index");		
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_INDEX);		
 		mAV.addObject("matters", this.matterService.findByEnabled(true));
 		return mAV;
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) {
-		ModelAndView mAV = new ModelAndView("matter/update");
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_UPDATE);
 		mAV.addObject("matter", this.matterService.findById(id));		
 		return mAV;
 	}
 	
 	@GetMapping("/new")
-	public ModelAndView create() {
-		ModelAndView mAV = new ModelAndView("matter/new");
+	public ModelAndView create() {		
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_NEW);
 		mAV.addObject("matter", new MatterModel());		
 		return mAV;
 	}
@@ -50,13 +51,13 @@ public class MatterController {
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("matter") MatterModel matterModel) {
 		this.matterService.insertOrUpdate(this.modelMapper.map(matterModel, Matter.class));
-		return new RedirectView("/matter");
+		return new RedirectView(ViewRouteHelper.MATTER_ROOT);
 	}
 	
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {		
 		this.matterService.remove(id);
-		return new RedirectView("/matter");
+		return new RedirectView(ViewRouteHelper.MATTER_ROOT);
 	}
 	
 	@PostMapping("/update")
@@ -68,7 +69,7 @@ public class MatterController {
 			
 		}
 		this.matterService.insertOrUpdate(matter);
-		return new RedirectView("/matter");
+		return new RedirectView(ViewRouteHelper.MATTER_ROOT);
 	}
 
 }

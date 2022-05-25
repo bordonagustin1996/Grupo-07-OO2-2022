@@ -59,4 +59,7 @@ public class UserService {
 		return userRepository.findByEnabled(enable);
 	}
 	
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 }

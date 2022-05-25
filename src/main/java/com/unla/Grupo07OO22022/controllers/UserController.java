@@ -70,9 +70,9 @@ public class UserController {
 		return new RedirectView(ViewRouteHelper.USER_ROOT);
 	}
 	
-	@PostMapping("/delete/{id}")
+	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {		
-		this.userService.remove(id);
+		userService.remove(id);
 		return new RedirectView(ViewRouteHelper.USER_ROOT);
 	}
 	

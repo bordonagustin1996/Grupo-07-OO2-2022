@@ -33,7 +33,7 @@ public class Space {
 	private boolean enabled = true;
 
 	@Column(name = "free")
-	private boolean free = true;
+	private boolean free;
 	
 	@Column(name = "created_at")
 	@CreationTimestamp

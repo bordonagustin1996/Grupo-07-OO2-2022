@@ -1,63 +1,30 @@
 package com.unla.Grupo07OO22022.entities;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.UpdateTimestamp;
-import lombok.NoArgsConstructor;
+import javax.persistence.Table;
 
 @Entity
-@NoArgsConstructor
-
-@SQLDelete(sql = "UPDATE user SET enabled = false WHERE id=?")
-
-public class Traditional {
+@Table(name = "traditional")
+public class Traditional extends Classroom {
 	
+	@Column(name = "number_benches")
+	private int numberBenches;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
-	@Column (name = "number_chairs")
-	private int number_chairs;
-	
-	@Column (name = "chalkboard")
+	@Column(name = "chalkboard")
 	private String chalkboard;
 	
-	@Column (name = "has_proyector")
-	private boolean has_proyector;
+	@Column(name = "has_projector")
+	private boolean hasProjector;
 
-	public Traditional(int id, int number_chairs, String chalkboard, boolean has_proyector) {
-		this.id = id;
-		this.number_chairs = number_chairs;
-		this.chalkboard = chalkboard;
-		this.has_proyector = has_proyector;
+	public Traditional() {}
+
+	public int getNumberBenches() {
+		return numberBenches;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getNumber_chairs() {
-		return number_chairs;
-	}
-
-	public void setNumber_chairs(int number_chairs) {
-		this.number_chairs = number_chairs;
+	public void setNumberBenches(int numberBenches) {
+		this.numberBenches = numberBenches;
 	}
 
 	public String getChalkboard() {
@@ -68,15 +35,12 @@ public class Traditional {
 		this.chalkboard = chalkboard;
 	}
 
-	public boolean isHas_proyector() {
-		return has_proyector;
+	public boolean isHasProjector() {
+		return hasProjector;
 	}
 
-	public void setHas_proyector(boolean has_proyector) {
-		this.has_proyector = has_proyector;
+	public void setHasProjector(boolean hasProjector) {
+		this.hasProjector = hasProjector;
 	}
-	
-	
-	
 
 }

@@ -1,25 +1,16 @@
 package com.unla.Grupo07OO22022.models;
 
-import lombok.NoArgsConstructor;
+import com.unla.Grupo07OO22022.entities.Building;
 
-
-@NoArgsConstructor
 public class ClassroomModel {
 	
 	private int id;
 	
 	private int number;
 	
-	
+	private Building building;
 	
 	public ClassroomModel() {}
-
-	public ClassroomModel(int id, int number) {
-		
-		this.setId(id);
-		this.number = number;
-		
-	}
 
 	public int getId() {
 		return id;
@@ -37,5 +28,12 @@ public class ClassroomModel {
 		this.number = number;
 	}
 
+	public Building getBuilding() {
+		return building;
+	}
+
+	public void setBuilding(Building building) {
+		this.building = building;
+	}
 	
 }

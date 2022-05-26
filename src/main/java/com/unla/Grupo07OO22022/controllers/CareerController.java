@@ -12,9 +12,9 @@ import com.unla.Grupo07OO22022.services.implementation.CareerService;
 @RequestMapping("/Career")
 public class CareerController {
 	
-	@Autowired
-	@Qualifier("careerService")
-	private CareerService careerService;
+//	@Autowired
+//	@Qualifier("careerService")
+//	private CareerService careerService;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	

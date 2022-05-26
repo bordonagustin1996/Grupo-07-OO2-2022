@@ -4,64 +4,39 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.NoArgsConstructor;
-
 @Entity
-@NoArgsConstructor
-@Table(name = "Matter")
-@SQLDelete(sql = "UPDATE Matter SET enabled = false WHERE id=?")
+@Table(name = "matter")
+@SQLDelete(sql = "UPDATE matter SET enabled = false WHERE id = ?")
 public class Matter {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idMatter;
-
-	@Column(name = "code")
-	private String code;
+	private int id;
 	
-	@Column(name = "name")
-	private String name;
+	@Column(name="name")
+	private String name;	
 	
-	@Column(name = "enabled")
+	@Column(name="enabled")
 	private boolean enabled = true;
 	
-	@Column(name = "created_at")
+	@Column(name="createdat")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	
-	@Column(name = "updated_at")
+	@Column(name="updatedat")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="career_id")
-	private Career career;
-	
-
-	public Matter() {
-		super();
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
+	public Matter() {}
 
 	public String getName() {
 		return name;
@@ -86,7 +61,7 @@ public class Matter {
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
-
+	
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
@@ -94,6 +69,13 @@ public class Matter {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+  }
+  
 }

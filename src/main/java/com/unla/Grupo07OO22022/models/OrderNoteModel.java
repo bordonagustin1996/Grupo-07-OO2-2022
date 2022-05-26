@@ -2,38 +2,29 @@ package com.unla.Grupo07OO22022.models;
 
 import java.time.LocalDate;
 
-public class OrderNoteModel {
-	
-	protected int idOrderNote;
-	
-	protected LocalDate date;
-	
-	protected String turn;
-	
-	protected int numberStudent;
-	
-	protected String observations;
+import org.springframework.format.annotation.DateTimeFormat;
 
-	public OrderNoteModel() {
-		super();
-	}
+import com.unla.Grupo07OO22022.entities.Matter;
+import com.unla.Grupo07OO22022.entities.User;
 
-	public OrderNoteModel(int idOrderNote, LocalDate date, String turn, int numberStudent, String observations) {
-		super();
-		setIdOrderNote(idOrderNote);
-		this.date = date;
-		this.turn = turn;
-		this.numberStudent = numberStudent;
-		this.observations = observations;
-	}
+public class OrderNoteModel {	
+	
+	private int id;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate date;
+	
+	private char turn;  
+	
+	private int numStudents;
+	
+	private Matter matter;
+	
+	private String observations;
+	
+	private User user;
 
-	public int getIdOrderNote() {
-		return idOrderNote;
-	}
-
-	public void setIdOrderNote(int idOrderNote) {
-		this.idOrderNote = idOrderNote;
-	}
+	public OrderNoteModel() {}
 
 	public LocalDate getDate() {
 		return date;
@@ -43,20 +34,28 @@ public class OrderNoteModel {
 		this.date = date;
 	}
 
-	public String getTurn() {
+  public char getTurn() {
 		return turn;
 	}
 
-	public void setTurn(String turn) {
+	public void setTurn(char turn) {
 		this.turn = turn;
 	}
 
-	public int getNumberStudent() {
-		return numberStudent;
+	public int getNumStudents() {
+		return numStudents;
 	}
 
-	public void setNumberStudent(int numberStudent) {
-		this.numberStudent = numberStudent;
+	public void setNumStudents(int numStudents) {
+		this.numStudents = numStudents;
+	}
+
+	public Matter getMatter() {
+		return matter;
+	}
+
+	public void setMatter(Matter matter) {
+		this.matter = matter;
 	}
 
 	public String getObservations() {
@@ -66,7 +65,21 @@ public class OrderNoteModel {
 	public void setObservations(String observations) {
 		this.observations = observations;
 	}
-	
-	
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}	
+  
 }

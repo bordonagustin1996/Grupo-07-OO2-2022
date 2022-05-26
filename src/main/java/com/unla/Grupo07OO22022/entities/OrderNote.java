@@ -2,7 +2,6 @@ package com.unla.Grupo07OO22022.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,89 +12,68 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@SQLDelete(sql = "UPDATE OrderNote SET enabled = false WHERE id=?")
+@Table(name = "order_note")
+@SQLDelete(sql = "UPDATE order_note SET enabled = false WHERE id = ?")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class OrderNote{
-
+public class OrderNote {
+  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "date")
+	@Column(name="enabled")
+	private boolean enabled = true;
+	
+	@Column(name="date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 	
 	@Column(name="turn")
-	private String turn;
+	private char turn;  
 	
-	@Column(name="numberStudent")
-	private int numberStudent;
-	
-	@Column(name="observation")
-	private String observation;
-	
-	@Column(name = "enabled")
-	private boolean enabled = true;
-	
-	@Column(name = "created_at")
-	@CreationTimestamp
-	private LocalDateTime createdAt;
-	
-	@Column(name = "updated_at")
-	@UpdateTimestamp
-	private LocalDateTime updatedAt;
+	@Column(name="num_students")
+	private int numStudents;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="matter_id")
 	private Matter matter;
-
-	public OrderNote() {
-		super();
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
+	
+	@Column(name="observations")
+	private String observations;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@Column(name="createdat")
+	@CreationTimestamp
+	private LocalDateTime createdAt;
+	
+	@Column(name="updatedat")
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
+	
+	public OrderNote() {}
+	
+	public OrderNote(boolean enabled, LocalDate date, char turn, int numStudents, Matter matter,
+			String observations, User user) {
+		super();		
+		this.enabled = enabled;
 		this.date = date;
-	}
-
-	public String getTurn() {
-		return turn;
-	}
-
-	public void setTurn(String turn) {
 		this.turn = turn;
-	}
-
-	public int getNumberStudent() {
-		return numberStudent;
-	}
-
-	public void setNumberStudent(int numberStudent) {
-		this.numberStudent = numberStudent;
-	}
-
-	public String getObservation() {
-		return observation;
-	}
-
-	public void setObservation(String observation) {
-		this.observation = observation;
+		this.numStudents = numStudents;
+		this.matter = matter;
+		this.observations = observations;
+		this.user = user;
 	}
 
 	public boolean isEnabled() {
@@ -103,9 +81,13 @@ public class OrderNote{
 	}
 
 	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+		this.enabled = enabled;	
 	}
 
+	public int getId() {
+		return id;
+  }
+  
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -121,6 +103,57 @@ public class OrderNote{
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
+  
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+  public char getTurn() {
+		return turn;
+	}
+
+	public void setTurn(char turn) {
+		this.turn = turn;
+	}
+
+	public int getNumStudents() {
+		return numStudents;
+	}
+
+	public void setNumStudents(int numStudents) {
+		this.numStudents = numStudents;
+	}
+
+	public Matter getMatter() {
+		return matter;
+	}
+
+	public void setMatter(Matter matter) {
+		this.matter = matter;
+	}
+
+	public String getObservations() {
+		return observations;
+	}
+
+	public void setObservations(String observations) {
+		this.observations = observations;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+  
 }

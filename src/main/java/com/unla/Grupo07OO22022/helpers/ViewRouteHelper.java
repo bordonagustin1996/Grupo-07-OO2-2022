@@ -11,8 +11,26 @@ public class ViewRouteHelper {
 	public final static String USER_ROLE_NEW = "user-role/new";
 	public final static String USER_ROLE_UPDATE = "user-role/update";
 	
+	//MATTER
+	public final static String MATTER_INDEX = "matter/index";
+	public final static String MATTER_NEW = "matter/new";
+	public final static String MATTER_UPDATE = "matter/update";
+	
+	//FINAL
+	public final static String FINAL_INDEX = "order-note/index-final";
+	public final static String FINAL_NEW = "order-note/new-final";
+	public final static String FINAL_UPDATE = "order-note/update-final";
+	
+	//COURSE
+	public final static String COURSE_INDEX = "order-note/index-course";
+	public final static String COURSE_NEW = "order-note/new-course";
+	public final static String COURSE_UPDATE = "order-note/update-course";
+	
 	//REDIRECTS
 	public final static String USER_ROOT = "/user";
 	public final static String USER_ROLE_ROOT = "/user-role";
+	public final static String MATTER_ROOT = "/matter";	
+	public final static String FINAL_ROOT = "/order-note/final";
+	public final static String COURSE_ROOT = "/order-note/course";
 	
 }

@@ -30,6 +30,10 @@ public class UserService implements UserDetailsService {
 	public User findById(int id) {
 		return this.userRepository.findById(id);
 	}
+	
+	public User findByUsername(String userName) {
+		return this.userRepository.findByUsername(userName);
+	}
 
 	public UserModel insertOrUpdate(User user) {
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));

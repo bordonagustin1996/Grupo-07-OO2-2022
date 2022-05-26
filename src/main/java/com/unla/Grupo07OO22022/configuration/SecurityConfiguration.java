@@ -27,12 +27,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.authorizeRequests()
-	        .antMatchers("/user/new", "/user/update/**", "/user/delete/**", "/user-role/new", "/user-role/update/**", "/user-role/delete/**").hasAnyAuthority("ADMINISTRADOR")
-	        .anyRequest().authenticated()
-	        .and()
-	        .formLogin().permitAll()
-	        .and()
-	        .logout().permitAll();
+        .antMatchers("/user/new", "/user/update/**", "/user/delete/**", "/user-role/new", 
+        		"/user-role/update/**", "/user-role/delete/**",
+        		"/matter/new", "/matter/update/**", "/matter/delete/**",
+        		"/order-note/new-final", "/order-note/new-course", "/order-note/delete/final/**", "/order-note/delete/course/**",
+        		"/order-note/update-final/**", "/order-note/update-course/**").hasAnyAuthority("ADMINISTRADOR")
+        .anyRequest().authenticated()
+        .and()
+        .formLogin().permitAll()
+        .and()
+        .logout().permitAll();
     }
     
 }

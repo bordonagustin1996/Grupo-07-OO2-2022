@@ -11,7 +11,7 @@ public class ViewRouteHelper {
 	public final static String USER_ROLE_NEW = "user-role/new";
 	public final static String USER_ROLE_UPDATE = "user-role/update";
 
-	// DEPARTMENT
+	// CAREER
 	public final static String CAREER_INDEX = "career/index";
 	public final static String CAREER_NEW = "career/new";
 	public final static String CAREER_UPDATE = "career/update";
@@ -41,6 +41,18 @@ public class ViewRouteHelper {
 	public final static String SPACE_NEW = "space/new";
 	public final static String SPACE_UPDATE = "space/update";
 
+	// BUILDING
+	public final static String BUILDING_INDEX = "building/index";
+	public final static String BUILDING_NEW = "building/new";
+	public final static String BUILDING_UPDATE = "building/update";
+
+	// CLASSROOM
+	public final static String CLASSROOM_INDEX = "classroom/index";
+	public final static String LABORATORY_NEW = "classroom/new-laboratory";
+	public final static String LABORATORY_UPDATE = "classroom/update-laboratory";
+	public final static String TRADITIONAL_NEW = "classroom/new-traditional";
+	public final static String TRADITIONAL_UPDATE = "classroom/update-traditional";
+	
 	// REDIRECTS
 	public final static String USER_ROOT = "/user";
 	public final static String USER_ROLE_ROOT = "/user-role";
@@ -50,5 +62,7 @@ public class ViewRouteHelper {
 	public final static String SPACE_ROOT = "/space";
 	public final static String FINAL_ROOT = "/order-note/final";
 	public final static String COURSE_ROOT = "/order-note/course";
-
+	public final static String BUILDING_ROOT = "/building";
+	public final static String CLASSROOM_ROOT = "/classroom";
+	
 }

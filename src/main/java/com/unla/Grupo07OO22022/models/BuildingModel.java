@@ -1,11 +1,5 @@
 package com.unla.Grupo07OO22022.models;
 
-
-import lombok.NoArgsConstructor;
-
-
-@NoArgsConstructor
-
 public class BuildingModel {
 
 	private int id;
@@ -13,12 +7,6 @@ public class BuildingModel {
 	private String name;
 	
 	public BuildingModel () {}
-
-	public BuildingModel(int id, String name) {
-		
-		this.setId(id);
-		this.name = name;
-	}
 
 	public int getId() {
 		return id;
@@ -35,7 +23,5 @@ public class BuildingModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 	
 }

@@ -13,10 +13,10 @@
 		<div class="container">
 			<div class="row d-flex justify-content-center">
 				<div class="col-md-6">
-					<form action="#" th:action="@{/matter/create}" th:object="${matter}" method="post">
+					<form action="#" th:action="@{/career/create}" th:object="${career}" method="post">
 						<div class="card">
 							<div class="card-header">
-								<h3>Materia</h3>
+								<h3>Carrera</h3>
 							</div>
 							<div class="card-body">
 								<input type="hidden" th:field="*{id}">
@@ -25,9 +25,9 @@
 									<input type="text" th:field="*{name}" class="form-control">
 								</div>
 								<div class="form-group">
-									<label>Carrera</label>
-									<select th:field="*{career}" class="form-select">
-										<option th:each="career : ${careers}" th:value="${career.id}" th:text="${career.name}">
+									<label>Departamento</label>
+									<select th:field="*{department}" class="form-select">
+										<option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}">
 									</select>
 								</div>
 								<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">

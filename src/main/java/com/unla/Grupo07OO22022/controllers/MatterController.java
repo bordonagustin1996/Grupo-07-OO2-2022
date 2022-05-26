@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.Grupo07OO22022.entities.Matter;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.MatterModel;
+import com.unla.Grupo07OO22022.services.implementation.CareerService;
 import com.unla.Grupo07OO22022.services.implementation.MatterService;
 
 
@@ -24,6 +25,10 @@ public class MatterController {
 	@Autowired
 	@Qualifier("matterService")
 	private MatterService matterService;
+	
+	@Autowired
+	@Qualifier("careerService")
+	private CareerService careerService;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
@@ -37,14 +42,16 @@ public class MatterController {
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_UPDATE);
-		mAV.addObject("matter", this.matterService.findById(id));		
+		mAV.addObject("matter", this.matterService.findById(id));	
+		mAV.addObject("careers", this.careerService.findByEnabled(true));
 		return mAV;
 	}
 	
 	@GetMapping("/new")
 	public ModelAndView create() {		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_NEW);
-		mAV.addObject("matter", new MatterModel());		
+		mAV.addObject("matter", new MatterModel());	
+		mAV.addObject("careers", this.careerService.findByEnabled(true));
 		return mAV;
 	}
 	

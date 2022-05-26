@@ -1,27 +1,39 @@
 package com.unla.Grupo07OO22022.models;
 
+import com.unla.Grupo07OO22022.entities.Department;
+
 public class CareerModel {
-	
-	private int idCareer;
-	
+
+	private int id;
+
 	private String name;
+	
+	private Department department;
 
 	public CareerModel() {
 		super();
 	}
 
-	public CareerModel(int idCareer, String name) {
+	public CareerModel(int id, String name) {
 		super();
-		setIdCareer(idCareer);
+		setId(id);
 		this.name = name;
 	}
 
-	public int getIdCareer() {
-		return idCareer;
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setIdCareer(int idCareer) {
-		this.idCareer = idCareer;
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -31,7 +43,5 @@ public class CareerModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
 
 }

@@ -9,7 +9,7 @@
 		<nav th:replace="fragments/navbar :: navbar"></nav>
 		<div class="container mt-4">
 			<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-				<a href="/matter/new" class="btn btn-primary">Nuevo</a>
+				<a href="/career/new" class="btn btn-primary">Nuevo</a>
 			</div>
 			<div>
 				<table class="table table-striped">
@@ -17,20 +17,20 @@
 					<thead>
 						<tr>
 							<th>Nombre</th>	
-							<th>Carrera</th>					
-						</tr>						
+							<th>Departamento</th>				
+						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="matter : ${matters}">
+						<tr th:each="career : ${careers}">
 							<td>
-								<span th:text="${matter.name}">
+								<span th:text="${career.name}">
+							</td>
+							<td>
+								<span th:text="${career.department.name}">
 							</td>			
 							<td>
-								<span th:text="${matter.career.name}">
-							</td>			
-							<td>
-								<a th:href="@{/matter/{id}(id=${matter.id})}" class="btn btn-primary">Ver</a>
-								<a th:href="@{/matter/delete/{id}(id=${matter.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>
+								<a th:href="@{/career/{id}(id=${career.id})}" class="btn btn-primary">Ver</a>
+								<a th:href="@{/career/delete/{id}(id=${career.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>
 							</td>
 						</tr>
 					</tbody>

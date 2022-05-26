@@ -1,15 +1,27 @@
 package com.unla.Grupo07OO22022.models;
 
+import com.unla.Grupo07OO22022.entities.Career;
+
 public class MatterModel {
 	
 	private int id;
 	
 	private String name;
+	
+	private Career career;
 
 	public MatterModel() {}
 
 	public String getName() {
 		return name;
+	}
+
+	public Career getCareer() {
+		return career;
+	}
+
+	public void setCareer(Career career) {
+		this.career = career;
 	}
 
 	public void setName(String name) {

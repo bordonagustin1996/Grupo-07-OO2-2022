@@ -3,14 +3,17 @@ package com.unla.Grupo07OO22022.services.implementation;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.unla.Grupo07OO22022.entities.Career;
 import com.unla.Grupo07OO22022.models.CareerModel;
 import com.unla.Grupo07OO22022.repositories.ICareerRepository;
 import com.unla.Grupo07OO22022.services.ICareerService;
 
+@Service("careerService")
 public class CareerService implements ICareerService{
 	
 	@Autowired
@@ -36,8 +39,8 @@ public class CareerService implements ICareerService{
 
 	@Override
 	public CareerModel insertOrUpdate(Career careerParam) {
-		Career nuevoCareer = careerRepository.save(careerParam);
-		return modelMapper.map(nuevoCareer,CareerModel.class );
+		Career newCareer = careerRepository.save(careerParam);
+		return modelMapper.map(newCareer,CareerModel.class );
 	}
 
 	@Override

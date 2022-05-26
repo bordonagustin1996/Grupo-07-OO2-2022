@@ -31,6 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         		"/user-role/update/**", "/user-role/delete/**",
         		"/matter/new", "/matter/update/**", "/matter/delete/**",
         		"/department/new", "/department/update/**", "/department/delete/**",
+        		"/career/new", "/career/update/**", "/career/delete/**",
         		"/order-note/new-final", "/order-note/new-course", "/order-note/delete/final/**", "/order-note/delete/course/**",
         		"/order-note/update-final/**", "/order-note/update-course/**").hasAnyAuthority("ADMINISTRADOR")
         .anyRequest().authenticated()

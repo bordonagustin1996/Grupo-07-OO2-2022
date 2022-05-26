@@ -16,45 +16,48 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.NoArgsConstructor;
-
 @Entity
-@NoArgsConstructor
-@Table(name = "Career")
-@SQLDelete(sql = "UPDATE Career SET enabled = false WHERE id=?")
+@Table(name = "career")
+@SQLDelete(sql = "UPDATE career SET enabled = false WHERE id=?")
 public class Career {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idCareer;
-	
-	@Column(name="name")
+	private int id;
+
+	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "enabled")
 	private boolean enabled = true;
-	
+
 	@Column(name = "created_at")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-	
+
 	@Column(name = "updated_at")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="department_id")
+	@JoinColumn(name = "department_id")
 	private Department department;
 
-	public Career() {
-		super();
+	public Career() {}
+
+	public int getId() {
+		return id;
 	}
 
-	public int getIdCareer() {
-		return idCareer;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setIdCareer(int idCareer) {
-		this.idCareer = idCareer;
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public String getName() {
@@ -88,7 +91,5 @@ public class Career {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
 
 }

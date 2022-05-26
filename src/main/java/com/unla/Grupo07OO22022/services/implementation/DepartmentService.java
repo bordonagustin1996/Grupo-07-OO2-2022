@@ -5,12 +5,14 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.unla.Grupo07OO22022.entities.Department;
 import com.unla.Grupo07OO22022.models.DepartmentModel;
 import com.unla.Grupo07OO22022.repositories.IDepartmentRepository;
 import com.unla.Grupo07OO22022.services.IDepartmentService;
 
+@Service("departmentService")
 public class DepartmentService implements IDepartmentService{
 	
 	@Autowired
@@ -37,7 +39,7 @@ public class DepartmentService implements IDepartmentService{
 	@Override
 	public DepartmentModel insertOrUpdate(Department departmentParam) {
 		Department nuevoDepartment = departmentRepository.save(departmentParam);
-		return modelMapper.map(nuevoDepartment,DepartmentModel.class );
+		return modelMapper.map(nuevoDepartment, DepartmentModel.class );
 	}
 
 	@Override

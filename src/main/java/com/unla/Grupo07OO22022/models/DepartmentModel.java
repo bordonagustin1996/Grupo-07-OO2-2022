@@ -2,7 +2,7 @@ package com.unla.Grupo07OO22022.models;
 
 public class DepartmentModel {
 
-	private int idDepartment;
+	private int id;
 	
 	private String name;
 
@@ -10,18 +10,18 @@ public class DepartmentModel {
 		super();
 	}
 
-	public DepartmentModel(int idDepartment, String name) {
+	public DepartmentModel(int id, String name) {
 		super();
-		setIdDepartment(idDepartment);
+		setId(id);
 		this.name = name;
 	}
-
-	public int getIdDepartment() {
-		return idDepartment;
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setIdDepartment(int idDepartment) {
-		this.idDepartment = idDepartment;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {

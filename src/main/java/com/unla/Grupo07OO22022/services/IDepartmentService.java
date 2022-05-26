@@ -13,7 +13,7 @@ public interface IDepartmentService {
 	
 	public List<Department> findByEnabled(boolean enabled);
 	
-	public DepartmentModel insertOrUpdate(Department userRole);
+	public DepartmentModel insertOrUpdate(Department department);
 	
 	public boolean remove(int id);
 

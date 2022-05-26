@@ -13,17 +13,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import lombok.NoArgsConstructor;
-
 @Entity
-@NoArgsConstructor
-@Table(name = "Department")
+@Table(name = "department")
 @SQLDelete(sql = "UPDATE Department SET enabled = false WHERE id=?")
 public class Department {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idDepartment;
+	private int id;
 	
 	@Column(name = "name")
 	private String name;
@@ -39,16 +36,14 @@ public class Department {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 
-	public Department() {
-		super();
+	public Department() {}
+	
+	public int getId() {
+		return id;
 	}
 
-	public int getIdDepartment() {
-		return idDepartment;
-	}
-
-	public void setIdDepartment(int idDepartment) {
-		this.idDepartment = idDepartment;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -82,7 +77,5 @@ public class Department {
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
-	
 
 }

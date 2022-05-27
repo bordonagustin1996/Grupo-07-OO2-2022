@@ -41,6 +41,9 @@
 							<span th:text="${order.user.name}">
 						</td>
 						<td>
+							<span th:text="|${order.classroom.number} ${order.classroom.building.name}|">
+						</td>
+						<td>
 							<span th:text="${order.examDate}">
 						</td>
 						<td>

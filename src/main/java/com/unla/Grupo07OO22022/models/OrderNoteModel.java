@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.unla.Grupo07OO22022.entities.Classroom;
 import com.unla.Grupo07OO22022.entities.Matter;
 import com.unla.Grupo07OO22022.entities.User;
 
@@ -23,8 +24,18 @@ public class OrderNoteModel {
 	private String observations;
 	
 	private User user;
+	
+	private Classroom classroom;
 
 	public OrderNoteModel() {}
+	
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
 
 	public LocalDate getDate() {
 		return date;

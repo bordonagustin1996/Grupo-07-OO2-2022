@@ -19,6 +19,7 @@ import com.unla.Grupo07OO22022.entities.Final;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.CourseModel;
 import com.unla.Grupo07OO22022.models.FinalModel;
+import com.unla.Grupo07OO22022.services.implementation.ClassroomService;
 import com.unla.Grupo07OO22022.services.implementation.MatterService;
 import com.unla.Grupo07OO22022.services.implementation.OrderNoteService;
 import com.unla.Grupo07OO22022.services.implementation.UserService;
@@ -40,6 +41,10 @@ public class OrderNoteController {
 	@Qualifier("matterService")
 	private MatterService matterService;
 	
+	@Autowired
+	@Qualifier("classroomService")
+	private ClassroomService classroomService;
+	
 	private ModelMapper modelMapper = new ModelMapper();
 	
 	@GetMapping("/final")
@@ -48,6 +53,7 @@ public class OrderNoteController {
 		mAV.addObject("orderNotes", orderNoteService.findByEnabled(true, false));
 		mAV.addObject("matters", matterService.findByEnabled(true));
 		mAV.addObject("users", userService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -57,6 +63,7 @@ public class OrderNoteController {
 		mAV.addObject("orderNotes", orderNoteService.findByEnabled(true, true));
 		mAV.addObject("matters", matterService.findByEnabled(true));
 		mAV.addObject("users", userService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		return mAV;
 	}
 		
@@ -64,7 +71,8 @@ public class OrderNoteController {
 	public ModelAndView getFinal(@PathVariable("id") int id) {				
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_UPDATE);		
 		mAV.addObject("orderNote", this.orderNoteService.findById(id));
-		mAV.addObject("matters", matterService.findByEnabled(true));		
+		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername())); 
 		return mAV;
@@ -74,7 +82,8 @@ public class OrderNoteController {
 	public ModelAndView getCourse(@PathVariable("id") int id) {			
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.COURSE_UPDATE);		
 		mAV.addObject("orderNote", this.orderNoteService.findById(id));
-		mAV.addObject("matters", matterService.findByEnabled(true));		
+		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername())); 
 		return mAV;
@@ -97,6 +106,7 @@ public class OrderNoteController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_NEW);
 		mAV.addObject("orderNote", new Final());
 		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername())); 
 		return mAV;
@@ -107,6 +117,7 @@ public class OrderNoteController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.COURSE_NEW);
 		mAV.addObject("orderNote", new Course());
 		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername())); 
 		return mAV;

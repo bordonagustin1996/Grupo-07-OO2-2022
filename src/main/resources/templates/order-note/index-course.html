@@ -19,6 +19,7 @@
 						<th>Cantidad de estudiantes</th>
 						<th>Materia</th>						
 						<th>Usuario</th>											
+						<th>Aula</th>											
 						<th>Codigo</th>											
 					</tr>
 				</thead>
@@ -38,6 +39,9 @@
 						</td>
 						<td>
 							<span th:text="${order.user.name}">
+						</td>
+						<td>							
+							<span th:text="|${order.classroom.number} ${order.classroom.building.name}|">
 						</td>						
 						<td>
 							<span th:text="${order.code}">

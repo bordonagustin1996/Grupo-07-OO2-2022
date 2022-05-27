@@ -40,6 +40,12 @@
 								</select>
 							</div>
 							<div class="form-group">
+								<label>Aula</label>
+								<select th:field="*{classroom}" class="form-select">
+									<option th:each="classroom : ${classrooms}" th:value="${classroom.id}" th:text="|${classroom.number} ${classroom.building.name}|">
+								</select>
+							</div>
+							<div class="form-group">
 								<label>Usuario</label>
 								<select th:field="*{user}" class="form-select">
 									<option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}">

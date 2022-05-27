@@ -47,6 +47,18 @@ public class OrderNote {
 	@JoinColumn(name="matter_id")
 	private Matter matter;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="classroom_id")
+	private Classroom classroom;
+	
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
+
 	@Column(name="observations")
 	private String observations;
 	

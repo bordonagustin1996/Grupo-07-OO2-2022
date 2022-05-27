@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.unla.Grupo07OO22022.entities.Classroom;
+
 public class SpaceModel {
 	
 	private int id;
@@ -13,16 +15,12 @@ public class SpaceModel {
 	
 	private char turn;
 	
+	private Classroom classroom;
+	
 	private boolean free;
 		
 	public SpaceModel() {}
 
-	public SpaceModel(int id, LocalDate date, char turn) {
-		this.setId(id);
-		this.date = date;
-		this.turn = turn;
-	}	
-	
 	public int getId() {
 		return id;
 	}
@@ -45,6 +43,14 @@ public class SpaceModel {
 
 	public void setTurn(char turn) {
 		this.turn = turn;
+	}
+
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
 	}
 
 	public boolean isFree() {

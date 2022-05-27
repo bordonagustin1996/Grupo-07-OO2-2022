@@ -17,6 +17,7 @@
 						<tr>
 							<th>Fecha</th>
 							<th>Turno</th>
+							<th>Aula</th>
 							<th>Libre</th>
 							<th>Acciones</th>
 						</tr>
@@ -28,6 +29,9 @@
 							</td>
 							<td>
 								<span th:text="${space.turn}">
+							</td>
+							<td>
+								<span th:text="|${space.classroom.number} ${space.classroom.building.name}|">
 							</td>
 							<td>
 								<span th:text="${space.free}">

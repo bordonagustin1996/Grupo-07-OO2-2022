@@ -5,9 +5,13 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
@@ -15,7 +19,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@SQLDelete(sql = "UPDATE space SET enabled = false WHERE id=?")
+@Table(name = "space")
+@SQLDelete(sql = "UPDATE space SET enabled = false WHERE id = ?")
 public class Space {
 
 	@Id
@@ -29,11 +34,15 @@ public class Space {
 	@Column(name = "turn")
 	private char turn;
 	
-	@Column(name = "enabled")
-	private boolean enabled = true;
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "classroom_id", nullable = false)
+	private Classroom classroom;
+	
 	@Column(name = "free")
 	private boolean free;
+	
+	@Column(name = "enabled")
+	private boolean enabled = true;
 	
 	@Column(name = "created_at")
 	@CreationTimestamp
@@ -44,44 +53,6 @@ public class Space {
 	private LocalDateTime updatedAt;
 	
 	public Space() {}
-
-	public Space(int id, LocalDate date, char turn) {
-		this.id = id;
-		this.date = date;
-		this.turn = turn;
-	}
-	
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public boolean isFree() {
-		return free;
-	}
-
-	public void setFree(boolean free) {
-		this.free = free;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
 
 	public int getId() {
 		return id;
@@ -105,6 +76,46 @@ public class Space {
 
 	public void setTurn(char turn) {
 		this.turn = turn;
+	}
+
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
+
+	public boolean isFree() {
+		return free;
+	}
+
+	public void setFree(boolean free) {
+		this.free = free;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
 }

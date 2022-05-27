@@ -15,7 +15,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.Grupo07OO22022.entities.Space;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.SpaceModel;
-import com.unla.Grupo07OO22022.services.implementation.SpaceService;
+import com.unla.Grupo07OO22022.services.IClassroomService;
+import com.unla.Grupo07OO22022.services.ISpaceService;
 
 @Controller
 @RequestMapping("/space")
@@ -23,7 +24,11 @@ public class SpaceController {
 	
 	@Autowired
 	@Qualifier("spaceService")
-	private SpaceService spaceService;
+	private ISpaceService spaceService;
+	
+	@Autowired
+	@Qualifier("classroomService")
+	private IClassroomService classroomService;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
@@ -37,14 +42,16 @@ public class SpaceController {
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.SPACE_UPDATE);
-		mAV.addObject("space", this.spaceService.findById(id));			
+		mAV.addObject("space", this.spaceService.findById(id));
+		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		return mAV;
 	}
 	
 	@GetMapping("/new")
 	public ModelAndView create() {		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.SPACE_NEW);
-		mAV.addObject("space", new SpaceModel());			
+		mAV.addObject("space", new SpaceModel());
+		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		return mAV;
 	}
 	

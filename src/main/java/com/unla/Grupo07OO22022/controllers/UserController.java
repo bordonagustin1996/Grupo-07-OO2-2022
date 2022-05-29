@@ -75,8 +75,7 @@ public class UserController {
 			mAV.addObject("user", userModel);
 			mAV.addObject("userRoles", userRoleService.findByEnabled(true));
 		}else {
-			this.userService.insertOrUpdate(this.modelMapper.map(userModel, User.class));
-			mAV.addObject("users", this.userService.findByEnabled(true));			
+			this.userService.insertOrUpdate(this.modelMapper.map(userModel, User.class));					
 			mAV.setViewName("redirect:/user");
 		}
 		return mAV;
@@ -97,8 +96,7 @@ public class UserController {
 			mAV.addObject("user", userModel);
 			mAV.addObject("userRoles", userRoleService.findByEnabled(true));
 		}else {			
-			this.userService.insertOrUpdate(user);
-			mAV.addObject("users", this.userService.findByEnabled(true));			
+			this.userService.insertOrUpdate(user);				
 			mAV.setViewName("redirect:/user");
 		}
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -109,27 +107,5 @@ public class UserController {
 			SecurityContextHolder.getContext().setAuthentication(newAuth);
 		}
 		return mAV;
-	}
-	
-//	@PostMapping("/update")
-//	public RedirectView update(@ModelAttribute("user") UserModel userModel) {
-//		User user = modelMapper.map(userModel, User.class);
-//		if(userModel.getId() > 0) {
-//			User userOld = this.userService.findById(userModel.getId());
-//			user.setCreatedAt(userOld.getCreatedAt());
-//			user.setUsername(userOld.getUsername());
-//			user.setPassword(userOld.getPassword());
-//			user.setEmail(userOld.getEmail());
-//		}
-//		this.userService.insertOrUpdate(user);
-//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		if (auth.getName().equals(userModel.getUsername())) {
-//			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-//			authorities.add(new SimpleGrantedAuthority(userModel.getUserRole().getName()));
-//			Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), authorities);
-//			SecurityContextHolder.getContext().setAuthentication(newAuth);
-//		}
-//		return new RedirectView(ViewRouteHelper.USER_ROOT);
-//	}
-	
+	}	
 }

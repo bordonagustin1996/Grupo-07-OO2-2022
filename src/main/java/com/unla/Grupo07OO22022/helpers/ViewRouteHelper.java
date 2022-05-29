@@ -3,6 +3,7 @@ package com.unla.Grupo07OO22022.helpers;
 public class ViewRouteHelper {
 
 	// USER
+	public final static String USER_INDEX = "user/index";
 	public final static String USER_NEW = "user/new";
 	public final static String USER_UPDATE = "user/update";
 
@@ -54,7 +55,7 @@ public class ViewRouteHelper {
 	public final static String TRADITIONAL_UPDATE = "classroom/update-traditional";
 	
 	// REDIRECTS
-	public final static String USER_ROOT = "/user";
+	public final static String USER_ROOT = "/user";	
 	public final static String USER_ROLE_ROOT = "/user-role";
 	public final static String MATTER_ROOT = "/matter";
 	public final static String DEPARTMENT_ROOT = "/department";

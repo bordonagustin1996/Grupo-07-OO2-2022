@@ -1,5 +1,6 @@
 package com.unla.Grupo07OO22022.models;
 
+
 public class UserRoleModel {
 
 	private int id;

@@ -20,27 +20,36 @@ import com.unla.Grupo07OO22022.repositories.IUserRepository;
 
 @Service("userService")
 public class UserService implements UserDetailsService {
-	
+
 	@Autowired
 	@Qualifier("userRepository")
 	private IUserRepository userRepository;
-	
+
 	private ModelMapper modelMapper = new ModelMapper();
-		
+
 	public User findById(int id) {
 		return this.userRepository.findById(id);
 	}
-	
+
 	public User findByUsername(String userName) {
 		return this.userRepository.findByUsername(userName);
 	}
 
 	public UserModel insertOrUpdate(User user) {
-		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		if (user.getId() > 0) {
+			if (user.getPassword().isBlank()) {
+				User userOld = userRepository.findById(user.getId());
+				user.setPassword(userOld.getPassword());
+			} else {
+				user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+			}
+		} else {
+			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		}
 		User userNew = this.userRepository.save(user);
 		return this.modelMapper.map(userNew, UserModel.class);
 	}
-	
+
 	public boolean remove(int id) {
 		try {
 			userRepository.deleteById(id);
@@ -50,7 +59,7 @@ public class UserService implements UserDetailsService {
 		}
 	}
 
-	public List<User> getAll() {		
+	public List<User> getAll() {
 		return userRepository.findAll();
 	}
 
@@ -58,8 +67,10 @@ public class UserService implements UserDetailsService {
 		return userRepository.findByEnabled(enable);
 	}
 
-	private org.springframework.security.core.userdetails.User buildUser(User user, List<GrantedAuthority> grantedAuthorities) {
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+	private org.springframework.security.core.userdetails.User buildUser(User user,
+			List<GrantedAuthority> grantedAuthorities) {
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+				grantedAuthorities);
 	}
 
 	private List<GrantedAuthority> buildGrantedAuthorities(UserRole userRole) {
@@ -67,11 +78,11 @@ public class UserService implements UserDetailsService {
 		grantedAuthorities.add(new SimpleGrantedAuthority(userRole.getName()));
 		return grantedAuthorities;
 	}
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
 		return buildUser(user, buildGrantedAuthorities(user.getUserRole()));
 	}
-	
+
 }

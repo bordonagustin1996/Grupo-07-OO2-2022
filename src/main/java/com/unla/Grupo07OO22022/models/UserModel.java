@@ -1,24 +1,25 @@
 package com.unla.Grupo07OO22022.models;
+
+import javax.validation.constraints.NotBlank;
+
 import com.unla.Grupo07OO22022.entities.UserRole;
 
-import lombok.NoArgsConstructor;
-
-
-@NoArgsConstructor
 public class UserModel {
 	
 	private int id;
 	
+	@NotBlank(message = "El nombre es requerido")
 	private String name;
 	
 	private String surname;
 	
+	@NotBlank(message = "El usuario es requerido")
 	private String username;
 	
 	private String email;
 	
 	private String documentType;
-	
+		
 	private String password;
 	
 	private long documentNumber;	

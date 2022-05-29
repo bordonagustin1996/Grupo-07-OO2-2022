@@ -1,6 +1,7 @@
 package com.unla.Grupo07OO22022.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import com.unla.Grupo07OO22022.services.implementation.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,9 +68,18 @@ public class UserController {
 	}
 	
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("user") UserModel userModel) {
-		this.userService.insertOrUpdate(this.modelMapper.map(userModel, User.class));
-		return new RedirectView(ViewRouteHelper.USER_ROOT);
+	public ModelAndView create(@Valid @ModelAttribute("user") UserModel userModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.USER_NEW);
+			mAV.addObject("user", userModel);
+			mAV.addObject("userRoles", userRoleService.findByEnabled(true));
+		}else {
+			this.userService.insertOrUpdate(this.modelMapper.map(userModel, User.class));
+			mAV.addObject("users", this.userService.findByEnabled(true));			
+			mAV.setViewName("redirect:/user");
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -77,16 +89,18 @@ public class UserController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("user") UserModel userModel) {
+	public ModelAndView update(@Valid @ModelAttribute("user") UserModel userModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();
 		User user = modelMapper.map(userModel, User.class);
-		if(userModel.getId() > 0) {
-			User userOld = this.userService.findById(userModel.getId());
-			user.setCreatedAt(userOld.getCreatedAt());
-			user.setUsername(userOld.getUsername());
-			user.setPassword(userOld.getPassword());
-			user.setEmail(userOld.getEmail());
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.USER_UPDATE);
+			mAV.addObject("user", userModel);
+			mAV.addObject("userRoles", userRoleService.findByEnabled(true));
+		}else {			
+			this.userService.insertOrUpdate(user);
+			mAV.addObject("users", this.userService.findByEnabled(true));			
+			mAV.setViewName("redirect:/user");
 		}
-		this.userService.insertOrUpdate(user);
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth.getName().equals(userModel.getUsername())) {
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
@@ -94,7 +108,28 @@ public class UserController {
 			Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), authorities);
 			SecurityContextHolder.getContext().setAuthentication(newAuth);
 		}
-		return new RedirectView(ViewRouteHelper.USER_ROOT);
+		return mAV;
 	}
+	
+//	@PostMapping("/update")
+//	public RedirectView update(@ModelAttribute("user") UserModel userModel) {
+//		User user = modelMapper.map(userModel, User.class);
+//		if(userModel.getId() > 0) {
+//			User userOld = this.userService.findById(userModel.getId());
+//			user.setCreatedAt(userOld.getCreatedAt());
+//			user.setUsername(userOld.getUsername());
+//			user.setPassword(userOld.getPassword());
+//			user.setEmail(userOld.getEmail());
+//		}
+//		this.userService.insertOrUpdate(user);
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		if (auth.getName().equals(userModel.getUsername())) {
+//			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+//			authorities.add(new SimpleGrantedAuthority(userModel.getUserRole().getName()));
+//			Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), authorities);
+//			SecurityContextHolder.getContext().setAuthentication(newAuth);
+//		}
+//		return new RedirectView(ViewRouteHelper.USER_ROOT);
+//	}
 	
 }

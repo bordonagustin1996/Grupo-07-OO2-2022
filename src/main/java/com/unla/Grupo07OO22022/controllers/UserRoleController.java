@@ -76,7 +76,7 @@ public class UserRoleController {
 				UserRole userRoleOld = userRoleService.findById(userRoleModel.getId());
 				userRole.setCreatedAt(userRoleOld.getCreatedAt());
 			}
-			this.userRoleService.insertOrUpdate(this.modelMapper.map(userRoleModel, UserRole.class));				
+			this.userRoleService.insertOrUpdate(userRole);				
 			mAV.setViewName("redirect:/user-role");
 		}
 		return mAV;	

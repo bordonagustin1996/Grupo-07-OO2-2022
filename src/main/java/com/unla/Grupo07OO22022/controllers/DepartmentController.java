@@ -1,10 +1,13 @@
 package com.unla.Grupo07OO22022.controllers;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,9 +53,16 @@ public class DepartmentController {
 	}
 	
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("department") DepartmentModel departmentModel) {
-		this.departmentService.insertOrUpdate(this.modelMapper.map(departmentModel, Department.class));
-		return new RedirectView(ViewRouteHelper.DEPARTMENT_ROOT);
+	public ModelAndView create(@Valid @ModelAttribute("department") DepartmentModel departmentModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.DEPARTMENT_NEW);
+			mAV.addObject("department", departmentModel);	
+		}else {
+			departmentService.insertOrUpdate(modelMapper.map(departmentModel, Department.class));
+			mAV.setViewName("redirect:/department");
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -62,15 +72,21 @@ public class DepartmentController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("department") DepartmentModel departmentModel) {
+	public ModelAndView update(@Valid @ModelAttribute("department") DepartmentModel departmentModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();
 		Department department = modelMapper.map(departmentModel, Department.class);
-		if(departmentModel.getId() > 0) {
-			Department departmentOld = this.departmentService.findById(departmentModel.getId());
-			department.setCreatedAt(departmentOld.getCreatedAt());					
-			
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.DEPARTMENT_UPDATE);
+			mAV.addObject("department", departmentModel);			
+		}else {
+			if (departmentModel.getId() > 0) {
+				Department departmentOld = this.departmentService.findById(departmentModel.getId());
+				department.setCreatedAt(departmentOld.getCreatedAt());	
+			}
+			this.departmentService.insertOrUpdate(department);				
+			mAV.setViewName("redirect:/department");
 		}
-		this.departmentService.insertOrUpdate(department);
-		return new RedirectView(ViewRouteHelper.DEPARTMENT_ROOT);
+		return mAV;	
 	}
-
+	
 }

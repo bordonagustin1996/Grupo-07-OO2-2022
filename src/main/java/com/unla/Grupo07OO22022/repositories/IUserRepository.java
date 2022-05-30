@@ -13,6 +13,6 @@ public interface IUserRepository extends JpaRepository<User, Integer>{
 	
 	public abstract List<User> findByEnabled(boolean enabled);
 	
-	public abstract User findByUsername(String username);
+	public abstract User findByUsernameAndEnabled(String username, boolean enabled);
 	
 }

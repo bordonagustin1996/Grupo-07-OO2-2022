@@ -92,17 +92,4 @@ public class CareerController {
 		}
 		return mAV;
 	}
-	
-//	@PostMapping("/update")
-//	public RedirectView update(@ModelAttribute("career") CareerModel careerModel) {
-//		Career career = modelMapper.map(careerModel, Career.class);
-//		if(careerModel.getId() > 0) {
-//			Career careerOld = this.careerService.findById(careerModel.getId());
-//			career.setCreatedAt(careerOld.getCreatedAt());					
-//			
-//		}
-//		this.careerService.insertOrUpdate(career);
-//		return new RedirectView(ViewRouteHelper.CAREER_ROOT);
-//	}	
-
 }

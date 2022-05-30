@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User findByUsername(String userName) {
-		return this.userRepository.findByUsername(userName);
+		return this.userRepository.findByUsernameAndEnabled(userName, true);
 	}
 
 	public UserModel insertOrUpdate(User user) {
@@ -81,7 +81,7 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsernameAndEnabled(username, true);
 		return buildUser(user, buildGrantedAuthorities(user.getUserRole()));
 	}
 

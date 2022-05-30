@@ -13,7 +13,7 @@ public class UserModel {
 	
 	private String surname;
 	
-	@NotBlank(message = "El usuario es requerido")
+	@NotBlank(message = "El usuario es requerido")	
 	private String username;
 	
 	private String email;

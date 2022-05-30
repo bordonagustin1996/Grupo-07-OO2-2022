@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +56,9 @@ public class DepartmentController {
 	@PostMapping("/create")
 	public ModelAndView create(@Valid @ModelAttribute("department") DepartmentModel departmentModel, BindingResult result) {
 		ModelAndView mAV = new ModelAndView();
+		if (departmentService.findByNameAndEnabled(departmentModel.getName()) != null) {
+			result.addError(new ObjectError("error", "Ya existe un espacio con los mismos datos"));
+		}
 		if(result.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.DEPARTMENT_NEW);
 			mAV.addObject("department", departmentModel);	
@@ -88,5 +92,4 @@ public class DepartmentController {
 		}
 		return mAV;	
 	}
-	
 }

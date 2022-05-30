@@ -2,6 +2,7 @@ package com.unla.Grupo07OO22022.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,6 +71,9 @@ public class UserController {
 	@PostMapping("/create")
 	public ModelAndView create(@Valid @ModelAttribute("user") UserModel userModel, BindingResult result) {
 		ModelAndView mAV = new ModelAndView();
+		if (userService.findByUsername(userModel.getUsername()) != null) {			
+			result.addError(new FieldError("error", "username", "Ya existe un usuario en este username"));
+		}
 		if(result.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.USER_NEW);
 			mAV.addObject("user", userModel);
@@ -91,6 +95,9 @@ public class UserController {
 	public ModelAndView update(@Valid @ModelAttribute("user") UserModel userModel, BindingResult result) {
 		ModelAndView mAV = new ModelAndView();
 		User user = modelMapper.map(userModel, User.class);
+		if (userService.findByUsername(user.getUsername()) != null) {			
+			result.addError(new FieldError("error", "username", "Ya existe un usuario en este username"));
+		}
 		if(result.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.USER_UPDATE);
 			mAV.addObject("user", userModel);

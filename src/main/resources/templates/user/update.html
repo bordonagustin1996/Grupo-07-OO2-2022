@@ -58,7 +58,10 @@
 										<option th:each="userRole : ${userRoles}" th:value="${userRole.id}" th:text="${userRole.name}">
 									</select>
 								</div>
-							</div>
+								<div th:if="${#fields.hasErrors('global')}">							
+									<small th:each="err : ${#fields.errors('global')}" th:text="${err}" class="form-text text-danger"/>
+								</div>
+							</div>							
 							<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 								<input type="submit" value="Editar" class="btn btn-primary">
 							</div>

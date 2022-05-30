@@ -15,6 +15,10 @@ public interface IDepartmentService {
 	
 	public DepartmentModel insertOrUpdate(Department department);
 	
+	public Department findByName(String name);
+	
 	public boolean remove(int id);
+
+	public Department findByNameAndEnabled(String name);
 
 }

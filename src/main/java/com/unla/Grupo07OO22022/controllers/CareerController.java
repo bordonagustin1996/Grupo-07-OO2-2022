@@ -1,5 +1,8 @@
 package com.unla.Grupo07OO22022.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo07OO22022.entities.Career;
+import com.unla.Grupo07OO22022.entities.Department;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.CareerModel;
 import com.unla.Grupo07OO22022.services.implementation.CareerService;
@@ -34,7 +38,7 @@ public class CareerController {
 	
 	@GetMapping("")
 	public ModelAndView index(){
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CAREER_INDEX);		
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CAREER_INDEX);	
 		mAV.addObject("careers", this.careerService.findByEnabled(true));
 		return mAV;
 	}
@@ -78,5 +82,6 @@ public class CareerController {
 		this.careerService.insertOrUpdate(career);
 		return new RedirectView(ViewRouteHelper.CAREER_ROOT);
 	}	
+	
 
 }

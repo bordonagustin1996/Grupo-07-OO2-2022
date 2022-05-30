@@ -8,7 +8,11 @@
 	<nav th:replace="fragments/navbar :: navbar"></nav>
 	<div class="container mt-4">
 		<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-			<a href="/career/new" class="btn btn-primary">Nuevo</a>
+			<a href="/career/new" class="btn btn-primary btn-sm">Nuevo</a>
+			
+			<a target="_blank" th:href="@{/career/(format=pdf)}" class="nav-link float-right" title="Exportar a PDF">
+			<img class="img-responsive center-box" th:src="@{/images/pdf.png}" height="auto">
+			</a>
 		</div>
 		<div>
 			<table class="table table-striped">
@@ -26,10 +30,10 @@
 								<span th:text="${career.name}">
 							</td>
 							<td>
-								<span th:text="${career.department.name}">
+								<!--<span th:text="${career.department.name}"> -->
 							</td>
 							<td>
-								<a th:href="@{/career/{id}(id=${career.id})}" class="btn btn-primary">Ver</a>
+								<a th:href="@{/career/{id}(id=${career.id})}" class="btn btn-primary">Ver</a>			
 								<a th:href="@{/career/delete/{id}(id=${career.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>
 							</td>
 						</tr>

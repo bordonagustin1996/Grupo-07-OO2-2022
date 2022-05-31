@@ -21,6 +21,9 @@
 						<th>Usuario</th>											
 						<th>Aula</th>											
 						<th>Codigo</th>											
+						<th>Fecha inicio</th>											
+						<th>Fecha fin</th>											
+						<th>Día de semana</th>											
 					</tr>
 				</thead>
 				<tbody>
@@ -43,8 +46,17 @@
 						<td>							
 							<span th:text="|${order.classroom.number} ${order.classroom.building.name}|">
 						</td>						
-						<td>
+						<td>							
 							<span th:text="${order.code}">
+						</td>						
+						<td>
+							<span th:text="${order.startDate}">
+						</td>						
+						<td>
+							<span th:text="${order.endDate}">
+						</td>						
+						<td>
+							<span th:text="${order.dayOfWeek}">
 						</td>						
 						<td>
 							<a th:href="@{/order-note/course/{id}(id=${order.id})}" class="btn btn-primary">Ver</a>

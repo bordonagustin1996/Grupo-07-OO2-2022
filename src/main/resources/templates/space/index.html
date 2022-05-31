@@ -11,37 +11,37 @@
 			<a href="/space/new" class="btn btn-primary">Nuevo</a>
 		</div>
 		<div>
-			<table class="table table-striped">
-				<div>
-					<thead>
-						<tr>
-							<th>Fecha</th>
-							<th>Turno</th>
-							<th>Aula</th>
-							<th>Libre</th>
-							<th>Acciones</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="space : ${spaces}">
-							<td>
-								<span th:text="${space.date}">
-							</td>
-							<td>
-								<span th:text="${space.turn}">
-							</td>
-							<td>
-								<span th:text="|${space.classroom.number} ${space.classroom.building.name}|">
-							</td>
-							<td>
-								<span th:text="${space.free}">
-							</td>
-							<td>
-								<a th:href="@{/space/{id}(id=${space.id})}" class="btn btn-primary">Ver</a>
-								<a th:href="@{/space/delete/{id}(id=${space.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>
-							</td>
-						</tr>
-					</tbody>
+			<table class="table table-striped caption-top">
+				<caption>Espacios</caption>
+				<thead>
+					<tr>
+						<th>Fecha</th>
+						<th>Turno</th>
+						<th>Aula</th>
+						<th>Libre</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="space : ${spaces}">
+						<td>
+							<span th:text="${space.date}">
+						</td>
+						<td>
+							<span th:text="${space.turn}">
+						</td>
+						<td>
+							<span th:text="|${space.classroom.number} ${space.classroom.building.name}|">
+						</td>
+						<td>
+							<span th:text="${space.free}">
+						</td>
+						<td>
+							<a th:href="@{/space/{id}(id=${space.id})}" class="btn btn-primary">Ver</a>
+							<a th:href="@{/space/delete/{id}(id=${space.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>
+						</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 	</div>

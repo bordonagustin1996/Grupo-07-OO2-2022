@@ -19,21 +19,28 @@
 							<input type="hidden" th:field="*{id}">
 							<div class="form-group">
 								<label>Fecha</label>
-								<input type="date" th:field="*{date}" class="form-control">
+								<input type="date" th:field="*{date}" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label>Turno</label>
-								<input type="text" th:field="*{turn}" class="form-control">
+								<select th:field="*{turn}" class="form-select" required>
+									<option value="M">M</option>
+									<option value="T">T</option>
+									<option value="N">N</option>
+								</select>
 							</div>
 							<div class="form-group">
 								<label>Aula</label>
-								<select th:field="*{classroom}" class="form-select">
+								<select th:field="*{classroom}" class="form-select" required>
 									<option th:each="classroom : ${classrooms}" th:value="${classroom.id}" th:text="|${classroom.number} ${classroom.building.name}|">
 								</select>
 							</div>
 							<div class="mb-3 form-check">
 								<input type="checkbox" th:field="*{free}" class="form-check-input">
 								<label class="form-check-label">Libre</label>
+							</div>
+							<div th:if="${#fields.hasErrors('global')}">
+								<p th:each="error : ${#fields.errors('global')}" th:text="${error}" class="form-text text-danger">
 							</div>
 						</div>
 						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">

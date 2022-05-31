@@ -1,9 +1,13 @@
 package com.unla.Grupo07OO22022.controllers;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,9 +60,20 @@ public class SpaceController {
 	}
 	
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("space") SpaceModel spaceModel) {
-		this.spaceService.insertOrUpdate(this.modelMapper.map(spaceModel, Space.class));
-		return new RedirectView(ViewRouteHelper.SPACE_ROOT);
+	public ModelAndView create(@Valid @ModelAttribute("space") SpaceModel spaceModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		if (spaceService.findByDateAndTurnAndClassroom(spaceModel.getDate(), spaceModel.getTurn(), spaceModel.getClassroom()) != null) {
+			bindingResult.addError(new ObjectError("error", "Ya existe un espacio con la misma fecha, el mismo turno y la misma aula"));
+		}		
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.SPACE_NEW);
+			mAV.addObject("space", spaceModel);
+			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		} else {
+			spaceService.insertOrUpdate(modelMapper.map(spaceModel, Space.class));
+			mAV.setViewName("redirect:/space");
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -68,15 +83,21 @@ public class SpaceController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("space") SpaceModel spaceModel) {
-		Space space = modelMapper.map(spaceModel, Space.class);
-		if(spaceModel.getId() > 0) {
-			Space spaceOld = this.spaceService.findById(spaceModel.getId());
-			space.setCreatedAt(spaceOld.getCreatedAt());					
-			
+	public ModelAndView update(@Valid @ModelAttribute("space") SpaceModel spaceModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		Space space = spaceService.findByDateAndTurnAndClassroom(spaceModel.getDate(), spaceModel.getTurn(), spaceModel.getClassroom());		
+		if (space != null && space.getId() != spaceModel.getId()) {
+			bindingResult.addError(new ObjectError("error", "Ya existe un espacio con la misma fecha, el mismo turno y la misma aula"));
 		}
-		this.spaceService.insertOrUpdate(space);
-		return new RedirectView(ViewRouteHelper.SPACE_ROOT);
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.SPACE_UPDATE);
+			mAV.addObject("space", spaceModel);
+			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		} else {
+			spaceService.insertOrUpdate(modelMapper.map(spaceModel, Space.class));
+			mAV.setViewName("redirect:/space");
+		}
+		return mAV;
 	}
 
 }

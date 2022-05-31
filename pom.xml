@@ -71,6 +71,10 @@
 			<artifactId>springloaded</artifactId>
 			<version>1.2.8.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

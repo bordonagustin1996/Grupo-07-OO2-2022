@@ -13,4 +13,7 @@ public interface IDepartmentRepository extends JpaRepository<Department, Integer
 	
 	public abstract List<Department> findByEnabled(boolean enabled);
 	
+	public abstract Department findByName(String name);
+	
+	public abstract Department findByNameAndEnabled(String name, boolean enabled);
 }

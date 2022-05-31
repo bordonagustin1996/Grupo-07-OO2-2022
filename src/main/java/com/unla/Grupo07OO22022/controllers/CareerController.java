@@ -1,12 +1,12 @@
 package com.unla.Grupo07OO22022.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo07OO22022.entities.Career;
-import com.unla.Grupo07OO22022.entities.Department;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.CareerModel;
 import com.unla.Grupo07OO22022.services.implementation.CareerService;
@@ -58,11 +57,19 @@ public class CareerController {
 		mAV.addObject("departments", this.departmentService.findByEnabled(true));
 		return mAV;
 	}
-	
+
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("career") CareerModel careerModel) {
-		this.careerService.insertOrUpdate(this.modelMapper.map(careerModel, Career.class));
-		return new RedirectView(ViewRouteHelper.CAREER_ROOT);
+	public ModelAndView create(@Valid @ModelAttribute("career") CareerModel careerModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.CAREER_NEW);
+			mAV.addObject("career", careerModel);
+			mAV.addObject("departments", departmentService.findByEnabled(true));
+		}else {
+			this.careerService.insertOrUpdate(this.modelMapper.map(careerModel, Career.class));					
+			mAV.setViewName("redirect:/career");
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/delete/{id}")
@@ -72,16 +79,18 @@ public class CareerController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("career") CareerModel careerModel) {
+	public ModelAndView update(@Valid @ModelAttribute("career") CareerModel careerModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();
 		Career career = modelMapper.map(careerModel, Career.class);
-		if(careerModel.getId() > 0) {
-			Career careerOld = this.careerService.findById(careerModel.getId());
-			career.setCreatedAt(careerOld.getCreatedAt());					
-			
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.CAREER_UPDATE);
+			mAV.addObject("career", careerModel);
+			mAV.addObject("departments", departmentService.findByEnabled(true));
+		}else {			
+			this.careerService.insertOrUpdate(career);				
+			mAV.setViewName("redirect:/career");
 		}
-		this.careerService.insertOrUpdate(career);
-		return new RedirectView(ViewRouteHelper.CAREER_ROOT);
-	}	
-	
+		return mAV;
+	}
 
 }

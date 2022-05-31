@@ -54,5 +54,14 @@ public class DepartmentService implements IDepartmentService{
 		}
 	}
 
+	@Override
+	public Department findByNameAndEnabled(String name) {
+		return departmentRepository.findByNameAndEnabled(name, true);
+	}
+
+	@Override
+	public Department findByName(String name) {
+		return departmentRepository.findByName(name);
+	}
 
 }

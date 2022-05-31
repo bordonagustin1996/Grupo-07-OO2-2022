@@ -1,9 +1,12 @@
 package com.unla.Grupo07OO22022.controllers;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,11 +43,18 @@ public class UserRoleController {
 		mAV.addObject("userRole", new UserRoleModel());
 		return mAV;
 	}
-	
+		
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("userRole") UserRoleModel userRoleModel) {
-		userRoleService.insertOrUpdate(modelMapper.map(userRoleModel, UserRole.class));
-		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);
+	public ModelAndView create(@Valid @ModelAttribute("userRole") UserRoleModel userRoleModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.USER_ROLE_NEW);
+			mAV.addObject("userRole", userRoleModel);			
+		}else {
+			this.userRoleService.insertOrUpdate(this.modelMapper.map(userRoleModel, UserRole.class));		
+			mAV.setViewName("redirect:/user-role");
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/{id}")
@@ -55,16 +65,23 @@ public class UserRoleController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("userRole") UserRoleModel userRoleModel) {
+	public ModelAndView update(@Valid @ModelAttribute("userRole") UserRoleModel userRoleModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();
 		UserRole userRole = modelMapper.map(userRoleModel, UserRole.class);
-		if (userRoleModel.getId() > 0) {
-			UserRole userRoleOld = userRoleService.findById(userRoleModel.getId());
-			userRole.setCreatedAt(userRoleOld.getCreatedAt());
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.USER_ROLE_UPDATE);
+			mAV.addObject("userRole", userRoleModel);			
+		}else {
+			if (userRoleModel.getId() > 0) {
+				UserRole userRoleOld = userRoleService.findById(userRoleModel.getId());
+				userRole.setCreatedAt(userRoleOld.getCreatedAt());
+			}
+			this.userRoleService.insertOrUpdate(userRole);				
+			mAV.setViewName("redirect:/user-role");
 		}
-		userRoleService.insertOrUpdate(userRole);
-		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);
-	}
-	
+		return mAV;	
+	}	
+
 	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {
 		userRoleService.remove(id);

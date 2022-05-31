@@ -1,11 +1,14 @@
 package com.unla.Grupo07OO22022.models;
 
+import javax.validation.constraints.NotBlank;
+
 import com.unla.Grupo07OO22022.entities.Career;
 
 public class MatterModel {
 	
 	private int id;
 	
+	@NotBlank(message = "El nombre es requerido") 
 	private String name;
 	
 	private Career career;

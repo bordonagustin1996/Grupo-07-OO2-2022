@@ -19,7 +19,7 @@
 							<input type="hidden" th:field="*{id}">
 							<div class="form-group">
 								<label>Fecha</label>
-								<input type="date" th:field="*{date}" class="form-control">
+								<input type="date" th:field="*{date}" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label>Turno</label>
@@ -28,26 +28,27 @@
 							<div class="form-group">
 								<label>Cantidad de estudiantes</label>
 								<input type="text" th:field="*{numStudents}" class="form-control">
+								<p  class="form-text text-danger" th:if="${#fields.hasErrors('numStudents')}" th:errors"*{numStudents}">Cantidad mayor a 0</p>
 							</div>
 							<div class="form-group">
 								<label>Fecha de examen</label>
-								<input type="date" th:field="*{examDate}" class="form-control">
+								<input type="date" th:field="*{examDate}" class="form-control" required>
 							</div>
 							<div class="form-group">
 								<label>Materia</label>
-								<select th:field="*{matter}" class="form-select">
+								<select th:field="*{matter}" class="form-select" required>
 									<option th:each="matter : ${matters}" th:value="${matter.id}" th:text="${matter.name}">
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Aula</label>
-								<select th:field="*{classroom}" class="form-select">
+								<select th:field="*{classroom}" class="form-select" required>
 									<option th:each="classroom : ${classrooms}" th:value="${classroom.id}" th:text="|${classroom.number} - ${classroom.building.name}|">
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Usuario</label>
-								<select th:field="*{user}" class="form-select">
+								<select th:field="*{user}" class="form-select" required>
 									<option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}">
 								</select>
 							</div>

@@ -1,11 +1,14 @@
 package com.unla.Grupo07OO22022.controllers;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo07OO22022.entities.Course;
 import com.unla.Grupo07OO22022.entities.Final;
+import com.unla.Grupo07OO22022.entities.OrderNote;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.CourseModel;
 import com.unla.Grupo07OO22022.models.FinalModel;
@@ -90,15 +94,39 @@ public class OrderNoteController {
 	}
 	
 	@PostMapping("/create-course")
-	public RedirectView createCourse(@ModelAttribute("orderNote") CourseModel courseModel) {
-		orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));	
-		return new RedirectView(ViewRouteHelper.COURSE_ROOT);
+	public ModelAndView createCourse(@Valid @ModelAttribute("orderNote") CourseModel courseModel, BindingResult bidingResul) {
+		ModelAndView mAV = new ModelAndView();
+		if(bidingResul.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.COURSE_NEW);
+			mAV.addObject("orderNote", courseModel);
+			mAV.addObject("matters", matterService.findByEnabled(true));
+			mAV.addObject("classrooms", classroomService.findByEnabled(true)); 
+		}else {
+			
+			orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));
+			mAV.setViewName("redirect:/course");
+		}
+		
+		
+		return mAV;
 	}
 	
 	@PostMapping("/create-final")
-	public RedirectView createFinal(@ModelAttribute("orderNote") FinalModel finalModel) {		
-		orderNoteService.insertOrUpdateFinal(modelMapper.map(finalModel, Final.class));		
-		return new RedirectView(ViewRouteHelper.FINAL_ROOT);
+	public ModelAndView createFinal(@Valid @ModelAttribute("orderNote") FinalModel finalModel, BindingResult bidingResul) {		
+		ModelAndView mAV = new ModelAndView();
+		if(bidingResul.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.FINAL_NEW);
+			mAV.addObject("orderNote", finalModel);
+			mAV.addObject("matters", matterService.findByEnabled(true));
+			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			mAV.addObject("users", userService.findByUsername(user.getUsername())); 
+		}else {
+			orderNoteService.insertOrUpdateFinal(modelMapper.map(finalModel, Final.class));
+			mAV.setViewName("redirect:/final");	
+		}
+			
+		return mAV;
 	}
 	
 	@GetMapping("/new-final")

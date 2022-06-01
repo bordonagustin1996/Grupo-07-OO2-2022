@@ -16,13 +16,16 @@ public class Final extends OrderNote{
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate examDate;
 	
+	@Column(name="confirmed")
+	private boolean confirmed;
+	
 	public Final() {}
 	
-	public Final(boolean enabled, LocalDate date, char turn, int numStudents, Matter matter,
-			String observations, User user, LocalDate examDate) {
-		super(enabled, date, turn, numStudents, matter, observations, user);
-		this.examDate = examDate;
-	}
+//	public Final(boolean enabled, LocalDate date, char turn, int numStudents, Matter matter,
+//			String observations, User user, LocalDate examDate) {
+//		super(enabled, date, turn, numStudents, matter, observations, user);
+//		this.examDate = examDate;
+//	}
 
 	public LocalDate getExamDate() {		
 		return examDate;
@@ -30,6 +33,14 @@ public class Final extends OrderNote{
 
 	public void setExamDate(LocalDate examDate) {
 		this.examDate = examDate;
-	}	
-  
+	}
+
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}
+	  
 }

@@ -6,22 +6,27 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo07OO22022.entities.Course;
 import com.unla.Grupo07OO22022.entities.Final;
+import com.unla.Grupo07OO22022.entities.Space;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.CourseModel;
 import com.unla.Grupo07OO22022.models.FinalModel;
 import com.unla.Grupo07OO22022.services.implementation.ClassroomService;
 import com.unla.Grupo07OO22022.services.implementation.MatterService;
 import com.unla.Grupo07OO22022.services.implementation.OrderNoteService;
+import com.unla.Grupo07OO22022.services.implementation.SpaceService;
 import com.unla.Grupo07OO22022.services.implementation.UserService;
 
 
@@ -44,6 +49,10 @@ public class OrderNoteController {
 	@Autowired
 	@Qualifier("classroomService")
 	private ClassroomService classroomService;
+	
+	@Autowired
+	@Qualifier("spaceService")
+	private SpaceService spaceService;
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
@@ -147,8 +156,27 @@ public class OrderNoteController {
 		return new RedirectView(ViewRouteHelper.FINAL_ROOT);
 	}
 	
+	@PostMapping("/confirm-final")
+	public ModelAndView confirm(@ModelAttribute("orderNote") FinalModel finalModel, BindingResult result) {
+		ModelAndView mAV = new ModelAndView();	
+		Space space = spaceService.findByDateAndTurnAndClassroomAndFree(finalModel.getExamDate(), finalModel.getTurn(), finalModel.getClassroom(), true);
+		if(space == null) {
+			result.addError(new ObjectError("error", "No hay espacios disponibles para esta fecha"));
+		}
+		if(result.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.FINAL_UPDATE);
+		}else {
+			space.setFree(false);
+			spaceService.insertOrUpdate(space);
+			finalModel.setConfirmed(true);
+			orderNoteService.insertOrUpdateFinal(modelMapper.map(finalModel, Final.class));
+			mAV.setViewName("redirect:/order-note/final");
+		}		
+		return mAV;
+	}
+	
 	@PostMapping("/update-course")
-	public RedirectView updateCourse(@ModelAttribute("orderNote") CourseModel courseModel) {
+	public RedirectView updateCourse(@ModelAttribute("orderNote") CourseModel courseModel, @RequestParam(name="update") String update) {
 		Course course = modelMapper.map(courseModel, Course.class);
 		if(courseModel.getId() > 0) {
 			Course courseOld = (Course) this.orderNoteService.findById(courseModel.getId());

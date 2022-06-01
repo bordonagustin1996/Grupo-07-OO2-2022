@@ -18,4 +18,6 @@ public interface ISpaceRepository extends JpaRepository<Space, Integer>{
 	
 	public abstract Space findByDateAndTurnAndClassroomAndEnabled(LocalDate date, char turn, Classroom classroom, boolean enabled);
 	
+	public abstract Space findByDateAndTurnAndClassroomAndFreeAndEnabled(LocalDate date, char turn, Classroom classroom,boolean free, boolean enabled);
+	
 }

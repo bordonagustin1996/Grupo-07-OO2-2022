@@ -20,6 +20,7 @@
 						<th>Materia</th>
 						<th>Usuario</th>
 						<th>Fecha de examen</th>
+						<th>Aula</th>
 						<th>Acciones</th>
 					</tr>
 				</thead>
@@ -41,14 +42,14 @@
 							<span th:text="${order.user.name}">
 						</td>
 						<td>
-							<span th:text="|${order.classroom.number} ${order.classroom.building.name}|">
-						</td>
-						<td>
 							<span th:text="${order.examDate}">
 						</td>
 						<td>
+							<span th:text="|${order.classroom.number} ${order.classroom.building.name}|">
+						</td>						
+						<td>
 							<a th:href="@{/order-note/final/{id}(id=${order.id})}" class="btn btn-primary">Ver</a>
-							<a th:href="@{/order-note/delete/final/{id}(id=${order.id})}" class="btn btn-danger">Eliminar</a>
+							<a th:href="@{/order-note/delete/final/{id}(id=${order.id})}" class="btn btn-danger">Eliminar</a>							
 						</td>
 					</tr>
 				</tbody>

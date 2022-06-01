@@ -65,4 +65,9 @@ public class SpaceService implements ISpaceService {
 		return spaceRepository.findByDateAndTurnAndClassroomAndEnabled(date, turn, classroom, true);
 	}
 
+	@Override
+	public Space findByDateAndTurnAndClassroomAndFree(LocalDate date, char turn, Classroom classroom, boolean free) {
+		return spaceRepository.findByDateAndTurnAndClassroomAndFreeAndEnabled(date, turn, classroom, free, true);
+	}
+
 }

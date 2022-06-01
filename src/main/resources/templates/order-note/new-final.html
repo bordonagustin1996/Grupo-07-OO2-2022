@@ -21,10 +21,14 @@
 								<label>Fecha</label>
 								<input type="date" th:field="*{date}" class="form-control" required>
 							</div>
-							<div class="form-group">
-								<label>Turno</label>
-								<input type="text" th:field="*{turn}" class="form-control">
-							</div>
+								<div class="form-group">
+									<label>Turno</label>
+									<select th:field="*{turn}" class="form-select" required>
+										<option value="M">M</option>
+										<option value="T">T</option>
+										<option value="N">N</option>
+									</select>
+								</div>
 							<div class="form-group">
 								<label>Cantidad de estudiantes</label>
 								<input type="text" th:field="*{numStudents}" class="form-control">
@@ -53,11 +57,12 @@
 								</select>
 							</div>
 							
-									<a th:href="@{/order-note/final}" class="nav-link float-right" title="Volver">
-									<img class="img-responsive center-box" th:src="@{/images/volver-flecha.png}" height="auto">
+									
 						</div>
 						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+						
 							<input type="submit" value="Crear" class="btn btn-primary">
+							<a th:href="@{/order-note/final}" class="float-right btn btn-secondary" title="Volver">Cancelar</a>
 						</div>
 					</div>
 				</form>

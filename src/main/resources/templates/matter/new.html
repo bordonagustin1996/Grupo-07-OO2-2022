@@ -29,11 +29,10 @@
 								</select>
 							</div>
 							
-								<a th:href="@{/matter}" class="nav-link float-right" title="Volver">
-								<img class="img-responsive center-box" th:src="@{/images/volver-flecha.png}" height="auto">
 						</div>
 						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							<input type="submit" value="Crear" class="btn btn-primary">
+							<a th:href="@{/matter}" class="float-right btn btn-secondary" title="Volver">Cancelar</a>
 						</div>
 					</div>
 				</form>

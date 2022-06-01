@@ -26,6 +26,10 @@
 								<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}"
 									th:errors="*{name}" />
 							</div>
+							
+								<a th:href="@{/department}" class="nav-link float-right" title="Volver">
+								<img class="img-responsive center-box" th:src="@{/images/volver-flecha.png}" height="auto">
+							
 						</div>
 						<div th:if="${#fields.hasErrors('global')}">							
 							<small th:each="err : ${#fields.errors('global')}" th:text="${err}" class="form-text text-danger"/>

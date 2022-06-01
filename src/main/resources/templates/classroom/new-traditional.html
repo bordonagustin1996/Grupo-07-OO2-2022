@@ -39,6 +39,8 @@
 									<input type="checkbox" th:field="*{hasProjector}" class="form-check-input">
 									<label class="form-check-label">Tiene proyector</label>
 								</div>
+									<a th:href="@{/classroom}" class="nav-link float-right" title="Volver">
+									<img class="img-responsive center-box" th:src="@{/images/volver-flecha.png}" height="auto">
 							</div>
 							<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 								<input type="submit" value="Crear" class="btn btn-primary">

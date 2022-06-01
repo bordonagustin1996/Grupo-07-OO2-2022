@@ -7,25 +7,27 @@
 	<body>
 		<nav th:replace="fragments/navbar :: navbar"></nav>
 		<div class="container mt-4">
-			<a href="/building/new" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-primary">Nuevo</a>
+			<div class="btn-group">
+			
+			<!---->
+				 <span  th:text="${building.name}"> </span>
+			</div>
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<div>
 					<thead>
 						<tr>
-							<th>Nombre</th>
-							<th>Acciones</th>
+							<th>Número</th>
+							<th>Tipo</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="building : ${buildings}">
+						<tr th:each="classroom : ${classrooms}">
 							<td>
-								<span th:text="${building.name}">
-							</td>						
+								<span th:text="${classroom.number}">
+							</td>
 							<td>
-								<a th:href="@{/building/{id}(id=${building.id})}" class="btn btn-primary">Ver</a>
-								<a th:href="@{/building/searchClasroom/{id}(id=${building.id})}" class="btn btn-primary">Ver sus Aulas</a>
-								<a th:href="@{/building/delete/{id}(id=${building.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>
+								<span th:text="${classroom instanceof T(com.unla.Grupo07OO22022.entities.Laboratory) } ? 'Laboratorio' : 'Tradicional'">
 							</td>
 						</tr>
 					</tbody>

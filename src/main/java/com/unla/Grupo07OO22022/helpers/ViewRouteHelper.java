@@ -46,6 +46,7 @@ public class ViewRouteHelper {
 	public final static String BUILDING_INDEX = "building/index";
 	public final static String BUILDING_NEW = "building/new";
 	public final static String BUILDING_UPDATE = "building/update";
+	public final static String BUILDING_CLASROOM = "building/clasroom-building";
 
 	// CLASSROOM
 	public final static String CLASSROOM_INDEX = "classroom/index";

@@ -16,11 +16,16 @@ import com.unla.Grupo07OO22022.entities.Building;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.BuildingModel;
 import com.unla.Grupo07OO22022.services.IBuildingService;
+import com.unla.Grupo07OO22022.services.IClassroomService;
 
 @Controller
 @RequestMapping("/building")
 public class BuildingController {
 
+	@Autowired
+	@Qualifier("classroomService")
+	private IClassroomService clasroomService;
+	
 	@Autowired
 	@Qualifier("buildingService")
 	private IBuildingService buildingService;
@@ -67,4 +72,12 @@ public class BuildingController {
 		return new RedirectView(ViewRouteHelper.BUILDING_ROOT);
 	}
 	
+	@GetMapping("/searchClasroom/{id}")
+	public ModelAndView buildingClasroom(@PathVariable("id") int id) {
+		Building building= buildingService.findById(id);
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.BUILDING_CLASROOM);
+		mAV.addObject("classrooms",clasroomService.findByBuildingAndEnabled(building, true));
+		mAV.addObject("building",building);
+		return mAV;
+	}
 }

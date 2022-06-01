@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.unla.Grupo07OO22022.entities.Building;
 import com.unla.Grupo07OO22022.entities.Classroom;
 import com.unla.Grupo07OO22022.entities.Laboratory;
 import com.unla.Grupo07OO22022.entities.Traditional;
@@ -52,6 +53,12 @@ public class ClassroomService implements IClassroomService {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public List<Classroom> findByBuildingAndEnabled(Building building, boolean enabled) {
+		
+		return classroomRepository.findByBuildingAndEnabled(building, enabled);
 	}
 	
 }

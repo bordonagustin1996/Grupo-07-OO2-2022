@@ -41,6 +41,9 @@ public class ViewRouteHelper {
 	public final static String SPACE_INDEX = "space/index";
 	public final static String SPACE_NEW = "space/new";
 	public final static String SPACE_UPDATE = "space/update";
+	
+	// ADD SPACE
+	public final static String ADD_SPACE_FORM = "space/form-add-space";
 
 	// BUILDING
 	public final static String BUILDING_INDEX = "building/index";

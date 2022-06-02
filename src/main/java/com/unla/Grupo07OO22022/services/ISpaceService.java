@@ -21,4 +21,6 @@ public interface ISpaceService {
 	
 	public Space findByDateAndTurnAndClassroom(LocalDate date, char turn, Classroom classroom);
 	
+	public void addByDates(List<Classroom> classrooms, LocalDate startDate, LocalDate endDate);
+	
 }

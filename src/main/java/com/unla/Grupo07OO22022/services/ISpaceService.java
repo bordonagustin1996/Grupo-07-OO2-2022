@@ -22,5 +22,8 @@ public interface ISpaceService {
 	public Space findByDateAndTurnAndClassroom(LocalDate date, char turn, Classroom classroom);
 	
 	public Space findByDateAndTurnAndClassroomAndFree(LocalDate date, char turn, Classroom classroom, boolean free);
+		
+	public List<Space> saveAll(List<Space> space);
 	
+	public List<Space> getSpace(LocalDate startDate, Classroom classroom, char turn);
 }

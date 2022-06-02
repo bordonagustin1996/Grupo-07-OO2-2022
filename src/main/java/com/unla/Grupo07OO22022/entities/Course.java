@@ -18,13 +18,6 @@ public class Course extends OrderNote{
 	@Column(name="start_date")
 	private LocalDate startDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="end_date")
-	private LocalDate endDate;
-	
-	@Column(name="day_of_week")
-	private int dayOfWeek;
-	
 	public Course() {}
 	
 	public Course(int id, boolean enabled, LocalDate date, char turn, int numStudents, Matter matter,
@@ -48,21 +41,5 @@ public class Course extends OrderNote{
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
-
-	public int getDayOfWeek() {
-		return dayOfWeek;
-	}
-
-	public void setDayOfWeek(int dayOfWeek) {
-		this.dayOfWeek = dayOfWeek;
-	}	
 	  
 }

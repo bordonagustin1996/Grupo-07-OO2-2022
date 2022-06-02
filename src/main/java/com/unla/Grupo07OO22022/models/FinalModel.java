@@ -8,9 +8,7 @@ public class FinalModel extends OrderNoteModel {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate examDate;
-	
-	private boolean confirmed;
-	
+		
 	public FinalModel() {}
 
 	public LocalDate getExamDate() {
@@ -20,13 +18,4 @@ public class FinalModel extends OrderNoteModel {
 	public void setExamDate(LocalDate examDate) {
 		this.examDate = examDate;
 	}
-
-	public boolean isConfirmed() {
-		return confirmed;
-	}
-
-	public void setConfirmed(boolean confirmed) {
-		this.confirmed = confirmed;
-	}
-
 }

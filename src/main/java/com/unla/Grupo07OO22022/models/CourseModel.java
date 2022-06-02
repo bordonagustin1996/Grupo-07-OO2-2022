@@ -11,11 +11,6 @@ public class CourseModel extends OrderNoteModel {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate endDate;
-
-	private int dayOfWeek;
-
 	public CourseModel() {
 	}
 
@@ -25,22 +20,6 @@ public class CourseModel extends OrderNoteModel {
 
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
-
-	public int getDayOfWeek() {
-		return dayOfWeek;
-	}
-
-	public void setDayOfWeek(int dayOfWeek) {
-		this.dayOfWeek = dayOfWeek;
 	}
 
 	public String getCode() {

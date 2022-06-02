@@ -1,6 +1,7 @@
 package com.unla.Grupo07OO22022.services.implementation;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -70,4 +71,24 @@ public class SpaceService implements ISpaceService {
 		return spaceRepository.findByDateAndTurnAndClassroomAndFreeAndEnabled(date, turn, classroom, free, true);
 	}
 
+	@Override
+	public List<Space> saveAll(List<Space> space) {
+		return spaceRepository.saveAll(space);
+	}
+
+	@Override
+	public List<Space> getSpace(LocalDate startDate, Classroom classroom, char turn) {
+		LocalDate date = startDate;
+		LocalDate endDate = startDate.plusWeeks(15).plusDays(1);
+		List<Space> spaces = new ArrayList<Space>();
+		while(date.isBefore(endDate)) {
+			Space space = findByDateAndTurnAndClassroomAndFree(date, turn, classroom, true);
+			if(space != null) {
+				space.setFree(false);
+				spaces.add(space);
+			}
+			date = date.plusWeeks(1);
+		}
+		return spaces;
+	}
 }

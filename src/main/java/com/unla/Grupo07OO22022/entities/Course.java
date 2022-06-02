@@ -11,12 +11,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "course")
 public class Course extends OrderNote{
 
-	@Column(name="code")
+	@Column(name = "code")
 	private String code;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="start_date")
+	@Column(name = "start_date")
 	private LocalDate startDate;
+	
+	@Column(name = "ftf_percentage")
+	private int ftfPercentage;
 	
 	public Course() {}
 	
@@ -41,5 +44,13 @@ public class Course extends OrderNote{
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	  
+
+	public int getFtfPercentage() {
+		return ftfPercentage;
+	}
+
+	public void setFtfPercentage(int ftfPercentage) {
+		this.ftfPercentage = ftfPercentage;
+	}
+		  
 }

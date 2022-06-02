@@ -11,6 +11,8 @@ public class CourseModel extends OrderNoteModel {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 	
+	private int ftfPercentage;
+	
 	public CourseModel() {
 	}
 
@@ -28,6 +30,14 @@ public class CourseModel extends OrderNoteModel {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public int getFtfPercentage() {
+		return ftfPercentage;
+	}
+
+	public void setFtfPercentage(int ftfPercentage) {
+		this.ftfPercentage = ftfPercentage;
 	}
 
 }

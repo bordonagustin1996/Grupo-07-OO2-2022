@@ -41,6 +41,13 @@
 								<input type="date" th:field="*{startDate}" class="form-control" required>
 							</div>
 							<div class="form-group mb-3">
+								<label>Presencialidad (%)</label>
+								<select name="ftfPercentage" th:field="*{ftfPercentage}" class="form-select">									
+									<option value=50>50%</option>
+									<option value=100>100%</option>
+								</select>
+							</div>
+							<div class="form-group mb-3">
 								<label>Materia</label>
 								<select th:field="*{matter}" class="form-select" required>
 									<option th:each="matter : ${matters}" th:value="${matter.id}"

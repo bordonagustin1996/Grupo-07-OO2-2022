@@ -52,6 +52,11 @@ public class Space {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ordernote_id")
+	private OrderNote oderNote;
+	
+	
 	public Space() {}
 
 	public int getId() {
@@ -118,4 +123,12 @@ public class Space {
 		this.updatedAt = updatedAt;
 	}
 
+	public OrderNote getOderNote() {
+		return oderNote;
+	}
+
+	public void setOderNote(OrderNote oderNote) {
+		this.oderNote = oderNote;
+	}
+	
 }

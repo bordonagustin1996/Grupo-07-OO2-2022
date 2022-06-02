@@ -167,10 +167,12 @@ public class OrderNoteController {
 		if (space == null) {
 			result.addError(new ObjectError("error", "No hay espacios disponibles para esta fecha"));
 		} else {
+			Final finalmap = modelMapper.map(finalModel, Final.class);
+			space.setOderNote(finalmap);
 			space.setFree(false);
 			spaceService.insertOrUpdate(space);
 			finalModel.setConfirmed(true);
-			orderNoteService.insertOrUpdateFinal(modelMapper.map(finalModel, Final.class));
+			orderNoteService.insertOrUpdateFinal(finalmap);
 		}
 		return mAV;
 	}
@@ -181,14 +183,16 @@ public class OrderNoteController {
 		mAV.addObject("orderNote", courseModel);
 		mAV.addObject("matters", matterService.findByEnabled(true));
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
-		mAV.addObject("users", userService.findByEnabled(true));		
+		mAV.addObject("users", userService.findByEnabled(true));
+		Course course = modelMapper.map(courseModel, Course.class);
 		List<Space> spaces = spaceService.getSpace(courseModel.getStartDate(), courseModel.getClassroom(), courseModel.getTurn());
 		if (spaces.size() < 10) {
 			result.addError(new ObjectError("error", "No se puede confirmar este pedido ya que no hay suficientes espacios"));
 		} else {
+			spaces.stream().forEach(space -> space.setOderNote(course)); 
 			spaceService.saveAll(spaces);
 			courseModel.setConfirmed(true);
-			orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));
+			orderNoteService.insertOrUpdateCourse(course);
 		}
 		return mAV;
 	}

@@ -54,6 +54,12 @@ public class Space {
 	
 	public Space() {}
 
+	public Space(LocalDate date, char turn, Classroom classroom) {
+		this.date = date;
+		this.turn = turn;
+		this.classroom = classroom;
+	}
+
 	public int getId() {
 		return id;
 	}

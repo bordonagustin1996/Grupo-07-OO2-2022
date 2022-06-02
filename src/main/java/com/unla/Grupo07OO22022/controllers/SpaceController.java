@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo07OO22022.entities.Space;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
+import com.unla.Grupo07OO22022.models.AddSpaceModel;
 import com.unla.Grupo07OO22022.models.SpaceModel;
 import com.unla.Grupo07OO22022.services.IClassroomService;
 import com.unla.Grupo07OO22022.services.ISpaceService;
@@ -100,4 +102,27 @@ public class SpaceController {
 		return mAV;
 	}
 
+	@GetMapping("/add/form-by-dates")
+	public ModelAndView addByDates() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.ADD_SPACE_FORM);
+		mAV.addObject("addSpace", new AddSpaceModel());
+		return mAV;
+	}
+	
+	@PostMapping("/add/by-dates")
+	public ModelAndView addByDates(@Valid @ModelAttribute("addSpace") AddSpaceModel addSpaceModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		if (addSpaceModel.getEndDate().isBefore(addSpaceModel.getStartDate())) {
+			bindingResult.addError(new FieldError("error", "endDate", "La fecha de fin debe ser mayor a la fecha de inicio"));
+		}
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.ADD_SPACE_FORM);
+			mAV.addObject("addSpace", addSpaceModel);
+		} else {
+			spaceService.addByDates(classroomService.findByEnabled(true), addSpaceModel.getStartDate(), addSpaceModel.getEndDate());
+			mAV.setViewName("redirect:/space");
+		}
+		return mAV;
+	}
+	
 }

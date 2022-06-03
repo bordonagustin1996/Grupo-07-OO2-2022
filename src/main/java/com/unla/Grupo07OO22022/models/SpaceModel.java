@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.unla.Grupo07OO22022.entities.Classroom;
+import com.unla.Grupo07OO22022.entities.OrderNote;
 
 public class SpaceModel {
 	
@@ -22,7 +23,9 @@ public class SpaceModel {
 	private Classroom classroom;
 	
 	private boolean free = true;
-		
+
+	private OrderNote ordernote;
+			
 	public SpaceModel() {}
 
 	public int getId() {
@@ -63,6 +66,14 @@ public class SpaceModel {
 
 	public void setFree(boolean free) {
 		this.free = free;
+	}
+
+	public OrderNote getOrdernote() {
+		return ordernote;
+	}
+
+	public void setOrdernote(OrderNote ordernote) {
+		this.ordernote = ordernote;
 	}
 	
 }

@@ -33,6 +33,8 @@ public class OrderNoteModel {
 	private User user;
 	
 	private Classroom classroom;
+	
+	private boolean confirmed;
 
 	public OrderNoteModel() {}
 	
@@ -98,6 +100,14 @@ public class OrderNoteModel {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
 	}	
   
 }

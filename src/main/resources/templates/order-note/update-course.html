@@ -20,57 +20,72 @@
 						</div>
 						<div class="card-body">
 							<input type="hidden" th:field="*{id}">
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label>Fecha</label>
 								<input type="date" th:field="*{date}" class="form-control">
 							</div>
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label>Turno</label>
-								<input type="text" th:field="*{turn}" class="form-control">
+								<input type="text" th:field="*{turn}" class="form-control" required>
 							</div>
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label>Cantidad de estudiantes</label>
 								<input type="number" th:field="*{numStudents}" class="form-control">
 							</div>
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label>Codigo</label>
 								<input type="text" th:field="*{code}" class="form-control">
 							</div>
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label>Fecha inicio</label>
-								<input type="date" th:field="*{startDate}" class="form-control">
+								<input type="date" th:field="*{startDate}" class="form-control" required>
 							</div>
-							<div class="form-group">
-								<label>Fecha fin</label>
-								<input type="date" th:field="*{endDate}" class="form-control">
+							<div class="mb-3 form-check" th:if="${orderNote.ftfPercentage == 50}">
+								<input type="checkbox" th:field="*{evenWeek}" class="form-check-input">
+								<label class="form-check-label">Semana par</label>
 							</div>
-							<div class="form-group">
-								<label>Dia de la semana</label>
-								<input type="number" th:field="*{dayOfWeek}" class="form-control">
+							<div class="form-group mb-3">
+								<label>Presencialidad (%)</label>
+								<select name="ftfPercentage" th:field="*{ftfPercentage}" class="form-select">
+									<option value=50>50%</option>
+									<option value=100>100%</option>
+								</select>
 							</div>
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label>Materia</label>
-								<select th:field="*{matter}" class="form-select">
+								<select th:field="*{matter}" class="form-select" required>
 									<option th:each="matter : ${matters}" th:value="${matter.id}"
 										th:text="${matter.name}">
 								</select>
 							</div>
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label>Aula</label>
-								<select th:field="*{classroom}" class="form-select">
+								<select th:field="*{classroom}" class="form-select" required>
 									<option th:each="classroom : ${classrooms}" th:value="${classroom.id}"
 										th:text="|${classroom.number} ${classroom.building.name}|">
 								</select>
 							</div>
-							<div class="form-group">
+							<div class="form-group mb-3">
 								<label>Usuario</label>
-								<select th:field="*{user}" class="form-select">
+								<select th:field="*{user}" class="form-select" required>
 									<option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}">
 								</select>
+							</div>
+							<div class="mb-3 form-check">
+								<input type="checkbox" th:field="*{confirmed}" class="form-check-input" disabled>
+								<label class="form-check-label">Confirmada</label>
+							</div>
+							<div th:if="${#fields.hasErrors('global')}">
+								<small th:each="err : ${#fields.errors('global')}" th:text="${err}"
+									class="orm-text text-danger"/>
 							</div>
 						</div>
 						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							<input type="submit" value="Actualizar" class="btn btn-primary">
+							<input type="submit" value="Confirmar" class="btn btn-success"
+								th:formaction="'/order-note/confirm-course'">
+							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary"
+								th:formaction="'/order-note/course-get-space'">
 						</div>
 					</div>
 				</form>

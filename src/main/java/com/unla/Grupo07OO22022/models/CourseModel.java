@@ -14,46 +14,12 @@ public class CourseModel extends OrderNoteModel {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate endDate;
-
-	private int dayOfWeek;
-
+	private int ftfPercentage;
+	
+	private boolean evenWeek;
+	
 	public CourseModel() {
 	}
-/*
-	public LocalDate getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
-
-	public int getDayOfWeek() {
-		return dayOfWeek;
-	}
-
-	public void setDayOfWeek(int dayOfWeek) {
-		this.dayOfWeek = dayOfWeek;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-	*/
 
 	public String getCode() {
 		return code;
@@ -69,24 +35,22 @@ public class CourseModel extends OrderNoteModel {
 
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
+	}	
+
+	public int getFtfPercentage() {
+		return ftfPercentage;
 	}
 
-	public LocalDate getEndDate() {
-		return endDate;
+	public void setFtfPercentage(int ftfPercentage) {
+		this.ftfPercentage = ftfPercentage;
 	}
 
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
+	public boolean isEvenWeek() {
+		return evenWeek;
 	}
 
-	public int getDayOfWeek() {
-		return dayOfWeek;
+	public void setEvenWeek(boolean evenWeek) {
+		this.evenWeek = evenWeek;
 	}
-
-	public void setDayOfWeek(int dayOfWeek) {
-		this.dayOfWeek = dayOfWeek;
-	}
-	
-	
 
 }

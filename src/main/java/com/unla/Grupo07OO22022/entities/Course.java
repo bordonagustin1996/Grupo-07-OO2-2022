@@ -11,19 +11,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "course")
 public class Course extends OrderNote{
 
-	@Column(name="code")
+	@Column(name = "code")
 	private String code;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="start_date")
+	@Column(name = "start_date")
 	private LocalDate startDate;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="end_date")
-	private LocalDate endDate;
+	@Column(name = "ftf_percentage")
+	private int ftfPercentage;
 	
-	@Column(name="day_of_week")
-	private int dayOfWeek;
+	@Column(name = "even_week")
+	private boolean evenWeek;
 	
 	public Course() {}
 	
@@ -49,20 +48,20 @@ public class Course extends OrderNote{
 		this.startDate = startDate;
 	}
 
-	public LocalDate getEndDate() {
-		return endDate;
+	public int getFtfPercentage() {
+		return ftfPercentage;
 	}
 
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
+	public void setFtfPercentage(int ftfPercentage) {
+		this.ftfPercentage = ftfPercentage;
 	}
 
-	public int getDayOfWeek() {
-		return dayOfWeek;
+	public boolean isEvenWeek() {
+		return evenWeek;
 	}
 
-	public void setDayOfWeek(int dayOfWeek) {
-		this.dayOfWeek = dayOfWeek;
-	}	
-	  
+	public void setEvenWeek(boolean evenWeek) {
+		this.evenWeek = evenWeek;
+	}
+		 
 }

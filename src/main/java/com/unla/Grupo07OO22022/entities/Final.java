@@ -14,15 +14,9 @@ public class Final extends OrderNote{
 	
 	@Column(name="exam_date")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate examDate;
+	private LocalDate examDate;	
 	
 	public Final() {}
-	
-	public Final(boolean enabled, LocalDate date, char turn, int numStudents, Matter matter,
-			String observations, User user, LocalDate examDate) {
-		super(enabled, date, turn, numStudents, matter, observations, user);
-		this.examDate = examDate;
-	}
 
 	public LocalDate getExamDate() {		
 		return examDate;
@@ -30,6 +24,6 @@ public class Final extends OrderNote{
 
 	public void setExamDate(LocalDate examDate) {
 		this.examDate = examDate;
-	}	
-  
+	}
+	
 }

@@ -52,6 +52,10 @@ public class Space {
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ordernote_id")
+	private OrderNote orderNote;
+	
 	public Space() {}
 
 	public Space(LocalDate date, char turn, Classroom classroom) {
@@ -122,6 +126,14 @@ public class Space {
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public OrderNote getOrderNote() {
+		return orderNote;
+	}
+
+	public void setOrderNote(OrderNote orderNote) {
+		this.orderNote = orderNote;
 	}
 
 }

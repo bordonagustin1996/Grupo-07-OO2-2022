@@ -51,6 +51,9 @@ public class OrderNote {
 	@JoinColumn(name="classroom_id")
 	private Classroom classroom;
 	
+	@Column(name="confirmed")
+	private boolean confirmed;
+	
 	public Classroom getClassroom() {
 		return classroom;
 	}
@@ -167,5 +170,13 @@ public class OrderNote {
 	public void setUser(User user) {
 		this.user = user;
 	}
-  
+
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}
+ 	
 }

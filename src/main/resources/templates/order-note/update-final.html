@@ -66,11 +66,10 @@
 							</div>
 						</div>
 						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-							<input type="submit" value="Actualizar" class="btn btn-primary">
-							<input type="submit" value="Confirmar" class="btn btn-success"
-								th:formaction="'/order-note/confirm-final'">
-							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary"
-								th:formaction="'/order-note/final-get-space'">
+							<input type="submit" value="Actualizar" class="btn btn-primary">							
+							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary" th:formaction="'/order-note/final-get-space'">
+							<a th:href="@{/order-note/final}" class="float-right btn btn-secondary"	title="Volver">Cancelar</a>
+							<input type="submit" value="Confirmar" class="btn btn-success"	th:formaction="'/order-note/confirm-final'">
 						</div>
 					</div>
 				</form>

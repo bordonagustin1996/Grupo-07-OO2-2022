@@ -20,21 +20,11 @@
 							<div class="form-group mb-3">
 								<label>Fecha</label>
 								<input type="date" th:field="*{date}" class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>Turno</label>
-								<select th:field="*{turn}" class="form-select" required>
-									<option value="M">M</option>
-									<option value="T">T</option>
-									<option value="N">N</option>
-								</select>
-							</div>
-							<div class="form-group">
+							</div>							
+							<div class="form-group mb-3">
 								<label>Cantidad de estudiantes</label>
-								<input type="text" th:field="*{numStudents}" class="form-control">
-								<p class="form-text text-danger" th:if="${#fields.hasErrors('numStudents')}"
-									th:errors"*{numStudents}">Cantidad mayor a 0</p>
-								<input type="date" th:field="*{date}" class="form-control">
+								<input type="number" th:field="*{numStudents}" class="form-control">
+								<p class="form-text text-danger" th:if="${#fields.hasErrors('numStudents')}" th:errors"*{numStudents}">Cantidad mayor a 0</p>								
 							</div>
 							<div class="form-group mb-3">
 								<label>Turno</label>
@@ -43,11 +33,7 @@
 									<option value="T">T</option>
 									<option value="N">N</option>
 								</select>
-							</div>
-							<div class="form-group mb-3">
-								<label>Cantidad de estudiantes</label>
-								<input type="number" th:field="*{numStudents}" class="form-control">
-							</div>
+							</div>							
 							<div class="form-group mb-3">
 								<label>Fecha de examen</label>
 								<input type="date" th:field="*{examDate}" class="form-control" required>
@@ -72,20 +58,16 @@
 									<option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}">
 								</select>
 							</div>
-						</div>
-						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-							<input type="submit" value="Crear" class="btn btn-primary">
-							<a th:href="@{/order-note/final}" class="float-right btn btn-secondary"
-								title="Volver">Cancelar</a>
 							<div class="mb-3 form-check">
 								<input type="checkbox" th:field="*{confirmed}" class="form-check-input" disabled>
 								<label class="form-check-label">Confirmada</label>
 							</div>
-						</div>
+						</div>	
+						
 						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-							<input type="submit" value="Crear" class="btn btn-primary">
-							<input type="submit" value="Confirmar" class="btn btn-success"
-								th:formaction="'/order-note/confirm-final'">
+							<input type="submit" value="Crear" class="btn btn-primary">														
+							<a th:href="@{/order-note/final}" class="float-right btn btn-secondary"	title="Volver">Cancelar</a>
+							<input type="submit" value="Confirmar" class="btn btn-success" th:formaction="'/order-note/confirm-final'">	
 						</div>
 					</div>
 				</form>

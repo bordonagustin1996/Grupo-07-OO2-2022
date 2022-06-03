@@ -112,7 +112,7 @@ public class OrderNoteController {
 		}else {
 			
 			orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));
-			mAV.setViewName("redirect:/course");
+			mAV.setViewName("redirect:/order-note/course");
 		}		
 		return mAV;
 	}
@@ -129,7 +129,7 @@ public class OrderNoteController {
 			mAV.addObject("users", userService.findByUsername(user.getUsername())); 
 		}else {
 			orderNoteService.insertOrUpdateFinal(modelMapper.map(finalModel, Final.class));
-			mAV.setViewName("redirect:/final");	
+			mAV.setViewName("redirect:/order-note/final");	
 		}			
 		return mAV;
 	}

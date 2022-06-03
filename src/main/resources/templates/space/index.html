@@ -26,7 +26,7 @@
 				<tbody>
 					<tr th:each="space : ${spaces}">
 						<td>
-							<span th:text="${space.date}">
+							<span th:text="${#temporals.format(space.date, 'dd/MM/yyyy')}">							
 						</td>
 						<td>
 							<span th:text="${space.turn}">
@@ -35,7 +35,7 @@
 							<span th:text="|${space.classroom.number} ${space.classroom.building.name}|">
 						</td>
 						<td>
-							<span th:text="${space.free}">
+							<span th:text="${space.free} ? 'Si' : 'No'">
 						</td>
 						<td>
 							<a th:href="@{/space/{id}(id=${space.id})}" class="btn btn-primary">Ver</a>

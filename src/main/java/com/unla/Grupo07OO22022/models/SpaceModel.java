@@ -21,7 +21,7 @@ public class SpaceModel {
 	@NotNull
 	private Classroom classroom;
 	
-	private boolean free;
+	private boolean free = true;
 		
 	public SpaceModel() {}
 

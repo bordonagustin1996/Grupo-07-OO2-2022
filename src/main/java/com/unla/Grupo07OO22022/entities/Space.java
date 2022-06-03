@@ -39,7 +39,7 @@ public class Space {
 	private Classroom classroom;
 	
 	@Column(name = "free")
-	private boolean free = true;
+	private boolean free;
 	
 	@Column(name = "enabled")
 	private boolean enabled = true;

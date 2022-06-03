@@ -22,14 +22,14 @@
 						<th>Aula</th>											
 						<th>Codigo</th>											
 						<th>Fecha inicio</th>
-						<th>Presencialidad (%)</th>															
+						<th>Presencialidad</th>															
 						<th>Acciones</th>											
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="order : ${orderNotes}">
 						<td>
-							<span th:text="${order.date}">
+							<span th:text="${#temporals.format(order.date, 'dd/MM/yyyy')}">
 						</td>
 						<td>
 							<span th:text="${order.turn}">
@@ -50,10 +50,10 @@
 							<span th:text="${order.code}">
 						</td>						
 						<td>
-							<span th:text="${order.startDate}">
+							<span th:text="${#temporals.format(order.startDate, 'dd/MM/yyyy')}">
 						</td>						
 						<td>
-							<span th:text="${order.ftfPercentage}">
+							<span th:text="${order.ftfPercentage} +'%'">
 						</td>						
 						<td>
 							<a th:href="@{/order-note/course/{id}(id=${order.id})}" class="btn btn-primary">Ver</a>

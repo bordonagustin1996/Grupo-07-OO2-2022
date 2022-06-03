@@ -26,7 +26,11 @@
 							</div>
 							<div class="form-group mb-3">
 								<label>Turno</label>
-								<input type="text" th:field="*{turn}" class="form-control" required>
+								<select name="turn" th:field="*{turn}" class="form-select">									
+									<option value="M">M</option>
+									<option value="T">T</option>
+									<option value="N">N</option>
+								</select>
 							</div>
 							<div class="form-group mb-3">
 								<label>Cantidad de estudiantes</label>
@@ -39,13 +43,17 @@
 							<div class="form-group mb-3">
 								<label>Fecha inicio</label>
 								<input type="date" th:field="*{startDate}" class="form-control" required>
-							</div>
+							</div>							
 							<div class="form-group mb-3">
 								<label>Presencialidad</label>
 								<select name="ftfPercentage" th:field="*{ftfPercentage}" class="form-select">									
 									<option value=50>50%</option>
 									<option value=100>100%</option>
 								</select>
+							</div>
+							<div class="mb-3 form-check" th:if="${orderNote.ftfPercentage == 50}">
+								<input type="checkbox" th:field="*{evenWeek}" class="form-check-input">
+								<label class="form-check-label">Semana par</label>
 							</div>
 							<div class="form-group mb-3">
 								<label>Materia</label>

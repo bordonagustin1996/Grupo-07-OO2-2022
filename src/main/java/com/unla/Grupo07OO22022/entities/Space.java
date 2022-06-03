@@ -54,8 +54,7 @@ public class Space {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ordernote_id")
-	private OrderNote oderNote;
-	
+	private OrderNote orderNote;
 	
 	public Space() {}
 
@@ -123,12 +122,12 @@ public class Space {
 		this.updatedAt = updatedAt;
 	}
 
-	public OrderNote getOderNote() {
-		return oderNote;
+	public OrderNote getOrderNote() {
+		return orderNote;
 	}
 
-	public void setOderNote(OrderNote oderNote) {
-		this.oderNote = oderNote;
+	public void setOrderNote(OrderNote orderNote) {
+		this.orderNote = orderNote;
 	}
-	
+
 }

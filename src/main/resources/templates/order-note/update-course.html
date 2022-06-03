@@ -40,9 +40,13 @@
 								<label>Fecha inicio</label>
 								<input type="date" th:field="*{startDate}" class="form-control" required>
 							</div>
+							<div class="mb-3 form-check" th:if="${orderNote.ftfPercentage == 50}">
+								<input type="checkbox" th:field="*{evenWeek}" class="form-check-input">
+								<label class="form-check-label">Semana par</label>
+							</div>
 							<div class="form-group mb-3">
 								<label>Presencialidad (%)</label>
-								<select name="ftfPercentage" th:field="*{ftfPercentage}" class="form-select">									
+								<select name="ftfPercentage" th:field="*{ftfPercentage}" class="form-select">
 									<option value=50>50%</option>
 									<option value=100>100%</option>
 								</select>
@@ -66,20 +70,22 @@
 								<select th:field="*{user}" class="form-select" required>
 									<option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}">
 								</select>
-							</div>							
+							</div>
 							<div class="mb-3 form-check">
 								<input type="checkbox" th:field="*{confirmed}" class="form-check-input" disabled>
 								<label class="form-check-label">Confirmada</label>
-							</div>								
+							</div>
 							<div th:if="${#fields.hasErrors('global')}">
 								<small th:each="err : ${#fields.errors('global')}" th:text="${err}"
-									class="orm-text text-danger" />
+									class="orm-text text-danger"/>
 							</div>
 						</div>
 						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							<input type="submit" value="Actualizar" class="btn btn-primary">
 							<input type="submit" value="Confirmar" class="btn btn-success"
 								th:formaction="'/order-note/confirm-course'">
+							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary"
+								th:formaction="'/order-note/course-get-space'">
 						</div>
 					</div>
 				</form>

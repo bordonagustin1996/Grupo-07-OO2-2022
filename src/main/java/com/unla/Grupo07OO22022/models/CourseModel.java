@@ -13,6 +13,8 @@ public class CourseModel extends OrderNoteModel {
 	
 	private int ftfPercentage;
 	
+	private boolean evenWeek;
+	
 	public CourseModel() {
 	}
 
@@ -38,6 +40,14 @@ public class CourseModel extends OrderNoteModel {
 
 	public void setFtfPercentage(int ftfPercentage) {
 		this.ftfPercentage = ftfPercentage;
+	}
+
+	public boolean isEvenWeek() {
+		return evenWeek;
+	}
+
+	public void setEvenWeek(boolean evenWeek) {
+		this.evenWeek = evenWeek;
 	}
 
 }

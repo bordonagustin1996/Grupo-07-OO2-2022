@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.unla.Grupo07OO22022.entities.Classroom;
+import com.unla.Grupo07OO22022.entities.OrderNote;
 import com.unla.Grupo07OO22022.entities.Space;
 import com.unla.Grupo07OO22022.models.SpaceModel;
 import com.unla.Grupo07OO22022.repositories.ISpaceRepository;
@@ -77,18 +78,24 @@ public class SpaceService implements ISpaceService {
 	}
 
 	@Override
-	public List<Space> getSpace(LocalDate startDate, Classroom classroom, char turn) {
-		LocalDate date = startDate;
+	public List<Space> getSpace(LocalDate startDate, Classroom classroom, char turn, int ftfPercentage, boolean evenWeek) {
+		LocalDate date = (evenWeek && ftfPercentage == 50) ? startDate.plusWeeks(1) : startDate;
 		LocalDate endDate = startDate.plusWeeks(15).plusDays(1);
-		List<Space> spaces = new ArrayList<Space>();
+		List<Space> spaces = new ArrayList<Space>();		
 		while(date.isBefore(endDate)) {
-			Space space = findByDateAndTurnAndClassroomAndFree(date, turn, classroom, true);
+			Space space = findByDateAndTurnAndClassroomAndFree(date, turn, classroom, true);					
 			if(space != null) {
 				space.setFree(false);
 				spaces.add(space);
-			}
-			date = date.plusWeeks(1);
+			}			
+			date = (ftfPercentage == 50) ? date.plusWeeks(2): date.plusWeeks(1);
 		}
 		return spaces;
 	}
+
+	@Override
+	public List<Space> findByOrderNoteOrderByDateAsc(OrderNote ordernote) {
+		return spaceRepository.findByOrderNoteAndEnabledOrderByDateAsc(ordernote, true);
+	}
+	
 }

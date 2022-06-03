@@ -27,7 +27,7 @@
 				<tbody>
 					<tr th:each="order : ${orderNotes}">
 						<td>
-							<span th:text="${order.date}">
+							<span th:text="${#temporals.format(order.date, 'dd/MM/yyyy')}">
 						</td>
 						<td>
 							<span th:text="${order.turn}">
@@ -42,7 +42,7 @@
 							<span th:text="${order.user.name}">
 						</td>
 						<td>
-							<span th:text="${order.examDate}">
+							<span th:text="${#temporals.format(order.examDate, 'dd/MM/yyyy')}">
 						</td>
 						<td>
 							<span th:text="|${order.classroom.number} ${order.classroom.building.name}|">

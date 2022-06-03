@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.unla.Grupo07OO22022.entities.Classroom;
+import com.unla.Grupo07OO22022.entities.OrderNote;
 import com.unla.Grupo07OO22022.entities.Space;
 import com.unla.Grupo07OO22022.models.SpaceModel;
 
@@ -25,5 +26,8 @@ public interface ISpaceService {
 		
 	public List<Space> saveAll(List<Space> space);
 	
-	public List<Space> getSpace(LocalDate startDate, Classroom classroom, char turn);
+	public List<Space> getSpace(LocalDate startDate, Classroom classroom, char turn, int ftfPercentage, boolean evenWeek);
+	
+	public List<Space> findByOrderNoteOrderByDateAsc(OrderNote ordernote);
+	
 }

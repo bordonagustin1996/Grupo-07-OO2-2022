@@ -21,6 +21,9 @@ public class Course extends OrderNote{
 	@Column(name = "ftf_percentage")
 	private int ftfPercentage;
 	
+	@Column(name = "even_week")
+	private boolean evenWeek;
+	
 	public Course() {}
 	
 	public Course(int id, boolean enabled, LocalDate date, char turn, int numStudents, Matter matter,
@@ -52,5 +55,13 @@ public class Course extends OrderNote{
 	public void setFtfPercentage(int ftfPercentage) {
 		this.ftfPercentage = ftfPercentage;
 	}
-		  
+
+	public boolean isEvenWeek() {
+		return evenWeek;
+	}
+
+	public void setEvenWeek(boolean evenWeek) {
+		this.evenWeek = evenWeek;
+	}
+		 
 }

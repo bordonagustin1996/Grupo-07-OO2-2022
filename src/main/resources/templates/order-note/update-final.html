@@ -69,6 +69,8 @@
 							<input type="submit" value="Actualizar" class="btn btn-primary">
 							<input type="submit" value="Confirmar" class="btn btn-success"
 								th:formaction="'/order-note/confirm-final'">
+							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary"
+								th:formaction="'/order-note/final-get-space'">
 						</div>
 					</div>
 				</form>

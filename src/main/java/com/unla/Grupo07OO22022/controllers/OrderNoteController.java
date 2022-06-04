@@ -102,35 +102,36 @@ public class OrderNoteController {
 	}
 
 	@PostMapping("/create-course")
-	public ModelAndView createCourse(@Valid @ModelAttribute("orderNote") CourseModel courseModel, BindingResult bidingResul) {
+	public ModelAndView createCourse(@Valid @ModelAttribute("orderNote") CourseModel courseModel,
+			BindingResult bidingResul) {
 		ModelAndView mAV = new ModelAndView();
-		if(bidingResul.hasErrors()) {
+		if (bidingResul.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.COURSE_NEW);
 			mAV.addObject("orderNote", courseModel);
 			mAV.addObject("matters", matterService.findByEnabled(true));
-			mAV.addObject("classrooms", classroomService.findByEnabled(true)); 
-		}else {
-			
+			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		} else {
 			orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));
 			mAV.setViewName("redirect:/order-note/course");
-		}		
+		}
 		return mAV;
 	}
-		
+
 	@PostMapping("/create-final")
-	public ModelAndView createFinal(@Valid @ModelAttribute("orderNote") FinalModel finalModel, BindingResult bidingResul) {		
+	public ModelAndView createFinal(@Valid @ModelAttribute("orderNote") FinalModel finalModel,
+			BindingResult bidingResult) {
 		ModelAndView mAV = new ModelAndView();
-		if(bidingResul.hasErrors()) {
+		if (bidingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.FINAL_NEW);
 			mAV.addObject("orderNote", finalModel);
 			mAV.addObject("matters", matterService.findByEnabled(true));
 			mAV.addObject("classrooms", classroomService.findByEnabled(true));
 			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			mAV.addObject("users", userService.findByUsername(user.getUsername())); 
-		}else {
+			mAV.addObject("users", userService.findByUsername(user.getUsername()));
+		} else {
 			orderNoteService.insertOrUpdateFinal(modelMapper.map(finalModel, Final.class));
-			mAV.setViewName("redirect:/order-note/final");	
-		}			
+			mAV.setViewName("redirect:/order-note/final");
+		}
 		return mAV;
 	}
 
@@ -170,18 +171,6 @@ public class OrderNoteController {
 		return new RedirectView(ViewRouteHelper.COURSE_ROOT);
 	}
 
-	@PostMapping("/update-final")
-	public RedirectView updateFinal(@ModelAttribute("orderNote") FinalModel finalModel) {
-		Final finalr = modelMapper.map(finalModel, Final.class);
-		if (finalModel.getId() > 0) {
-			Final finalOld = (Final) this.orderNoteService.findById(finalModel.getId());
-			finalr.setCreatedAt(finalOld.getCreatedAt());
-
-		}
-		this.orderNoteService.insertOrUpdateFinal(finalr);
-		return new RedirectView(ViewRouteHelper.FINAL_ROOT);
-	}
-
 	@PostMapping("/confirm-final")
 	public ModelAndView confirm(@ModelAttribute("orderNote") FinalModel finalModel, BindingResult result) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_UPDATE);
@@ -189,10 +178,11 @@ public class OrderNoteController {
 		mAV.addObject("matters", matterService.findByEnabled(true));
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		mAV.addObject("users", userService.findByEnabled(true));
-		Space space = spaceService.findByDateAndTurnAndClassroomAndFree(finalModel.getExamDate(), finalModel.getTurn(), finalModel.getClassroom(), true);
+		Space space = spaceService.findByDateAndTurnAndClassroomAndFree(finalModel.getExamDate(), finalModel.getTurn(),
+				finalModel.getClassroom(), true);
 		if (space == null) {
 			result.addError(new ObjectError("error", "No hay espacios disponibles para esta fecha"));
-		} else {			
+		} else {
 			space.setFree(false);
 			spaceService.insertOrUpdate(space);
 			finalModel.setConfirmed(true);
@@ -209,15 +199,18 @@ public class OrderNoteController {
 		mAV.addObject("orderNote", courseModel);
 		mAV.addObject("matters", matterService.findByEnabled(true));
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
-		mAV.addObject("users", userService.findByEnabled(true));		
-		List<Space> spaces = spaceService.getSpace(courseModel.getStartDate(), courseModel.getClassroom(), courseModel.getTurn(), courseModel.getFtfPercentage(), courseModel.isEvenWeek());
-		if ((spaces.size() < 15 && courseModel.getFtfPercentage() == 100) || (spaces.size() < 7 && courseModel.getFtfPercentage()  == 50)) {
-			result.addError(new ObjectError("error", "No se puede confirmar este pedido ya que no hay suficientes espacios"));
-		} else {			
+		mAV.addObject("users", userService.findByEnabled(true));
+		List<Space> spaces = spaceService.getSpace(courseModel.getStartDate(), courseModel.getClassroom(),
+				courseModel.getTurn(), courseModel.getFtfPercentage(), courseModel.isEvenWeek());
+		if ((spaces.size() < 15 && courseModel.getFtfPercentage() == 100)
+				|| (spaces.size() < 7 && courseModel.getFtfPercentage() == 50)) {
+			result.addError(
+					new ObjectError("error", "No se puede confirmar este pedido ya que no hay suficientes espacios"));
+		} else {
 			courseModel.setConfirmed(true);
 			Course course = modelMapper.map(courseModel, Course.class);
 			orderNoteService.insertOrUpdateCourse(course);
-			spaces.stream().forEach(space -> space.setOrderNote(course)); 
+			spaces.stream().forEach(space -> space.setOrderNote(course));
 			spaceService.saveAll(spaces);
 		}
 		return mAV;
@@ -229,23 +222,43 @@ public class OrderNoteController {
 		mAV.addObject("spaces", spaceService.findByOrderNoteOrderByDateAsc(modelMapper.map(courseModel, Course.class)));
 		return mAV;
 	}
-	
+
 	@PostMapping("/final-get-space")
 	public ModelAndView getSpace(@ModelAttribute("orderNote") FinalModel finalModel) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.SPACE_INDEX);
 		mAV.addObject("spaces", spaceService.findByOrderNoteOrderByDateAsc(modelMapper.map(finalModel, Final.class)));
 		return mAV;
 	}
+
+	@PostMapping("/update-final")
+	public ModelAndView updateFinal(@Valid @ModelAttribute("orderNote") FinalModel finalModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();				
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.FINAL_UPDATE);
+			mAV.addObject("orderNote", finalModel);
+			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			mAV.addObject("matters", matterService.findByEnabled(true));		
+			mAV.addObject("users", userService.findByEnabled(true));
+		} else {
+			orderNoteService.insertOrUpdate(modelMapper.map(finalModel, Final.class));
+			mAV.setViewName("redirect:/order-note/final");
+		}
+		return mAV;
+	}
 	
 	@PostMapping("/update-course")
-	public RedirectView updateCourse(@ModelAttribute("orderNote") CourseModel courseModel) {
-		Course course = modelMapper.map(courseModel, Course.class);
-		if (courseModel.getId() > 0) {
-			Course courseOld = (Course) this.orderNoteService.findById(courseModel.getId());
-			course.setCreatedAt(courseOld.getCreatedAt());
-
+	public ModelAndView updateFinal(@Valid @ModelAttribute("orderNote") CourseModel courseModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();				
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.COURSE_UPDATE);
+			mAV.addObject("orderNote", courseModel);
+			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			mAV.addObject("matters", matterService.findByEnabled(true));		
+			mAV.addObject("users", userService.findByEnabled(true));
+		} else {
+			orderNoteService.insertOrUpdate(modelMapper.map(courseModel, Course.class));
+			mAV.setViewName("redirect:/order-note/course");
 		}
-		this.orderNoteService.insertOrUpdateCourse(course);
-		return new RedirectView(ViewRouteHelper.COURSE_ROOT);
+		return mAV;
 	}
 }

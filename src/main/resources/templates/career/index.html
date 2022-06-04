@@ -10,9 +10,7 @@
 		<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 			<a href="/career/new" class="btn btn-primary btn-sm">Nuevo</a>
 			
-			<a target="_blank" th:href="@{/career/(format=pdf)}" class="nav-link float-right" title="Exportar a PDF">
-			<img class="img-responsive center-box" th:src="@{/images/pdf.png}" height="auto">
-			</a>
+			
 		</div>
 		<div>
 			<table class="table table-striped">

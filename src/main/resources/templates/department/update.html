@@ -33,6 +33,7 @@
 						</div>
 						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							<input type="submit" value="Editar" class="btn btn-primary">
+							<a th:href="@{/department}" class="float-right btn btn-secondary" title="Volver">Cancelar</a>
 						</div>
 					</div>
 				</form>

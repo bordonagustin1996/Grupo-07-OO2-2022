@@ -2,9 +2,7 @@ package com.unla.Grupo07OO22022.models;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,14 +14,12 @@ public class OrderNoteModel {
 	
 	private int id;
 	
-	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate date;
-	
-	
+	private LocalDate date = LocalDate.now();
+		
 	private char turn;  
 	
-	@Min(1) @Max(200)
+	@Min(1)
 	private int numStudents;
 	
 	private Matter matter;

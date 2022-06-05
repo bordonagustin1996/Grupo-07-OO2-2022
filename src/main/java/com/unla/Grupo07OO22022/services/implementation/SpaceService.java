@@ -37,14 +37,8 @@ public class SpaceService implements ISpaceService {
 	}
 
 	@Override
-	public List<Space> findByEnabled(boolean enabled) {
-		return spaceRepository.findByEnabled(true);
-	}
-
-	@Override
 	public SpaceModel insertOrUpdate(Space space) {
-		Space spaceNew = spaceRepository.save(space);
-		return modelMapper.map(spaceNew, SpaceModel.class);
+		return modelMapper.map(spaceRepository.save(space), SpaceModel.class);
 	}
 
 	@Override
@@ -59,7 +53,7 @@ public class SpaceService implements ISpaceService {
 
 	@Override
 	public Space findByDateAndTurnAndClassroom(LocalDate date, char turn, Classroom classroom) {
-		return spaceRepository.findByDateAndTurnAndClassroomAndEnabled(date, turn, classroom, true);
+		return spaceRepository.findByDateAndTurnAndClassroom(date, turn, classroom);
 	}
 
 	@Override
@@ -78,7 +72,7 @@ public class SpaceService implements ISpaceService {
 	}
 
 	public Space findByDateAndTurnAndClassroomAndFree(LocalDate date, char turn, Classroom classroom, boolean free) {
-		return spaceRepository.findByDateAndTurnAndClassroomAndFreeAndEnabled(date, turn, classroom, free, true);
+		return spaceRepository.findByDateAndTurnAndClassroomAndFree(date, turn, classroom, free);
 	}
 
 	@Override
@@ -89,7 +83,6 @@ public class SpaceService implements ISpaceService {
 	@Override
 	public List<Space> getSpace(LocalDate startDate, Classroom classroom, char turn, int ftfPercentage, boolean evenWeek) {
 		LocalDate date = (evenWeek && ftfPercentage == 50) ? startDate.plusWeeks(1) : startDate;
-		System.out.println(date);
 		LocalDate endDate = startDate.plusWeeks(15).plusDays(1);
 		List<Space> spaces = new ArrayList<Space>();		
 		while(date.isBefore(endDate)) {
@@ -105,6 +98,7 @@ public class SpaceService implements ISpaceService {
 
 	@Override
 	public List<Space> findByOrderNoteOrderByDateAsc(OrderNote ordernote) {
-		return spaceRepository.findByOrderNoteAndEnabledOrderByDateAsc(ordernote, true);
+		return spaceRepository.findByOrderNoteOrderByDateAsc(ordernote);
 	}
+	
 }

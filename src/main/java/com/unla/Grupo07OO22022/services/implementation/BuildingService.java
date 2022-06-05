@@ -32,14 +32,8 @@ public class BuildingService implements IBuildingService {
 	}
 
 	@Override
-	public List<Building> findByEnabled(boolean enabled) {
-		return buildingRepository.findByEnabled(enabled);
-	}
-
-	@Override
 	public BuildingModel insertOrUpdate(Building building) {
-		Building buildingNew = buildingRepository.save(building);
-		return modelMapper.map(buildingNew, BuildingModel.class);
+		return modelMapper.map(buildingRepository.save(building), BuildingModel.class);
 	}
 
 	@Override

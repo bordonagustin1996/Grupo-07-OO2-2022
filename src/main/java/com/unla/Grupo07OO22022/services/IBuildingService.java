@@ -11,8 +11,6 @@ public interface IBuildingService {
 	
 	public Building findById(int id);
 	
-	public List<Building> findByEnabled(boolean enabled);
-	
 	public BuildingModel insertOrUpdate(Building building);
 	
 	public boolean remove(int id);

@@ -25,16 +25,20 @@ public class ClassroomService implements IClassroomService {
 	
 	private ModelMapper modelMapper = new ModelMapper();
 	
+	public List<Classroom> getAll() {
+		return classroomRepository.findAll();
+	}
+	
 	@Override
 	public Classroom findById(int id) {
 		return classroomRepository.findById(id);
 	}
-	
-	@Override
-	public List<Classroom> findByEnabled(boolean enabled) {
-		return classroomRepository.findByEnabled(enabled);
-	}
 
+	@Override
+	public List<Classroom> findByBuilding(Building building) {		
+		return classroomRepository.findByBuilding(building);
+	}
+	
 	@Override
 	public LaboratoryModel insertOrUpdate(Laboratory laboratory) {
 		return modelMapper.map(classroomRepository.save(laboratory), LaboratoryModel.class);
@@ -53,12 +57,6 @@ public class ClassroomService implements IClassroomService {
 		} catch (Exception e) {
 			return false;
 		}
-	}
-
-	@Override
-	public List<Classroom> findByBuildingAndEnabled(Building building, boolean enabled) {
-		
-		return classroomRepository.findByBuildingAndEnabled(building, enabled);
 	}
 	
 }

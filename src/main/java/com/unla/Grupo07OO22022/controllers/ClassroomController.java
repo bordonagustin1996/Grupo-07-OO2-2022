@@ -41,7 +41,7 @@ public class ClassroomController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLASSROOM_INDEX);
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		return mAV;
 	}
 	
@@ -49,7 +49,7 @@ public class ClassroomController {
 	public ModelAndView createLaboratory() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LABORATORY_NEW);
 		mAV.addObject("laboratory", new LaboratoryModel());
-		mAV.addObject("buildings", buildingService.findByEnabled(true));
+		mAV.addObject("buildings", buildingService.getAll());
 		return mAV;
 	}
 	
@@ -59,7 +59,7 @@ public class ClassroomController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.LABORATORY_NEW);
 			mAV.addObject("laboratory", laboratoryModel);
-			mAV.addObject("buildings", buildingService.findByEnabled(true));
+			mAV.addObject("buildings", buildingService.getAll());
 		} else {
 			mAV.setViewName("redirect:/classroom");
 			classroomService.insertOrUpdate(modelMapper.map(laboratoryModel, Laboratory.class));
@@ -71,7 +71,7 @@ public class ClassroomController {
 	public ModelAndView createTraditional() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.TRADITIONAL_NEW);
 		mAV.addObject("traditional", new TraditionalModel());
-		mAV.addObject("buildings", buildingService.findByEnabled(true));
+		mAV.addObject("buildings", buildingService.getAll());
 		return mAV;
 	}
 	
@@ -81,7 +81,7 @@ public class ClassroomController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.TRADITIONAL_NEW);
 			mAV.addObject("traditional", traditionalModel);
-			mAV.addObject("buildings", buildingService.findByEnabled(true));
+			mAV.addObject("buildings", buildingService.getAll());
 		} else {
 			mAV.setViewName("redirect:/classroom");
 			classroomService.insertOrUpdate(modelMapper.map(traditionalModel, Traditional.class));
@@ -100,7 +100,7 @@ public class ClassroomController {
 			mAV.setViewName(ViewRouteHelper.TRADITIONAL_UPDATE);
 			mAV.addObject("traditional", classroom);
 		}
-		mAV.addObject("buildings", buildingService.findByEnabled(true));
+		mAV.addObject("buildings", buildingService.getAll());
 		return mAV;
 	}
 	
@@ -110,7 +110,7 @@ public class ClassroomController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.LABORATORY_UPDATE);
 			mAV.addObject("laboratory", laboratoryModel);
-			mAV.addObject("buildings", buildingService.findByEnabled(true));
+			mAV.addObject("buildings", buildingService.getAll());
 		} else {
 			mAV.setViewName("redirect:/classroom");
 			classroomService.insertOrUpdate(modelMapper.map(laboratoryModel, Laboratory.class));
@@ -124,7 +124,7 @@ public class ClassroomController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.TRADITIONAL_UPDATE);
 			mAV.addObject("laboratory", traditionalModel);
-			mAV.addObject("buildings", buildingService.findByEnabled(true));
+			mAV.addObject("buildings", buildingService.getAll());
 		} else {
 			mAV.setViewName("redirect:/classroom");
 			classroomService.insertOrUpdate(modelMapper.map(traditionalModel, Traditional.class));

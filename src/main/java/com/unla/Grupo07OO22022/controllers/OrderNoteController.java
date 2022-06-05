@@ -66,7 +66,7 @@ public class OrderNoteController {
 		mAV.addObject("orderNotes", orderNoteService.findByEnabled(true, false));
 		mAV.addObject("matters", matterService.findByEnabled(true));
 		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		return mAV;
 	}
 
@@ -76,7 +76,7 @@ public class OrderNoteController {
 		mAV.addObject("orderNotes", orderNoteService.findByEnabled(true, true));
 		mAV.addObject("matters", matterService.findByEnabled(true));
 		mAV.addObject("users", userService.findByEnabled(true));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		return mAV;
 	}
 
@@ -85,7 +85,7 @@ public class OrderNoteController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_UPDATE);
 		mAV.addObject("orderNote", this.orderNoteService.findById(id));
 		mAV.addObject("matters", matterService.findByEnabled(true));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
 		return mAV;
@@ -96,7 +96,7 @@ public class OrderNoteController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.COURSE_UPDATE);
 		mAV.addObject("orderNote", this.orderNoteService.findById(id));
 		mAV.addObject("matters", matterService.findByEnabled(true));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
 		return mAV;
@@ -110,7 +110,7 @@ public class OrderNoteController {
 			mAV.setViewName(ViewRouteHelper.COURSE_NEW);
 			mAV.addObject("orderNote", courseModel);
 			mAV.addObject("matters", matterService.findByEnabled(true));
-			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			mAV.addObject("classrooms", classroomService.getAll());
 		} else {
 			orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));
 			mAV.setViewName("redirect:/order-note/course");
@@ -126,7 +126,7 @@ public class OrderNoteController {
 			mAV.setViewName(ViewRouteHelper.FINAL_NEW);
 			mAV.addObject("orderNote", finalModel);
 			mAV.addObject("matters", matterService.findByEnabled(true));
-			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			mAV.addObject("classrooms", classroomService.getAll());
 			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			mAV.addObject("users", userService.findByUsername(user.getUsername()));
 		} else {
@@ -141,7 +141,7 @@ public class OrderNoteController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_NEW);
 		mAV.addObject("orderNote", new FinalModel());
 		mAV.addObject("matters", matterService.findByEnabled(true));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
 		return mAV;
@@ -154,7 +154,7 @@ public class OrderNoteController {
 		course.setDate(LocalDate.now());
 		mAV.addObject("orderNote", course);
 		mAV.addObject("matters", matterService.findByEnabled(true));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
 		return mAV;
@@ -176,7 +176,7 @@ public class OrderNoteController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_UPDATE);
 		mAV.addObject("orderNote", finalModel);
 		mAV.addObject("matters", matterService.findByEnabled(true));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		mAV.addObject("users", userService.findByEnabled(true));
 		Space space = spaceService.findByDateAndTurnAndClassroomAndFree(finalModel.getExamDate(), finalModel.getTurn(),
 				finalModel.getClassroom(), true);
@@ -198,7 +198,7 @@ public class OrderNoteController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.COURSE_UPDATE);
 		mAV.addObject("orderNote", courseModel);
 		mAV.addObject("matters", matterService.findByEnabled(true));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		mAV.addObject("users", userService.findByEnabled(true));
 		List<Space> spaces = spaceService.getSpace(courseModel.getStartDate(), courseModel.getClassroom(),
 				courseModel.getTurn(), courseModel.getFtfPercentage(), courseModel.isEvenWeek());
@@ -235,7 +235,7 @@ public class OrderNoteController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.FINAL_UPDATE);
 			mAV.addObject("orderNote", finalModel);
-			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			mAV.addObject("classrooms", classroomService.getAll());
 			mAV.addObject("matters", matterService.findByEnabled(true));		
 			mAV.addObject("users", userService.findByEnabled(true));
 		} else {
@@ -251,7 +251,7 @@ public class OrderNoteController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.COURSE_UPDATE);
 			mAV.addObject("orderNote", courseModel);
-			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			mAV.addObject("classrooms", classroomService.getAll());
 			mAV.addObject("matters", matterService.findByEnabled(true));		
 			mAV.addObject("users", userService.findByEnabled(true));
 		} else {

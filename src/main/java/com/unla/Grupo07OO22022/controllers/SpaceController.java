@@ -41,15 +41,15 @@ public class SpaceController {
 	@GetMapping("")
 	public ModelAndView index(){
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.SPACE_INDEX);		
-		mAV.addObject("spaces", this.spaceService.findByEnabled(true));
+		mAV.addObject("spaces", spaceService.getAll());
 		return mAV;
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.SPACE_UPDATE);
-		mAV.addObject("space", this.spaceService.findById(id));
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("space", spaceService.findById(id));
+		mAV.addObject("classrooms", classroomService.getAll());
 		return mAV;
 	}
 	
@@ -57,7 +57,7 @@ public class SpaceController {
 	public ModelAndView create() {		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.SPACE_NEW);
 		mAV.addObject("space", new SpaceModel());
-		mAV.addObject("classrooms", classroomService.findByEnabled(true));
+		mAV.addObject("classrooms", classroomService.getAll());
 		return mAV;
 	}
 	
@@ -70,7 +70,7 @@ public class SpaceController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.SPACE_NEW);
 			mAV.addObject("space", spaceModel);
-			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			mAV.addObject("classrooms", classroomService.getAll());
 		} else {
 			spaceService.insertOrUpdate(modelMapper.map(spaceModel, Space.class));
 			mAV.setViewName("redirect:/space");
@@ -80,7 +80,7 @@ public class SpaceController {
 	
 	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {		
-		this.spaceService.remove(id);
+		spaceService.remove(id);
 		return new RedirectView(ViewRouteHelper.SPACE_ROOT);
 	}
 	
@@ -94,7 +94,7 @@ public class SpaceController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.SPACE_UPDATE);
 			mAV.addObject("space", spaceModel);
-			mAV.addObject("classrooms", classroomService.findByEnabled(true));
+			mAV.addObject("classrooms", classroomService.getAll());
 		} else {
 			spaceService.insertOrUpdate(modelMapper.map(spaceModel, Space.class));
 			mAV.setViewName("redirect:/space");
@@ -119,7 +119,7 @@ public class SpaceController {
 			mAV.setViewName(ViewRouteHelper.ADD_SPACE_FORM);
 			mAV.addObject("addSpace", addSpaceModel);
 		} else {
-			spaceService.addByDates(classroomService.findByEnabled(true), addSpaceModel.getStartDate(), addSpaceModel.getEndDate());
+			spaceService.addByDates(classroomService.getAll(), addSpaceModel.getStartDate(), addSpaceModel.getEndDate());
 			mAV.setViewName("redirect:/space");
 		}
 		return mAV;

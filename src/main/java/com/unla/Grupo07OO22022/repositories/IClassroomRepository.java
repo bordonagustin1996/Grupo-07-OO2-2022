@@ -13,8 +13,6 @@ public interface IClassroomRepository extends JpaRepository<Classroom, Integer> 
 
 	public abstract Classroom findById(int id);
 	
-	public abstract List<Classroom> findByEnabled(boolean enabled);
-	
-	public abstract List<Classroom> findByBuildingAndEnabled(Building building, boolean enabled);
+	public abstract List<Classroom> findByBuilding(Building building);
 	
 }

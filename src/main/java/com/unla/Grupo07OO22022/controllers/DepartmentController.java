@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,14 +34,14 @@ public class DepartmentController {
 	@GetMapping("")
 	public ModelAndView index(){
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.DEPARTMENT_INDEX);		
-		mAV.addObject("departments", this.departmentService.findByEnabled(true));
+		mAV.addObject("departments", departmentService.findByEnabled(true));
 		return mAV;
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.DEPARTMENT_UPDATE);
-		mAV.addObject("department", this.departmentService.findById(id));		
+		mAV.addObject("department", departmentService.findById(id));		
 		return mAV;
 	}
 	
@@ -54,42 +53,35 @@ public class DepartmentController {
 	}
 	
 	@PostMapping("/create")
-	public ModelAndView create(@Valid @ModelAttribute("department") DepartmentModel departmentModel, BindingResult result) {
+	public ModelAndView create(@Valid @ModelAttribute("department") DepartmentModel departmentModel, BindingResult bindingResult) {
 		ModelAndView mAV = new ModelAndView();
-		if (departmentService.findByNameAndEnabled(departmentModel.getName()) != null) {
-			result.addError(new ObjectError("error", "Ya existe un espacio con los mismos datos"));
-		}
-		if(result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.DEPARTMENT_NEW);
-			mAV.addObject("department", departmentModel);	
-		}else {
-			departmentService.insertOrUpdate(modelMapper.map(departmentModel, Department.class));
+			mAV.addObject("department", departmentModel);
+		} else {
 			mAV.setViewName("redirect:/department");
+			departmentService.insertOrUpdate(modelMapper.map(departmentModel, Department.class));
 		}
 		return mAV;
 	}
 	
 	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {		
-		this.departmentService.remove(id);
+		departmentService.remove(id);
 		return new RedirectView(ViewRouteHelper.DEPARTMENT_ROOT);
 	}
 	
 	@PostMapping("/update")
-	public ModelAndView update(@Valid @ModelAttribute("department") DepartmentModel departmentModel, BindingResult result) {
+	public ModelAndView update(@Valid @ModelAttribute("department") DepartmentModel departmentModel, BindingResult bindingResult) {
 		ModelAndView mAV = new ModelAndView();
-		Department department = modelMapper.map(departmentModel, Department.class);
-		if(result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.DEPARTMENT_UPDATE);
-			mAV.addObject("department", departmentModel);			
-		}else {
-			if (departmentModel.getId() > 0) {
-				Department departmentOld = this.departmentService.findById(departmentModel.getId());
-				department.setCreatedAt(departmentOld.getCreatedAt());	
-			}
-			this.departmentService.insertOrUpdate(department);				
+			mAV.addObject("department", departmentModel);
+		} else {
 			mAV.setViewName("redirect:/department");
+			departmentService.insertOrUpdate(modelMapper.map(departmentModel, Department.class));
 		}
-		return mAV;	
+		return mAV;
 	}
+	
 }

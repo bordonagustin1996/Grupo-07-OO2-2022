@@ -1,9 +1,12 @@
 package com.unla.Grupo07OO22022.controllers;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,9 +54,17 @@ public class ClassroomController {
 	}
 	
 	@PostMapping("/create-laboratory")
-	public RedirectView create(@ModelAttribute("laboratory") LaboratoryModel laboratoryModel) {
-		classroomService.insertOrUpdate(modelMapper.map(laboratoryModel, Laboratory.class));
-		return new RedirectView(ViewRouteHelper.CLASSROOM_ROOT);
+	public ModelAndView create(@Valid @ModelAttribute("laboratory") LaboratoryModel laboratoryModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.LABORATORY_NEW);
+			mAV.addObject("laboratory", laboratoryModel);
+			mAV.addObject("buildings", buildingService.findByEnabled(true));
+		} else {
+			mAV.setViewName("redirect:/classroom");
+			classroomService.insertOrUpdate(modelMapper.map(laboratoryModel, Laboratory.class));
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/new-traditional")
@@ -65,9 +76,17 @@ public class ClassroomController {
 	}
 	
 	@PostMapping("/create-traditional")
-	public RedirectView create(@ModelAttribute("traditional") TraditionalModel traditionalModel) {
-		classroomService.insertOrUpdate(modelMapper.map(traditionalModel, Traditional.class));
-		return new RedirectView(ViewRouteHelper.CLASSROOM_ROOT);
+	public ModelAndView create(@Valid @ModelAttribute("traditional") TraditionalModel traditionalModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.TRADITIONAL_NEW);
+			mAV.addObject("traditional", traditionalModel);
+			mAV.addObject("buildings", buildingService.findByEnabled(true));
+		} else {
+			mAV.setViewName("redirect:/classroom");
+			classroomService.insertOrUpdate(modelMapper.map(traditionalModel, Traditional.class));
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/{id}")
@@ -86,17 +105,31 @@ public class ClassroomController {
 	}
 	
 	@PostMapping("/update-laboratory")
-	public RedirectView update(@ModelAttribute("laboratory") LaboratoryModel laboratoryModel) {
-		Laboratory laboratory = modelMapper.map(laboratoryModel, Laboratory.class);
-		classroomService.insertOrUpdate(laboratory);
-		return new RedirectView(ViewRouteHelper.CLASSROOM_ROOT);
+	public ModelAndView update(@Valid @ModelAttribute("laboratory") LaboratoryModel laboratoryModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.LABORATORY_UPDATE);
+			mAV.addObject("laboratory", laboratoryModel);
+			mAV.addObject("buildings", buildingService.findByEnabled(true));
+		} else {
+			mAV.setViewName("redirect:/classroom");
+			classroomService.insertOrUpdate(modelMapper.map(laboratoryModel, Laboratory.class));
+		}		
+		return mAV;
 	}
 	
 	@PostMapping("/update-traditional")
-	public RedirectView update(@ModelAttribute("traditional") TraditionalModel traditionalModel) {
-		Traditional traditional = modelMapper.map(traditionalModel, Traditional.class);
-		classroomService.insertOrUpdate(traditional);
-		return new RedirectView(ViewRouteHelper.CLASSROOM_ROOT);
+	public ModelAndView update(@Valid @ModelAttribute("traditional") TraditionalModel traditionalModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.TRADITIONAL_UPDATE);
+			mAV.addObject("laboratory", traditionalModel);
+			mAV.addObject("buildings", buildingService.findByEnabled(true));
+		} else {
+			mAV.setViewName("redirect:/classroom");
+			classroomService.insertOrUpdate(modelMapper.map(traditionalModel, Traditional.class));
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/delete/{id}")

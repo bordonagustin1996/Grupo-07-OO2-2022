@@ -1,7 +1,10 @@
 package com.unla.Grupo07OO22022.models;
 
+import javax.validation.constraints.Min;
+
 public class TraditionalModel extends ClassroomModel {
 	
+	@Min(1)
 	private int numberBenches;
 	
 	private String chalkboard;

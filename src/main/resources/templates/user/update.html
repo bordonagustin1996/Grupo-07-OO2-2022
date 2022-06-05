@@ -64,6 +64,7 @@
 							</div>							
 							<div class="card-footer">
 								<input type="submit" value="Editar" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+								<a th:href="@{/user}" class="float-right btn btn-secondary">Volver</a>
 							</div>
 						</div>
 					</form>

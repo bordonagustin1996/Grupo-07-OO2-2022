@@ -1,9 +1,12 @@
 package com.unla.Grupo07OO22022.controllers;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,9 +50,16 @@ public class BuildingController {
 	}
 	
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("building") BuildingModel buildingModel) {
-		buildingService.insertOrUpdate(modelMapper.map(buildingModel, Building.class));
-		return new RedirectView(ViewRouteHelper.BUILDING_ROOT);
+	public ModelAndView create(@Valid @ModelAttribute("building") BuildingModel buildingModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.BUILDING_NEW);
+			mAV.addObject("building", buildingModel);
+		} else {
+			mAV.setViewName("redirect:/building");
+			buildingService.insertOrUpdate(modelMapper.map(buildingModel, Building.class));
+		}
+		return mAV;
 	}
 	
 	@GetMapping("/{id}")
@@ -60,10 +70,16 @@ public class BuildingController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("building") BuildingModel buildingModel) {
-		Building building = modelMapper.map(buildingModel, Building.class);
-		buildingService.insertOrUpdate(building);
-		return new RedirectView(ViewRouteHelper.BUILDING_ROOT);
+	public ModelAndView update(@Valid @ModelAttribute("building") BuildingModel buildingModel, BindingResult bindingResult) {
+		ModelAndView mAV = new ModelAndView();
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.BUILDING_UPDATE);
+			mAV.addObject("building", buildingModel);
+		} else {
+			mAV.setViewName("redirect:/building");
+			buildingService.insertOrUpdate(modelMapper.map(buildingModel, Building.class));
+		}
+		return mAV;
 	}
 
 	@GetMapping("/delete/{id}")
@@ -80,4 +96,5 @@ public class BuildingController {
 		mAV.addObject("building",building);
 		return mAV;
 	}
+	
 }

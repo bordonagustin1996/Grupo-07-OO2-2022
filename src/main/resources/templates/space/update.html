@@ -43,8 +43,8 @@
 								<p th:each="error : ${#fields.errors('global')}" th:text="${error}" class="form-text text-danger">
 							</div>
 						</div>
-						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-							<input type="submit" value="Editar" class="btn btn-primary">
+						<div class="card-footer">
+							<input type="submit" value="Editar" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							<a href="/space" class="float-right btn btn-secondary">Volver</a>
 						</div>
 					</div>

@@ -1,9 +1,13 @@
 package com.unla.Grupo07OO22022.models;
 
+import javax.validation.constraints.Min;
+
 public class LaboratoryModel extends ClassroomModel {
 	
+	@Min(1)
 	private int numberPC;
 	
+	@Min(1)
 	private int numberChairs;
 
 	public LaboratoryModel() {}

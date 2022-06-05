@@ -38,7 +38,7 @@
 								<p class="form-text text-danger" th:if="${#fields.hasErrors('numStudents')}" th:errors"*{numStudents}">Cantidad mayor a 0</p>
 							</div>
 							<div class="form-group mb-3">
-								<label>Codigo</label>
+								<label>Código</label>
 								<input type="text" th:field="*{code}" class="form-control">
 							</div>
 							<div class="form-group mb-3">
@@ -75,11 +75,11 @@
 								<select th:field="*{user}" class="form-select" required>
 									<option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}">
 								</select>
-							</div>
+							</div>							
 							<div class="form-group mb-3">
 								<label>Observaciones</label>
-								<input type="text" th:field="*{observations}" class="form-control">
-							</div>
+								<textarea class="form-control" rows="5" name="observations"	placeholder="Observaciones" th:field="${orderNote.observations}" required></textarea>
+							</div>							
 							<div class="mb-3 form-check">
 								<input type="checkbox" th:field="*{confirmed}" class="form-check-input" disabled>
 								<label class="form-check-label">Confirmada</label>
@@ -89,12 +89,10 @@
 									class="orm-text text-danger"/>
 							</div>
 						</div>
-						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-							<input type="submit" value="Actualizar" class="btn btn-primary">
-							<input type="submit" value="Confirmar" class="btn btn-success"
-								th:formaction="'/order-note/confirm-course'">
-							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary"
-								th:formaction="'/order-note/course-get-space'">
+						<div class="card-footer">
+							<input type="submit" value="Actualizar" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+							<input type="submit" value="Confirmar" class="btn btn-success"	th:formaction="'/order-note/confirm-course'">
+							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary" th:formaction="'/order-note/course-get-space'">
 						</div>
 					</div>
 				</form>

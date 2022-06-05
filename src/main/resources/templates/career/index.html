@@ -8,12 +8,11 @@
 	<nav th:replace="fragments/navbar :: navbar"></nav>
 	<div class="container mt-4">
 		<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-			<a href="/career/new" class="btn btn-primary btn-sm">Nuevo</a>
-			
-			
+			<a href="/career/new" class="btn btn-primary btn-sm">Nuevo</a>			
 		</div>
 		<div>
-			<table class="table table-striped">
+			<table class="table table-striped caption-top">
+				<caption>Carreras</caption>
 				<div>
 					<thead>
 						<tr>
@@ -28,7 +27,7 @@
 								<span th:text="${career.name}">
 							</td>
 							<td>
-								<!--<span th:text="${career.department.name}"> -->
+								<span th:text="${career.department.name}">
 							</td>
 							<td>
 								<a th:href="@{/career/{id}(id=${career.id})}" class="btn btn-primary">Ver</a>			

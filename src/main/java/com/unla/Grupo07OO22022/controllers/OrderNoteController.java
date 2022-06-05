@@ -23,6 +23,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo07OO22022.entities.Course;
 import com.unla.Grupo07OO22022.entities.Final;
+import com.unla.Grupo07OO22022.entities.OrderNote;
 import com.unla.Grupo07OO22022.entities.Space;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.CourseModel;
@@ -158,17 +159,16 @@ public class OrderNoteController {
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
 		return mAV;
 	}
-
-	@GetMapping("/delete/final/{id}")
-	public RedirectView deleteFinal(@PathVariable("id") int id) {
-		this.orderNoteService.remove(id);
-		return new RedirectView(ViewRouteHelper.FINAL_ROOT);
-	}
-
-	@GetMapping("/delete/course/{id}")
-	public RedirectView deleteCourse(@PathVariable("id") int id) {
-		this.orderNoteService.remove(id);
-		return new RedirectView(ViewRouteHelper.COURSE_ROOT);
+	
+	@GetMapping("/delete/{id}")
+	public RedirectView delete(@PathVariable("id") int id) {
+		String direct = ViewRouteHelper.FINAL_ROOT;
+		OrderNote orderNote = orderNoteService.findById(id);
+		if(orderNote instanceof Course) {
+			direct = ViewRouteHelper.COURSE_ROOT;
+		}
+		orderNoteService.remove(orderNote.getId());
+		return new RedirectView(direct);
 	}
 
 	@PostMapping("/confirm-final")
@@ -204,8 +204,7 @@ public class OrderNoteController {
 				courseModel.getTurn(), courseModel.getFtfPercentage(), courseModel.isEvenWeek());
 		if ((spaces.size() < 15 && courseModel.getFtfPercentage() == 100)
 				|| (spaces.size() < 7 && courseModel.getFtfPercentage() == 50)) {
-			result.addError(
-					new ObjectError("error", "No se puede confirmar este pedido ya que no hay suficientes espacios"));
+			result.addError(new ObjectError("error", "No se puede confirmar este pedido ya que no hay suficientes espacios"));
 		} else {
 			courseModel.setConfirmed(true);
 			Course course = modelMapper.map(courseModel, Course.class);

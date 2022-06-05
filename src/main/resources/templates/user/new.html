@@ -17,16 +17,16 @@
 							</div>
 							<div class="card-body">
 								<input type="hidden" th:field="*{id}">
-								<div class="form-group">
+								<div class="form-group  mb-3">
 									<label>Nombre</label>
 									<input type="text" th:field="*{name}" class="form-control">
 									<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label>Apellido</label>
 									<input type="text" th:field="*{surname}" class="form-control">
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label>Tipo de documento</label>
 									<select name="document-type" th:field="*{documentType}" class="form-select">
 										<option value="" selected disabled>Seleccione una opción</option>
@@ -35,24 +35,24 @@
 										<option value="LE">LE</option> <!-- Libreta de Enrolamiento -->
 									</select>
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label>Número de documento</label>
 									<input type="text" th:field="*{documentNumber}" class="form-control">
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label>Correo electrónico</label>
 									<input type="text" th:field="*{email}" class="form-control">
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label>Usuario</label>
 									<input type="text" th:field="*{username}" class="form-control">
 									<small class="form-text text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label>Contraseña</label>
 									<input type="password" th:field="*{password}" class="form-control">
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label>Rol</label>
 									<select th:field="*{userRole}" class="form-select">
 										<option th:each="userRole : ${userRoles}" th:value="${userRole.id}" th:text="${userRole.name}">
@@ -63,8 +63,8 @@
 								</div>
 							</div>
 							
-							<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-								<input type="submit" value="Crear" class="btn btn-primary">
+							<div class="card-footer">
+								<input type="submit" value="Crear" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							</div>
 						</div>
 					</form>

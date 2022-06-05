@@ -1,5 +1,12 @@
 package com.unla.Grupo07OO22022.controllers;
 
+import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -15,10 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.lowagie.text.DocumentException;
 import com.unla.Grupo07OO22022.entities.UserRole;
+import com.unla.Grupo07OO22022.generatePDF.UserRolePDFExporter;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.UserRoleModel;
 import com.unla.Grupo07OO22022.services.IUserRoleService;
+
 
 @Controller
 @RequestMapping("/user-role")
@@ -64,6 +74,19 @@ public class UserRoleController {
 		return mAV;
 	}
 	
+	@GetMapping("/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date(0));         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=roles_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);         
+        List<UserRole> userRoles = userRoleService.findByEnabled(true);
+        UserRolePDFExporter exporter = new UserRolePDFExporter(userRoles);
+        exporter.export(response);         
+    }
+	
 	@PostMapping("/update")
 	public ModelAndView update(@Valid @ModelAttribute("userRole") UserRoleModel userRoleModel, BindingResult result) {
 		ModelAndView mAV = new ModelAndView();
@@ -87,5 +110,4 @@ public class UserRoleController {
 		userRoleService.remove(id);
 		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);
 	}
-	
 }

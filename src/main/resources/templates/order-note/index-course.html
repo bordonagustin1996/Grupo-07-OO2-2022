@@ -11,7 +11,8 @@
 				<a href="/order-note/new-course" class="btn btn-primary">Nuevo</a>
 			</div>
 			<div>
-			<table class="table table-striped">
+			<table class="table table-striped caption-top">
+				<caption>Cursos</caption>
 				<thead>
 					<tr>
 						<th>Fecha</th>
@@ -20,7 +21,7 @@
 						<th>Materia</th>						
 						<th>Usuario</th>											
 						<th>Aula</th>											
-						<th>Codigo</th>											
+						<th>Código</th>											
 						<th>Fecha inicio</th>
 						<th>Presencialidad</th>															
 						<th>Acciones</th>											
@@ -57,7 +58,7 @@
 						</td>						
 						<td>
 							<a th:href="@{/order-note/course/{id}(id=${order.id})}" class="btn btn-primary">Ver</a>
-							<a th:href="@{/order-note/delete/course/{id}(id=${order.id})}" class="btn btn-danger">Eliminar</a>
+							<a sec:authorize="hasAnyAuthority('ADMINISTRADOR')" th:href="@{/order-note/delete/{id}(id=${order.id})}" class="btn btn-danger">Eliminar</a>
 						</td>
 					</tr>
 				</tbody>

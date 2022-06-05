@@ -31,7 +31,8 @@
 							<div class="form-group mb-3">
 								<label>Cantidad de estudiantes</label>
 								<input type="text" th:field="*{numStudents}" class="form-control">
-								<p class="form-text text-danger" th:if="${#fields.hasErrors('numStudents')}" th:errors"*{numStudents}">Cantidad mayor a 0</p>
+								<p class="form-text text-danger" th:if="${#fields.hasErrors('numStudents')}"
+									th:errors"*{numStudents}">Cantidad mayor a 0</p>
 							</div>
 							<div class="form-group mb-3">
 								<label>Fecha de examen</label>
@@ -40,13 +41,15 @@
 							<div class="form-group mb-3">
 								<label>Materia</label>
 								<select th:field="*{matter}" class="form-select">
-									<option th:each="matter : ${matters}" th:value="${matter.id}" th:text="${matter.name}">
+									<option th:each="matter : ${matters}" th:value="${matter.id}"
+										th:text="${matter.name}">
 								</select>
 							</div>
 							<div class="form-group mb-3">
 								<label>Aula</label>
 								<select th:field="*{classroom}" class="form-select">
-									<option th:each="classroom : ${classrooms}" th:value="${classroom.id}" th:text="|${classroom.number} ${classroom.building.name}|">
+									<option th:each="classroom : ${classrooms}" th:value="${classroom.id}"
+										th:text="|${classroom.number} ${classroom.building.name}|">
 								</select>
 							</div>
 							<div class="form-group mb-3">
@@ -57,7 +60,7 @@
 							</div>
 							<div class="form-group mb-3">
 								<label>Observaciones</label>
-								<input type="text" th:field="*{observations}" class="form-control">
+								<textarea class="form-control" rows="5" name="observations"	placeholder="Observaciones" th:field="${orderNote.observations}" required></textarea>
 							</div>
 							<div class="mb-3 form-check">
 								<input type="checkbox" th:field="*{confirmed}" class="form-check-input" disabled>
@@ -68,11 +71,11 @@
 									class="orm-text text-danger" />
 							</div>
 						</div>
-						<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-							<input type="submit" value="Actualizar" class="btn btn-primary">							
+						<div class="card-footer">
+							<input type="submit" value="Actualizar" class="btn btn-primary"  sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary" th:formaction="'/order-note/final-get-space'">
 							<a th:href="@{/order-note/final}" class="float-right btn btn-secondary"	title="Volver">Cancelar</a>
-							<input type="submit" value="Confirmar" class="btn btn-success"	th:formaction="'/order-note/confirm-final'">
+							<input type="submit" value="Confirmar" class="btn btn-success" th:formaction="'/order-note/confirm-final'">
 						</div>
 					</div>
 				</form>

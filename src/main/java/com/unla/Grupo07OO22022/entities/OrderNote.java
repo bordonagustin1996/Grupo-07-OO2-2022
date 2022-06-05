@@ -62,7 +62,7 @@ public class OrderNote {
 		this.classroom = classroom;
 	}
 
-	@Column(name="observations")
+	@Column(name="observations", length=200)
 	private String observations;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

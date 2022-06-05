@@ -11,15 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.lowagie.text.DocumentException;
 import com.unla.Grupo07OO22022.entities.User;
+import com.unla.Grupo07OO22022.generatePDF.UserPDFExporter;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.UserModel;
 import com.unla.Grupo07OO22022.services.implementation.UserRoleService;
 import com.unla.Grupo07OO22022.services.implementation.UserService;
 
+import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
@@ -47,7 +54,7 @@ public class UserController {
 		
 	@GetMapping("")
 	public ModelAndView index() {
-		ModelAndView mAV = new ModelAndView("user/index");
+		ModelAndView mAV = new ModelAndView("user/index");		
 		mAV.addObject("users", this.userService.findByEnabled(true));
 		return mAV;
 	}
@@ -90,6 +97,19 @@ public class UserController {
 		userService.remove(id);
 		return new RedirectView(ViewRouteHelper.USER_ROOT);
 	}
+	
+	@GetMapping("/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date(0));         
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=usuarios_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);         
+        List<User> users = userService.findByEnabled(true);
+        UserPDFExporter exporter = new UserPDFExporter(users);
+        exporter.export(response);         
+    }
 	
 	@PostMapping("/update")
 	public ModelAndView update(@Valid @ModelAttribute("user") UserModel userModel, BindingResult result) {

@@ -7,9 +7,11 @@
 	<body>
 		<nav th:replace="fragments/navbar :: navbar"></nav>
 		<div class="container mt-4">
-			<a href="/user-role/new" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-primary">Nuevo</a>
+			<a href="/user-role/new" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-primary">Nuevo</a>	
+			<a href="/user-role/export/pdf" class="float-right btn btn-secondary">Exportar</a>		
 			<div class="table-responsive">
-				<table class="table table-striped">
+				<table class="table table-striped caption-top">
+					<caption>Roles</caption>
 					<div>
 					<thead>
 						<tr>
@@ -24,7 +26,7 @@
 							</td>						
 							<td>
 								<a th:href="@{/user-role/{id}(id=${userRole.id})}" class="btn btn-primary">Ver</a>
-								<a th:href="@{/user-role/delete/{id}(id=${userRole.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>
+								<a th:href="@{/user-role/delete/{id}(id=${userRole.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>								
 							</td>
 						</tr>
 					</tbody>

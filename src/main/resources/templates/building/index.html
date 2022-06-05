@@ -9,7 +9,8 @@
 		<div class="container mt-4">
 			<a href="/building/new" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-primary">Nuevo</a>
 			<div class="table-responsive">
-				<table class="table table-striped">
+				<table class="table table-striped caption-top">
+				<caption>Edificios</caption>
 					<div>
 					<thead>
 						<tr>
@@ -24,7 +25,7 @@
 							</td>						
 							<td>
 								<a th:href="@{/building/{id}(id=${building.id})}" class="btn btn-primary">Ver</a>
-								<a th:href="@{/building/searchClasroom/{id}(id=${building.id})}" class="btn btn-primary">Ver sus Aulas</a>
+								<a th:href="@{/building/searchClasroom/{id}(id=${building.id})}" class="btn btn-primary">Aulas</a>
 								<a th:href="@{/building/delete/{id}(id=${building.id})}" sec:authorize="hasAnyAuthority('ADMINISTRADOR')" class="btn btn-danger">Eliminar</a>
 							</td>
 						</tr>

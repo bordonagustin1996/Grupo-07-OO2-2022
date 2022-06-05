@@ -6,10 +6,8 @@
 </head>
 <body>
 	<nav th:replace="fragments/navbar :: navbar"></nav>
-	<div class="container mt-4">
-		<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-			<a href="/career/new" class="btn btn-primary btn-sm">Nuevo</a>			
-		</div>
+	<div class="container mt-4">		
+		<a href="/career/new" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">Nuevo</a>	
 		<div>
 			<table class="table table-striped caption-top">
 				<caption>Carreras</caption>

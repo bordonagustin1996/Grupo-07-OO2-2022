@@ -1,9 +1,12 @@
 package com.unla.Grupo07OO22022.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class BuildingModel {
 
 	private int id;
 	
+	@NotBlank
 	private String name;
 	
 	public BuildingModel () {}

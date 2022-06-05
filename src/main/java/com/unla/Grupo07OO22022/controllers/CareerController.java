@@ -38,15 +38,15 @@ public class CareerController {
 	@GetMapping("")
 	public ModelAndView index(){
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CAREER_INDEX);	
-		mAV.addObject("careers", this.careerService.findByEnabled(true));
+		mAV.addObject("careers", careerService.findByEnabled(true));
 		return mAV;
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CAREER_UPDATE);
-		mAV.addObject("career", this.careerService.findById(id));	
-		mAV.addObject("departments", this.departmentService.findByEnabled(true));
+		mAV.addObject("career", careerService.findById(id));	
+		mAV.addObject("departments", departmentService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -54,19 +54,19 @@ public class CareerController {
 	public ModelAndView create() {		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CAREER_NEW);
 		mAV.addObject("career", new CareerModel());
-		mAV.addObject("departments", this.departmentService.findByEnabled(true));
+		mAV.addObject("departments", departmentService.findByEnabled(true));
 		return mAV;
 	}
 
 	@PostMapping("/create")
-	public ModelAndView create(@Valid @ModelAttribute("career") CareerModel careerModel, BindingResult result) {
+	public ModelAndView create(@Valid @ModelAttribute("career") CareerModel careerModel, BindingResult bindingResult) {
 		ModelAndView mAV = new ModelAndView();
-		if(result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.CAREER_NEW);
 			mAV.addObject("career", careerModel);
 			mAV.addObject("departments", departmentService.findByEnabled(true));
-		}else {
-			this.careerService.insertOrUpdate(this.modelMapper.map(careerModel, Career.class));					
+		} else {
+			careerService.insertOrUpdate(modelMapper.map(careerModel, Career.class));
 			mAV.setViewName("redirect:/career");
 		}
 		return mAV;
@@ -74,21 +74,20 @@ public class CareerController {
 	
 	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {		
-		this.careerService.remove(id);
+		careerService.remove(id);
 		return new RedirectView(ViewRouteHelper.CAREER_ROOT);
 	}
 	
 	@PostMapping("/update")
-	public ModelAndView update(@Valid @ModelAttribute("career") CareerModel careerModel, BindingResult result) {
+	public ModelAndView update(@Valid @ModelAttribute("career") CareerModel careerModel, BindingResult bindingResult) {
 		ModelAndView mAV = new ModelAndView();
-		Career career = modelMapper.map(careerModel, Career.class);
-		if(result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.CAREER_UPDATE);
 			mAV.addObject("career", careerModel);
 			mAV.addObject("departments", departmentService.findByEnabled(true));
-		}else {			
-			this.careerService.insertOrUpdate(career);				
+		} else {
 			mAV.setViewName("redirect:/career");
+			careerService.insertOrUpdate(modelMapper.map(careerModel, Career.class));
 		}
 		return mAV;
 	}

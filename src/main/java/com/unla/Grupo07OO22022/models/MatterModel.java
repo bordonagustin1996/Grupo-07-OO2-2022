@@ -8,7 +8,7 @@ public class MatterModel {
 	
 	private int id;
 	
-	@NotBlank(message = "El nombre es requerido") 
+	@NotBlank 
 	private String name;
 	
 	private Career career;

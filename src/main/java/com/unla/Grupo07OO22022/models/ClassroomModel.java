@@ -1,11 +1,14 @@
 package com.unla.Grupo07OO22022.models;
 
+import javax.validation.constraints.Min;
+
 import com.unla.Grupo07OO22022.entities.Building;
 
 public class ClassroomModel {
 	
 	private int id;
 	
+	@Min(1)
 	private int number;
 	
 	private Building building;

@@ -31,8 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         		"/user-role/new", "/user-role/delete/**",
         		"/matter/new", "/matter/delete/**",
         		"/department/new", "/department/delete/**",
-        		"/career/new", "/career/delete/**",
-        		"/order-note/new-final", "/order-note/new-course", "/order-note/delete/final/**", "/order-note/delete/course/**",
+        		"/career/new", "/career/delete/**",        		
         		"/classroom/new-laboratory", "/classroom/new-traditional", "/classroom/delete/{id}",
         		"/space/new", "/space/add/form-by-dates", "/space/delete/**",
         		"/building/new", "/building/delete/**").hasAnyAuthority("ADMINISTRADOR")

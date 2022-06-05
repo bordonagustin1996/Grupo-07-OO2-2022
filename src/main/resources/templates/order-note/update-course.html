@@ -90,8 +90,9 @@
 							</div>
 						</div>
 						<div class="card-footer">
-							<input type="submit" value="Actualizar" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
-							<input type="submit" value="Confirmar" class="btn btn-success"	th:formaction="'/order-note/confirm-course'">
+							<input type="submit" value="Actualizar" class="btn btn-primary">
+							<input type="submit" value="Confirmar" class="btn btn-success"	th:formaction="'/order-note/confirm-course'" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+							<a th:href="@{/order-note/course}" class="float-right btn btn-secondary">Volver</a>
 							<input th:if="${orderNote.confirmed}" type="submit" value="Espacios" class="btn btn-primary" th:formaction="'/order-note/course-get-space'">
 						</div>
 					</div>

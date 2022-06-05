@@ -7,7 +7,7 @@
 <body>
 	<nav th:replace="fragments/navbar :: navbar"></nav>
 	<div class="container mt-4">
-		<div sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+		<div>
 			<a href="/order-note/new-final" class="btn btn-primary">Nuevo</a>
 		</div>
 		<div>
@@ -50,7 +50,7 @@
 						</td>						
 						<td>
 							<a th:href="@{/order-note/final/{id}(id=${order.id})}" class="btn btn-primary">Ver</a>
-							<a sec:authorize="hasAnyAuthority('ADMINISTRADOR')" th:href="@{/order-note/delete/{id}(id=${order.id})}" class="btn btn-danger">Eliminar</a>							
+							<a th:href="@{/order-note/delete/{id}(id=${order.id})}" class="btn btn-danger">Eliminar</a>							
 						</td>
 					</tr>
 				</tbody>

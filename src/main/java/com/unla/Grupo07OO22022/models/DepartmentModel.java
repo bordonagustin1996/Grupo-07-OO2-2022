@@ -6,18 +6,10 @@ public class DepartmentModel {
 
 	private int id;
 	
-	@NotBlank(message = "El nombre es requerido")
+	@NotBlank
 	private String name;
 
-	public DepartmentModel() {
-		super();
-	}
-
-	public DepartmentModel(int id, String name) {
-		super();
-		setId(id);
-		this.name = name;
-	}
+	public DepartmentModel() {}
 	
 	public int getId() {
 		return id;
@@ -33,7 +25,6 @@ public class DepartmentModel {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-	
+	}	
 	
 }

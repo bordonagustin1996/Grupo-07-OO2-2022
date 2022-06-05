@@ -23,7 +23,7 @@
 							<div class="form-group mb-3">
 								<label>Fecha de fin</label>
 								<input type="date" th:field="*{endDate}" class="form-control" required>
-								<small th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="form-text text-danger">
+								<small th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="form-text text-danger"/>
 							</div>
 						</div>
 						<div class="card-footer">

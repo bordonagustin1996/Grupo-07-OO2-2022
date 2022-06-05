@@ -59,12 +59,12 @@
 									</select>
 								</div>
 								<div th:if="${#fields.hasErrors('global')}">							
-									<small th:each="err : ${#fields.errors('global')}" th:text="${err}" class="form-text text-danger"/>
+									<small th:each="error : ${#fields.errors('global')}" th:text="${error}" class="form-text text-danger"/>
 								</div>
 							</div>
-							
-							<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+							<div class="card-footer">
 								<input type="submit" value="Crear" class="btn btn-primary">
+								<a th:href="@{/user}" class="float-right btn btn-secondary">Volver</a>
 							</div>
 						</div>
 					</form>

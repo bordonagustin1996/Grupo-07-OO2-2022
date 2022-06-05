@@ -23,8 +23,9 @@
 									<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
 								</div>
 							</div>
-							<div class="card-footer" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+							<div class="card-footer">
 								<input type="submit" value="Crear" class="btn btn-primary">
+								<a th:href="@{/user-role}" class="float-right btn btn-secondary">Volver</a>
 							</div>
 						</div>
 					</form>

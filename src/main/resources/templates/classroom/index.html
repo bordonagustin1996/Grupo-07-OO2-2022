@@ -7,7 +7,7 @@
 	<body>
 		<nav th:replace="fragments/navbar :: navbar"></nav>
 		<div class="container mt-4">
-			<div class="btn-group">
+			<div class="btn-group" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 				<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Nuevo</button>
 				<ul class="dropdown-menu">
 					<li><a class="dropdown-item" href="/classroom/new-laboratory">Laboratorio</a></li>

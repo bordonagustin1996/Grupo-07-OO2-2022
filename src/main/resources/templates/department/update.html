@@ -11,7 +11,7 @@
 		<div class="row d-flex justify-content-center">
 			<div class="col-sm-6">
 				<form action="#" th:action="@{/department/update}" th:object="${department}" method="post">
-					<div class="card">
+					<div clas"card">
 						<div class="card-header">
 							<h3>Departamento</h3>
 						</div>
@@ -22,7 +22,7 @@
 								<input type="text" th:field="*{name}" class="form-control">
 								<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
 							</div>
-						</div>						
+						</div>
 						<div class="card-footer">
 							<input type="submit" value="Editar" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
 							<a th:href="@{/department}" class="float-right btn btn-secondary">Volver</a>

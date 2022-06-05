@@ -12,10 +12,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "department")
-@SQLDelete(sql = "UPDATE Department SET enabled = false WHERE id=?")
+@SQLDelete(sql = "UPDATE Department SET enabled = false WHERE id = ?")
+@Where(clause = "enabled = true")
 public class Department {
 	
 	@Id

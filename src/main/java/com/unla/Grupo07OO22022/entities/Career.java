@@ -29,14 +29,14 @@ public class Career {
 
 	@Column(name = "name")
 	private String name;
-
-	@Column(name = "enabled")
-	private boolean enabled = true;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "department_id", nullable = false)
 	private Department department;
 
+	@Column(name = "enabled")
+	private boolean enabled = true;
+	
 	@Column(name = "created_at")
 	@CreationTimestamp
 	private LocalDateTime createdAt;

@@ -16,11 +16,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "space")
 @SQLDelete(sql = "UPDATE space SET enabled = false WHERE id = ?")
+@Where(clause = "enabled = true")
 public class Space {
 
 	@Id
@@ -41,6 +43,10 @@ public class Space {
 	@Column(name = "free")
 	private boolean free = true;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "order_note_id")
+	private OrderNote orderNote;
+	
 	@Column(name = "enabled")
 	private boolean enabled = true;
 	
@@ -51,10 +57,6 @@ public class Space {
 	@Column(name = "updated_at")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ordernote_id")
-	private OrderNote orderNote;
 	
 	public Space() {}
 
@@ -104,6 +106,14 @@ public class Space {
 		this.free = free;
 	}
 
+	public OrderNote getOrderNote() {
+		return orderNote;
+	}
+
+	public void setOrderNote(OrderNote orderNote) {
+		this.orderNote = orderNote;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -126,14 +136,6 @@ public class Space {
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	public OrderNote getOrderNote() {
-		return orderNote;
-	}
-
-	public void setOrderNote(OrderNote orderNote) {
-		this.orderNote = orderNote;
 	}
 
 }

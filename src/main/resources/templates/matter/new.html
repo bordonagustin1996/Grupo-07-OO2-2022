@@ -19,6 +19,11 @@
 						<div class="card-body">
 							<input type="hidden" th:field="*{id}">
 							<div class="form-group mb-3">
+								<label>Código</label>
+								<input type="number" th:field="*{code}" class="form-control" required>
+								<small class="form-text text-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"/>
+							</div>
+							<div class="form-group mb-3">
 								<label>Nombre</label>
 								<input type="text" th:field="*{name}" class="form-control">
 								<small class="form-text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>

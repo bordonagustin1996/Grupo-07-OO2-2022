@@ -17,11 +17,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "classroom")
 @Inheritance(strategy = InheritanceType.JOINED)
 @SQLDelete(sql = "UPDATE classroom SET enabled = false WHERE id = ?")
+@Where(clause = "enabled = true")
 public class Classroom {
 	
 	@Id

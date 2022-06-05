@@ -17,6 +17,7 @@
 				<div>
 					<thead>
 						<tr>
+							<th>Código</th>
 							<th>Nombre</th>
 							<th>Carrera</th>
 							<th>Acciones</th>
@@ -24,6 +25,9 @@
 					</thead>
 					<tbody>
 						<tr th:each="matter : ${matters}">
+							<td>
+								<span th:text="${matter.code}">
+							</td>
 							<td>
 								<span th:text="${matter.name}">
 							</td>

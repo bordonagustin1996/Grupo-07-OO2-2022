@@ -15,21 +15,28 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "career")
-@SQLDelete(sql = "UPDATE career SET enabled = false WHERE id=?")
+@SQLDelete(sql = "UPDATE career SET enabled = false WHERE id = ?")
+@Where(clause = "enabled = true")
 public class Career {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name = "name")
 	private String name;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "department_id", nullable = false)
+	private Department department;
 
 	@Column(name = "enabled")
 	private boolean enabled = true;
-
+	
 	@Column(name = "created_at")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -37,10 +44,6 @@ public class Career {
 	@Column(name = "updated_at")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "department_id")
-	private Department department;
 
 	public Career() {}
 
@@ -52,14 +55,6 @@ public class Career {
 		this.id = id;
 	}
 
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -68,6 +63,14 @@ public class Career {
 		this.name = name;
 	}
 
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	
 	public boolean isEnabled() {
 		return enabled;
 	}

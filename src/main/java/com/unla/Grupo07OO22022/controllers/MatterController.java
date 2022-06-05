@@ -39,15 +39,15 @@ public class MatterController {
 	@GetMapping("")
 	public ModelAndView index(){
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_INDEX);		
-		mAV.addObject("matters", this.matterService.findByEnabled(true));
+		mAV.addObject("matters", matterService.findByEnabled(true));
 		return mAV;
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_UPDATE);
-		mAV.addObject("matter", this.matterService.findById(id));	
-		mAV.addObject("careers", this.careerService.findByEnabled(true));
+		mAV.addObject("matter", matterService.findById(id));	
+		mAV.addObject("careers", careerService.findByEnabled(true));
 		return mAV;
 	}
 	
@@ -55,41 +55,40 @@ public class MatterController {
 	public ModelAndView create() {		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_NEW);
 		mAV.addObject("matter", new MatterModel());	
-		mAV.addObject("careers", this.careerService.findByEnabled(true));
+		mAV.addObject("careers", careerService.findByEnabled(true));
 		return mAV;
 	}
 	
 	@PostMapping("/create")
-	public ModelAndView create(@Valid @ModelAttribute("matter") MatterModel matterModel, BindingResult result) {
+	public ModelAndView create(@Valid @ModelAttribute("matter") MatterModel matterModel, BindingResult bindingResult) {
 		ModelAndView mAV = new ModelAndView();
-		if(result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.MATTER_NEW);
 			mAV.addObject("matter", matterModel);
 			mAV.addObject("careers", careerService.findByEnabled(true));
-		}else {
-			this.matterService.insertOrUpdate(this.modelMapper.map(matterModel, Matter.class));					
+		} else {
 			mAV.setViewName("redirect:/matter");
+			matterService.insertOrUpdate(modelMapper.map(matterModel, Matter.class));
 		}
 		return mAV;
 	}
 	
 	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {		
-		this.matterService.remove(id);
+		matterService.remove(id);
 		return new RedirectView(ViewRouteHelper.MATTER_ROOT);
 	}
 		
 	@PostMapping("/update")
-	public ModelAndView update(@Valid @ModelAttribute("matter") MatterModel matterModel, BindingResult result) {
+	public ModelAndView update(@Valid @ModelAttribute("matter") MatterModel matterModel, BindingResult bindingResult) {
 		ModelAndView mAV = new ModelAndView();
-		Matter matter = modelMapper.map(matterModel, Matter.class);
-		if(result.hasErrors()) {
-			mAV.setViewName(ViewRouteHelper.CAREER_UPDATE);
-			mAV.addObject("career", matterModel);
+		if (bindingResult.hasErrors()) {
+			mAV.setViewName(ViewRouteHelper.MATTER_UPDATE);
+			mAV.addObject("matter", matterModel);
 			mAV.addObject("careers", careerService.findByEnabled(true));
-		}else {			
-			this.matterService.insertOrUpdate(matter);				
+		} else {
 			mAV.setViewName("redirect:/matter");
+			matterService.insertOrUpdate(modelMapper.map(matterModel, Matter.class));
 		}
 		return mAV;
 	}

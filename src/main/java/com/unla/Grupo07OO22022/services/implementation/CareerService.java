@@ -33,11 +33,6 @@ public class CareerService implements ICareerService{
 	}
 
 	@Override
-	public List<Career> findByEnabled(boolean enabled) {
-		return careerRepository.findByEnabled(enabled);
-	}
-
-	@Override
 	public CareerModel insertOrUpdate(Career careerParam) {
 		Career newCareer = careerRepository.save(careerParam);
 		return modelMapper.map(newCareer,CareerModel.class );
@@ -45,11 +40,9 @@ public class CareerService implements ICareerService{
 
 	@Override
 	public boolean remove(int id) {
-		try {
-			
+		try {			
 			careerRepository.deleteById(id);
-		return true;
-		
+		return true;		
 		}catch(Exception e) {
 			return false;
 		}

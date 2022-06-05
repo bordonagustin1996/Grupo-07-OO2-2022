@@ -32,11 +32,6 @@ public class UserRoleService implements IUserRoleService {
 	}
 	
 	@Override
-	public List<UserRole> findByEnabled(boolean enabled) {
-		return userRoleRepository.findByEnabled(enabled);
-	}
-
-	@Override
 	public UserRoleModel insertOrUpdate(UserRole userRole) {
 		UserRole userRoleNew = userRoleRepository.save(userRole);
 		return modelMapper.map(userRoleNew, UserRoleModel.class);

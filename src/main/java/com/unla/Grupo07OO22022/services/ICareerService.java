@@ -10,9 +10,7 @@ public interface ICareerService {
     public List<Career> getAll();
 	
 	public Career findById(int id);
-	
-	public List<Career> findByEnabled(boolean enabled);
-	
+		
 	public CareerModel insertOrUpdate(Career career);
 	
 	public boolean remove(int id);

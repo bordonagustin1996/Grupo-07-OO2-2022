@@ -11,8 +11,6 @@ public interface IUserRoleService {
 	
 	public UserRole findById(int id);
 	
-	public List<UserRole> findByEnabled(boolean enabled);
-	
 	public UserRoleModel insertOrUpdate(UserRole userRole);
 	
 	public boolean remove(int id);

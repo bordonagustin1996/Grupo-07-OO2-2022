@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +44,7 @@ public class UserRoleController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_ROLE_INDEX);
-		mAV.addObject("userRoles", userRoleService.findByEnabled(true));
+		mAV.addObject("userRoles", userRoleService.getAll());
 		return mAV;
 	}
 	
@@ -77,12 +78,12 @@ public class UserRoleController {
 	@GetMapping("/export/pdf")
     public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date(0));         
+        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        String currentDateTime = dateFormatter.format(Date.valueOf(LocalDate.now()));         
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=roles_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);         
-        List<UserRole> userRoles = userRoleService.findByEnabled(true);
+        List<UserRole> userRoles = userRoleService.getAll();
         UserRolePDFExporter exporter = new UserRolePDFExporter(userRoles);
         exporter.export(response);         
     }

@@ -9,16 +9,12 @@ public interface IDepartmentService {
 	
     public List<Department> getAll();
 	
-	public Department findById(int id);
-	
-	public List<Department> findByEnabled(boolean enabled);
+	public Department findById(int id);	
 	
 	public DepartmentModel insertOrUpdate(Department department);
 	
 	public Department findByName(String name);
 	
 	public boolean remove(int id);
-
-	public Department findByNameAndEnabled(String name);
-
+	
 }

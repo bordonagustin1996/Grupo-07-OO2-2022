@@ -32,11 +32,6 @@ public class MatterService implements IMatterService{
 	}
 
 	@Override
-	public List<Matter> findByEnabled(boolean enabled) {		
-		return matterRepository.findByEnabled(enabled);
-	}
-
-	@Override
 	public MatterModel insertOrUpdate(Matter matter) {
 		Matter matterNew = matterRepository.save(matter);
 		return modelMapper.map(matterNew, MatterModel.class);

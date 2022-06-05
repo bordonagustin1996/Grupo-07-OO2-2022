@@ -39,7 +39,7 @@ public class MatterController {
 	@GetMapping("")
 	public ModelAndView index(){
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_INDEX);		
-		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("matters", matterService.getAll());
 		return mAV;
 	}
 	
@@ -47,7 +47,7 @@ public class MatterController {
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_UPDATE);
 		mAV.addObject("matter", matterService.findById(id));	
-		mAV.addObject("careers", careerService.findByEnabled(true));
+		mAV.addObject("careers", careerService.getAll());
 		return mAV;
 	}
 	
@@ -55,7 +55,7 @@ public class MatterController {
 	public ModelAndView create() {		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.MATTER_NEW);
 		mAV.addObject("matter", new MatterModel());	
-		mAV.addObject("careers", careerService.findByEnabled(true));
+		mAV.addObject("careers", careerService.getAll());
 		return mAV;
 	}
 	
@@ -65,7 +65,7 @@ public class MatterController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.MATTER_NEW);
 			mAV.addObject("matter", matterModel);
-			mAV.addObject("careers", careerService.findByEnabled(true));
+			mAV.addObject("careers", careerService.getAll());
 		} else {
 			mAV.setViewName("redirect:/matter");
 			matterService.insertOrUpdate(modelMapper.map(matterModel, Matter.class));
@@ -85,7 +85,7 @@ public class MatterController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.MATTER_UPDATE);
 			mAV.addObject("matter", matterModel);
-			mAV.addObject("careers", careerService.findByEnabled(true));
+			mAV.addObject("careers", careerService.getAll());
 		} else {
 			mAV.setViewName("redirect:/matter");
 			matterService.insertOrUpdate(modelMapper.map(matterModel, Matter.class));

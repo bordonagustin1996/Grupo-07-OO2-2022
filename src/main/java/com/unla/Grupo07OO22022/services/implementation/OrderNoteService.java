@@ -47,9 +47,9 @@ public class OrderNoteService implements IOrderNoteService{
 	}
 
 	@Override
-	public List<OrderNote> findByEnabled(boolean enabled, boolean course) {
+	public List<OrderNote> getAll(boolean course) {
 		List<OrderNote> orders = new ArrayList<OrderNote>();
-		for(OrderNote o: orderNoteRepository.findByEnabled(enabled)) {
+		for(OrderNote o: orderNoteRepository.findAll()) {
 			if(o instanceof Course == course) {
 				orders.add(o);
 			}

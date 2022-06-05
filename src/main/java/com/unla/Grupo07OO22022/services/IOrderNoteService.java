@@ -15,7 +15,7 @@ public interface IOrderNoteService {
 	
 	public OrderNote findById(int id);	
 	 
-	public List<OrderNote> findByEnabled(boolean enabled, boolean course);
+	public List<OrderNote> getAll(boolean course);
 	
 	public OrderNoteModel insertOrUpdate(OrderNote orderNote);
 	

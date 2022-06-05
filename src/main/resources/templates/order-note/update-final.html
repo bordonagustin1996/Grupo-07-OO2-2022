@@ -30,9 +30,9 @@
 							</div>
 							<div class="form-group mb-3">
 								<label>Cantidad de estudiantes</label>
-								<input type="text" th:field="*{numStudents}" class="form-control">
-								<p class="form-text text-danger" th:if="${#fields.hasErrors('numStudents')}"
-									th:errors"*{numStudents}">Cantidad mayor a 0</p>
+								<input type="text" th:field="*{numberStudents}" class="form-control">
+								<p class="form-text text-danger" th:if="${#fields.hasErrors('numberStudents')}"
+									th:errors"*{numberStudents}">Cantidad mayor a 0</p>
 							</div>
 							<div class="form-group mb-3">
 								<label>Fecha de examen</label>
@@ -60,7 +60,7 @@
 							</div>
 							<div class="form-group mb-3">
 								<label>Observaciones</label>
-								<textarea class="form-control" rows="5" name="observations"	placeholder="Observaciones" th:field="${orderNote.observations}" required></textarea>
+								<textarea class="form-control" rows="5" name="observations"	placeholder="Observaciones" th:field="${orderNote.observations}"></textarea>
 							</div>
 							<div class="mb-3 form-check">
 								<input type="checkbox" th:field="*{confirmed}" class="form-check-input" disabled>

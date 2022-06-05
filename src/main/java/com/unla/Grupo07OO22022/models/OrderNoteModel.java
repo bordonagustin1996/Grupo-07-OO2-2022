@@ -20,7 +20,7 @@ public class OrderNoteModel {
 	private char turn;  
 	
 	@Min(1)
-	private int numStudents;
+	private int numberStudents;
 	
 	private Matter matter;
 	
@@ -58,12 +58,12 @@ public class OrderNoteModel {
 		this.turn = turn;
 	}
 
-	public int getNumStudents() {
-		return numStudents;
+	public int getNumberStudents() {
+		return numberStudents;
 	}
 
-	public void setNumStudents(int numStudents) {
-		this.numStudents = numStudents;
+	public void setNumberStudents(int numberStudents) {
+		this.numberStudents = numberStudents;
 	}
 
 	public Matter getMatter() {

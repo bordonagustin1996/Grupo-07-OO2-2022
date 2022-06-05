@@ -34,7 +34,7 @@ public class DepartmentController {
 	@GetMapping("")
 	public ModelAndView index(){
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.DEPARTMENT_INDEX);		
-		mAV.addObject("departments", departmentService.findByEnabled(true));
+		mAV.addObject("departments", departmentService.getAll());
 		return mAV;
 	}
 	

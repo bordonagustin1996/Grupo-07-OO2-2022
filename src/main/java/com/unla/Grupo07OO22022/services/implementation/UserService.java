@@ -17,24 +17,28 @@ import com.unla.Grupo07OO22022.entities.User;
 import com.unla.Grupo07OO22022.entities.UserRole;
 import com.unla.Grupo07OO22022.models.UserModel;
 import com.unla.Grupo07OO22022.repositories.IUserRepository;
+import com.unla.Grupo07OO22022.services.IUserService;
 
 @Service("userService")
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService, IUserService {
 
 	@Autowired
 	@Qualifier("userRepository")
 	private IUserRepository userRepository;
 
 	private ModelMapper modelMapper = new ModelMapper();
-
+	
+	@Override
 	public User findById(int id) {
 		return this.userRepository.findById(id);
 	}
-
+	
+	@Override
 	public User findByUsername(String userName) {
-		return this.userRepository.findByUsernameAndEnabled(userName, true);
+		return this.userRepository.findByUsername(userName);
 	}
 
+	@Override
 	public UserModel insertOrUpdate(User user) {
 		if (user.getId() > 0) {
 			if (user.getPassword().isBlank()) {
@@ -49,7 +53,8 @@ public class UserService implements UserDetailsService {
 		User userNew = this.userRepository.save(user);
 		return this.modelMapper.map(userNew, UserModel.class);
 	}
-
+	
+	@Override
 	public boolean remove(int id) {
 		try {
 			userRepository.deleteById(id);
@@ -58,13 +63,10 @@ public class UserService implements UserDetailsService {
 			return false;
 		}
 	}
-
+	
+	@Override
 	public List<User> getAll() {
 		return userRepository.findAll();
-	}
-
-	public List<User> findByEnabled(boolean enable) {
-		return userRepository.findByEnabled(enable);
 	}
 
 	private org.springframework.security.core.userdetails.User buildUser(User user, List<GrantedAuthority> grantedAuthorities) {
@@ -84,6 +86,11 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 		return buildUser(user, buildGrantedAuthorities(user.getUserRole()));
+	}
+
+	@Override
+	public User findByName(String name) {
+		return userRepository.findByName(name);
 	}
 
 }

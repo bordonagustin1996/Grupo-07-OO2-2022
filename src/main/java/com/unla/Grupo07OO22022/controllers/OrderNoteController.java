@@ -63,9 +63,9 @@ public class OrderNoteController {
 	@GetMapping("/final")
 	public ModelAndView indexFinal() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_INDEX);
-		mAV.addObject("orderNotes", orderNoteService.findByEnabled(true, false));
-		mAV.addObject("matters", matterService.findByEnabled(true));
-		mAV.addObject("users", userService.findByEnabled(true));
+		mAV.addObject("orderNotes", orderNoteService.getAll(false));
+		mAV.addObject("matters", matterService.getAll());
+		mAV.addObject("users", userService.getAll());
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		return mAV;
 	}
@@ -73,9 +73,9 @@ public class OrderNoteController {
 	@GetMapping("/course")
 	public ModelAndView indexCourse() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.COURSE_INDEX);
-		mAV.addObject("orderNotes", orderNoteService.findByEnabled(true, true));
-		mAV.addObject("matters", matterService.findByEnabled(true));
-		mAV.addObject("users", userService.findByEnabled(true));
+		mAV.addObject("orderNotes", orderNoteService.getAll(true));
+		mAV.addObject("matters", matterService.getAll());
+		mAV.addObject("users", userService.getAll());
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		return mAV;
 	}
@@ -84,7 +84,7 @@ public class OrderNoteController {
 	public ModelAndView getFinal(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_UPDATE);
 		mAV.addObject("orderNote", this.orderNoteService.findById(id));
-		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("matters", matterService.getAll());
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
@@ -95,7 +95,7 @@ public class OrderNoteController {
 	public ModelAndView getCourse(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.COURSE_UPDATE);
 		mAV.addObject("orderNote", this.orderNoteService.findById(id));
-		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("matters", matterService.getAll());
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
@@ -109,7 +109,7 @@ public class OrderNoteController {
 		if (bidingResul.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.COURSE_NEW);
 			mAV.addObject("orderNote", courseModel);
-			mAV.addObject("matters", matterService.findByEnabled(true));
+			mAV.addObject("matters", matterService.getAll());
 			mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		} else {
 			orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));
@@ -125,7 +125,7 @@ public class OrderNoteController {
 		if (bidingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.FINAL_NEW);
 			mAV.addObject("orderNote", finalModel);
-			mAV.addObject("matters", matterService.findByEnabled(true));
+			mAV.addObject("matters", matterService.getAll());
 			mAV.addObject("classrooms", classroomService.findByEnabled(true));
 			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			mAV.addObject("users", userService.findByUsername(user.getUsername()));
@@ -140,7 +140,7 @@ public class OrderNoteController {
 	public ModelAndView createFinal() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_NEW);
 		mAV.addObject("orderNote", new FinalModel());
-		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("matters", matterService.getAll());
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
@@ -153,7 +153,7 @@ public class OrderNoteController {
 		CourseModel course = new CourseModel();
 		course.setDate(LocalDate.now());
 		mAV.addObject("orderNote", course);
-		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("matters", matterService.getAll());
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		mAV.addObject("users", userService.findByUsername(user.getUsername()));
@@ -175,9 +175,9 @@ public class OrderNoteController {
 	public ModelAndView confirm(@ModelAttribute("orderNote") FinalModel finalModel, BindingResult result) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.FINAL_UPDATE);
 		mAV.addObject("orderNote", finalModel);
-		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("matters", matterService.getAll());
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
-		mAV.addObject("users", userService.findByEnabled(true));
+		mAV.addObject("users", userService.getAll());
 		Space space = spaceService.findByDateAndTurnAndClassroomAndFree(finalModel.getExamDate(), finalModel.getTurn(),
 				finalModel.getClassroom(), true);
 		if (space == null) {
@@ -197,9 +197,9 @@ public class OrderNoteController {
 	public ModelAndView confirm(@ModelAttribute("orderNote") CourseModel courseModel, BindingResult result) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.COURSE_UPDATE);
 		mAV.addObject("orderNote", courseModel);
-		mAV.addObject("matters", matterService.findByEnabled(true));
+		mAV.addObject("matters", matterService.getAll());
 		mAV.addObject("classrooms", classroomService.findByEnabled(true));
-		mAV.addObject("users", userService.findByEnabled(true));
+		mAV.addObject("users", userService.getAll());
 		List<Space> spaces = spaceService.getSpace(courseModel.getStartDate(), courseModel.getClassroom(),
 				courseModel.getTurn(), courseModel.getFtfPercentage(), courseModel.isEvenWeek());
 		if ((spaces.size() < 15 && courseModel.getFtfPercentage() == 100)
@@ -236,8 +236,8 @@ public class OrderNoteController {
 			mAV.setViewName(ViewRouteHelper.FINAL_UPDATE);
 			mAV.addObject("orderNote", finalModel);
 			mAV.addObject("classrooms", classroomService.findByEnabled(true));
-			mAV.addObject("matters", matterService.findByEnabled(true));		
-			mAV.addObject("users", userService.findByEnabled(true));
+			mAV.addObject("matters", matterService.getAll());		
+			mAV.addObject("users", userService.getAll());
 		} else {
 			orderNoteService.insertOrUpdate(modelMapper.map(finalModel, Final.class));
 			mAV.setViewName("redirect:/order-note/final");
@@ -252,8 +252,8 @@ public class OrderNoteController {
 			mAV.setViewName(ViewRouteHelper.COURSE_UPDATE);
 			mAV.addObject("orderNote", courseModel);
 			mAV.addObject("classrooms", classroomService.findByEnabled(true));
-			mAV.addObject("matters", matterService.findByEnabled(true));		
-			mAV.addObject("users", userService.findByEnabled(true));
+			mAV.addObject("matters", matterService.getAll());		
+			mAV.addObject("users", userService.getAll());
 		} else {
 			orderNoteService.insertOrUpdate(modelMapper.map(courseModel, Course.class));
 			mAV.setViewName("redirect:/order-note/course");

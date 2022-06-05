@@ -10,8 +10,6 @@ public interface IMatterService {
 	public List<Matter> getAll();
 	
 	public Matter findById(int id);
-	
-	public List<Matter> findByEnabled(boolean enabled);
 
 	public MatterModel insertOrUpdate(Matter matter);
 	

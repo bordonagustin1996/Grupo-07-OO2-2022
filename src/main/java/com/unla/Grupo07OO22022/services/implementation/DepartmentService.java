@@ -32,11 +32,6 @@ public class DepartmentService implements IDepartmentService{
 	}
 
 	@Override
-	public List<Department> findByEnabled(boolean enabled) {
-		return departmentRepository.findByEnabled(enabled);
-	}
-
-	@Override
 	public DepartmentModel insertOrUpdate(Department departmentParam) {
 		Department nuevoDepartment = departmentRepository.save(departmentParam);
 		return modelMapper.map(nuevoDepartment, DepartmentModel.class );
@@ -52,11 +47,6 @@ public class DepartmentService implements IDepartmentService{
 		}catch(Exception e) {
 			return false;
 		}
-	}
-
-	@Override
-	public Department findByNameAndEnabled(String name) {
-		return departmentRepository.findByNameAndEnabled(name, true);
 	}
 
 	@Override

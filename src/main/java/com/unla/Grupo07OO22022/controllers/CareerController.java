@@ -38,7 +38,7 @@ public class CareerController {
 	@GetMapping("")
 	public ModelAndView index(){
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CAREER_INDEX);	
-		mAV.addObject("careers", careerService.findByEnabled(true));
+		mAV.addObject("careers", careerService.getAll());
 		return mAV;
 	}
 	
@@ -46,7 +46,7 @@ public class CareerController {
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CAREER_UPDATE);
 		mAV.addObject("career", careerService.findById(id));	
-		mAV.addObject("departments", departmentService.findByEnabled(true));
+		mAV.addObject("departments", departmentService.getAll());
 		return mAV;
 	}
 	
@@ -54,7 +54,7 @@ public class CareerController {
 	public ModelAndView create() {		
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CAREER_NEW);
 		mAV.addObject("career", new CareerModel());
-		mAV.addObject("departments", departmentService.findByEnabled(true));
+		mAV.addObject("departments", departmentService.getAll());
 		return mAV;
 	}
 
@@ -64,7 +64,7 @@ public class CareerController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.CAREER_NEW);
 			mAV.addObject("career", careerModel);
-			mAV.addObject("departments", departmentService.findByEnabled(true));
+			mAV.addObject("departments", departmentService.getAll());
 		} else {
 			careerService.insertOrUpdate(modelMapper.map(careerModel, Career.class));
 			mAV.setViewName("redirect:/career");
@@ -84,7 +84,7 @@ public class CareerController {
 		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.CAREER_UPDATE);
 			mAV.addObject("career", careerModel);
-			mAV.addObject("departments", departmentService.findByEnabled(true));
+			mAV.addObject("departments", departmentService.getAll());
 		} else {
 			mAV.setViewName("redirect:/career");
 			careerService.insertOrUpdate(modelMapper.map(careerModel, Career.class));

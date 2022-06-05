@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class UserController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView("user/index");		
-		mAV.addObject("users", this.userService.findByEnabled(true));
+		mAV.addObject("users", this.userService.getAll());
 		return mAV;
 	}
 	
@@ -63,7 +64,7 @@ public class UserController {
 	public ModelAndView get(@PathVariable("id") int id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_UPDATE);
 		mAV.addObject("user", this.userService.findById(id));
-		mAV.addObject("userRoles", userRoleService.findByEnabled(true));
+		mAV.addObject("userRoles", userRoleService.getAll());
 		return mAV;
 	}
 	
@@ -71,7 +72,7 @@ public class UserController {
 	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.USER_NEW);
 		mAV.addObject("user", new UserModel());
-		mAV.addObject("userRoles", userRoleService.findByEnabled(true));
+		mAV.addObject("userRoles", userRoleService.getAll());
 		return mAV;
 	}
 	
@@ -84,7 +85,7 @@ public class UserController {
 		if(result.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.USER_NEW);
 			mAV.addObject("user", userModel);
-			mAV.addObject("userRoles", userRoleService.findByEnabled(true));
+			mAV.addObject("userRoles", userRoleService.getAll());
 		}else {
 			this.userService.insertOrUpdate(this.modelMapper.map(userModel, User.class));					
 			mAV.setViewName("redirect:/user");
@@ -101,12 +102,12 @@ public class UserController {
 	@GetMapping("/export/pdf")
     public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        String currentDateTime = dateFormatter.format(new Date(0));         
+        DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        String currentDateTime = dateFormatter.format(Date.valueOf(LocalDate.now()));         
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=usuarios_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);         
-        List<User> users = userService.findByEnabled(true);
+        List<User> users = userService.getAll();
         UserPDFExporter exporter = new UserPDFExporter(users);
         exporter.export(response);         
     }
@@ -121,7 +122,7 @@ public class UserController {
 		if(result.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.USER_UPDATE);
 			mAV.addObject("user", userModel);
-			mAV.addObject("userRoles", userRoleService.findByEnabled(true));
+			mAV.addObject("userRoles", userRoleService.getAll());
 		}else {			
 			this.userService.insertOrUpdate(user);				
 			mAV.setViewName("redirect:/user");

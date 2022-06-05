@@ -13,8 +13,6 @@ public interface ISpaceService {
 	public List<Space> getAll();
 	
 	public Space findById(int id);
-	
-	public List<Space> findByEnabled(boolean enabled);
 
 	public SpaceModel insertOrUpdate(Space space);
 	

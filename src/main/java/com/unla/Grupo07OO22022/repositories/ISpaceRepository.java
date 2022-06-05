@@ -15,12 +15,10 @@ public interface ISpaceRepository extends JpaRepository<Space, Integer>{
 
 	public abstract Space findById(int id);
 	
-	public abstract List<Space> findByEnabled(boolean enabled);
+	public abstract Space findByDateAndTurnAndClassroom(LocalDate date, char turn, Classroom classroom);
 	
-	public abstract Space findByDateAndTurnAndClassroomAndEnabled(LocalDate date, char turn, Classroom classroom, boolean enabled);
+	public abstract Space findByDateAndTurnAndClassroomAndFree(LocalDate date, char turn, Classroom classroom, boolean free);
 	
-	public abstract Space findByDateAndTurnAndClassroomAndFreeAndEnabled(LocalDate date, char turn, Classroom classroom,boolean free, boolean enabled);
-	
-	public abstract List<Space> findByOrderNoteAndEnabledOrderByDateAsc(OrderNote ordernote, boolean enabled);
+	public abstract List<Space> findByOrderNoteOrderByDateAsc(OrderNote ordernote);
 	
 }

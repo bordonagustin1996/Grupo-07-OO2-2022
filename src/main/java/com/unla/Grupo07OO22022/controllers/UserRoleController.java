@@ -111,4 +111,5 @@ public class UserRoleController {
 		userRoleService.remove(id);
 		return new RedirectView(ViewRouteHelper.USER_ROLE_ROOT);
 	}
+	
 }

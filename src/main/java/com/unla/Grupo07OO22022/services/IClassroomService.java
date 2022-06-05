@@ -11,11 +11,11 @@ import com.unla.Grupo07OO22022.models.TraditionalModel;
 
 public interface IClassroomService {
 	
+	public List<Classroom> getAll();
+	
 	public Classroom findById(int id);
 	
-	public List<Classroom> findByEnabled(boolean enabled);
-	
-	public List<Classroom> findByBuildingAndEnabled(Building building, boolean enabled);
+	public List<Classroom> findByBuilding(Building building);
 	
 	public LaboratoryModel insertOrUpdate(Laboratory laboratory);
 	

@@ -37,6 +37,11 @@ public class UserService implements UserDetailsService, IUserService {
 	public User findByUsername(String userName) {
 		return this.userRepository.findByUsername(userName);
 	}
+	
+	@Override
+	public User findByName(String name) {
+		return userRepository.findByName(name);
+	}
 
 	@Override
 	public UserModel insertOrUpdate(User user) {
@@ -86,11 +91,6 @@ public class UserService implements UserDetailsService, IUserService {
             throw new UsernameNotFoundException(username);
         }
 		return buildUser(user, buildGrantedAuthorities(user.getUserRole()));
-	}
-
-	@Override
-	public User findByName(String name) {
-		return userRepository.findByName(name);
 	}
 
 }

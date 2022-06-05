@@ -38,7 +38,7 @@ public class BuildingController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.BUILDING_INDEX);
-		mAV.addObject("buildings", buildingService.findByEnabled(true));
+		mAV.addObject("buildings", buildingService.getAll());
 		return mAV;
 	}
 	
@@ -90,10 +90,10 @@ public class BuildingController {
 	
 	@GetMapping("/searchClasroom/{id}")
 	public ModelAndView buildingClasroom(@PathVariable("id") int id) {
-		Building building= buildingService.findById(id);
+		Building building = buildingService.findById(id);
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.BUILDING_CLASROOM);
-		mAV.addObject("classrooms",clasroomService.findByBuildingAndEnabled(building, true));
-		mAV.addObject("building",building);
+		mAV.addObject("classrooms", clasroomService.findByBuilding(building));
+		mAV.addObject("building", building);
 		return mAV;
 	}
 	

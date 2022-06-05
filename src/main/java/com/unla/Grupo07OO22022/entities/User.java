@@ -10,75 +10,61 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 @Entity
-@SQLDelete(sql = "UPDATE user SET enabled = false WHERE id=?")
+@Table(name = "user")
+@SQLDelete(sql = "UPDATE user SET enabled = false WHERE id = ?")
+@Where(clause = "enabled = true")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="name", nullable=false)
+
+	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@Column(name="surname")
+
+	@Column(name = "surname")
 	private String surname;
-	
-	@Column(name="document_type")
+
+	@Column(name = "document_type")
 	private String documentType;
-	
-	@Column(name="document_number")
+
+	@Column(name = "document_number")
 	private long documentNumber;
-	
-	@Column(name="email")
+
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name="username", unique=true, nullable=false, length=45)
+
+	@Column(name = "username", unique = true, nullable = false)
 	private String username;
+
+	@Column(name = "password", nullable = false)
+	private String password;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_role_id", nullable = false)
+	private UserRole userRole;
 	
-	@Column(name="password", nullable=false, length=100)
-	private String password;	
-	
-	@Column(name="enabled")
+	@Column(name = "enabled")
 	private boolean enabled = true;
-	
-	@Column(name="createdat")
+
+	@Column(name = "created_at")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
-	
-	@Column(name="updatedat")
+
+	@Column(name = "updated_at")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="user_role_id")
-	private UserRole userRole;
-	
 	public User() {}
-	
-	public User(String name, String surname, String documentType, long documentNumber, String email, String username, String password) {
-		this.name = name;
-		this.surname = surname;
-		this.documentType = documentType;
-		this.documentNumber = documentNumber;
-		this.email = email;
-		this.username = username;
-		this.password = password;		
-	}
-	
-	public UserRole getUserRole() {
-		return userRole;
-	}
 
-	public void setUserRole(UserRole userRole) {
-		this.userRole = userRole;
-	}
-	
 	public int getId() {
 		return id;
 	}
@@ -141,6 +127,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
 	}
 
 	public boolean isEnabled() {

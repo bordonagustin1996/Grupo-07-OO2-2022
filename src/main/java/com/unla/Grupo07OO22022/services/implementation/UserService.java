@@ -67,10 +67,8 @@ public class UserService implements UserDetailsService {
 		return userRepository.findByEnabled(enable);
 	}
 
-	private org.springframework.security.core.userdetails.User buildUser(User user,
-			List<GrantedAuthority> grantedAuthorities) {
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				grantedAuthorities);
+	private org.springframework.security.core.userdetails.User buildUser(User user, List<GrantedAuthority> grantedAuthorities) {
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
 	}
 
 	private List<GrantedAuthority> buildGrantedAuthorities(UserRole userRole) {
@@ -81,7 +79,10 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findByUsernameAndEnabled(username, true);
+		User user = userRepository.findByUsernameAndFetchRole(username);
+		if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
 		return buildUser(user, buildGrantedAuthorities(user.getUserRole()));
 	}
 

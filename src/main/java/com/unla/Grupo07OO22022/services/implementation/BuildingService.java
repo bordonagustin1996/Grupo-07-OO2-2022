@@ -33,6 +33,10 @@ public class BuildingService implements IBuildingService {
 
 	@Override
 	public BuildingModel insertOrUpdate(Building building) {
+		if(building.getId() > 0) {
+			Building buildingOld = buildingRepository.findById(building.getId());
+			building.setCreatedAt(buildingOld.getCreatedAt());
+		}
 		return modelMapper.map(buildingRepository.save(building), BuildingModel.class);
 	}
 

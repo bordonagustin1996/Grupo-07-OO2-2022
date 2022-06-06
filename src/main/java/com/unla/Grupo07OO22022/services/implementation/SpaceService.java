@@ -38,6 +38,10 @@ public class SpaceService implements ISpaceService {
 
 	@Override
 	public SpaceModel insertOrUpdate(Space space) {
+		if (space.getId() > 0) {
+			Space spaceOld = spaceRepository.findById(space.getId());
+			space.setCreatedAt(spaceOld.getCreatedAt());
+		}
 		return modelMapper.map(spaceRepository.save(space), SpaceModel.class);
 	}
 

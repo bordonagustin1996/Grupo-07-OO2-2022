@@ -41,11 +41,19 @@ public class ClassroomService implements IClassroomService {
 	
 	@Override
 	public LaboratoryModel insertOrUpdate(Laboratory laboratory) {
+		if(laboratory.getId() > 0) {
+			Laboratory laboratoryOld = (Laboratory) classroomRepository.findById(laboratory.getId());
+			laboratory.setCreatedAt(laboratoryOld.getCreatedAt());
+		}
 		return modelMapper.map(classroomRepository.save(laboratory), LaboratoryModel.class);
 	}
 	
 	@Override
 	public TraditionalModel insertOrUpdate(Traditional traditional) {
+		if(traditional.getId() > 0) {
+			Traditional traditionalOld = (Traditional) classroomRepository.findById(traditional.getId());
+			traditional.setCreatedAt(traditionalOld.getCreatedAt());
+		}
 		return modelMapper.map(classroomRepository.save(traditional), TraditionalModel.class);
 	}
 

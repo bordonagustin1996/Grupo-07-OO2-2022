@@ -33,8 +33,11 @@ public class MatterService implements IMatterService{
 
 	@Override
 	public MatterModel insertOrUpdate(Matter matter) {
-		Matter matterNew = matterRepository.save(matter);
-		return modelMapper.map(matterNew, MatterModel.class);
+		if(matter.getId() > 0) {
+			Matter matterOld = matterRepository.findById(matter.getId());
+			matter.setCreatedAt(matterOld.getCreatedAt());
+		}		
+		return modelMapper.map(matterRepository.save(matter), MatterModel.class);
 	}
 
 	@Override

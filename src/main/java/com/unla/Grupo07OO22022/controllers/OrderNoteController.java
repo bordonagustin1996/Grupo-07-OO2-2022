@@ -235,7 +235,7 @@ public class OrderNoteController {
 			mAV.addObject("classrooms", classroomService.getAll());
 		} else {
 			mAV.setViewName("redirect:/order-note/final");
-			orderNoteService.insertOrUpdate(modelMapper.map(finalModel, Final.class));
+			orderNoteService.insertOrUpdateFinal(modelMapper.map(finalModel, Final.class));
 		}
 		return mAV;
 	}
@@ -251,7 +251,7 @@ public class OrderNoteController {
 			mAV.addObject("classrooms", classroomService.getAll());
 		} else {
 			mAV.setViewName("redirect:/order-note/course");
-			orderNoteService.insertOrUpdate(modelMapper.map(courseModel, Course.class));
+			orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));
 		}
 		return mAV;
 	}

@@ -13,7 +13,6 @@ import com.unla.Grupo07OO22022.entities.Final;
 import com.unla.Grupo07OO22022.entities.OrderNote;
 import com.unla.Grupo07OO22022.models.CourseModel;
 import com.unla.Grupo07OO22022.models.FinalModel;
-import com.unla.Grupo07OO22022.models.OrderNoteModel;
 import com.unla.Grupo07OO22022.repositories.ICourseRepository;
 import com.unla.Grupo07OO22022.repositories.IFinalRepository;
 import com.unla.Grupo07OO22022.repositories.IOrderNoteRepository;
@@ -57,11 +56,11 @@ public class OrderNoteService implements IOrderNoteService{
 		return orders;
 	}
 
-	@Override
-	public OrderNoteModel insertOrUpdate(OrderNote orderNote) {
-		OrderNote orderNoteNew = orderNoteRepository.save(orderNote);
-		return modelMapper.map(orderNoteNew, OrderNoteModel.class);
-	}
+//	@Override
+//	public OrderNoteModel insertOrUpdate(OrderNote orderNote) {
+//		OrderNote orderNoteNew = orderNoteRepository.save(orderNote);
+//		return modelMapper.map(orderNoteNew, OrderNoteModel.class);
+//	}
 
 	@Override
 	public boolean remove(int id) {
@@ -71,18 +70,23 @@ public class OrderNoteService implements IOrderNoteService{
 		} catch (Exception e) {
 			return false;
 		}
-	}	
-	
+	}
 	
 	public CourseModel insertOrUpdateCourse(Course course) {
-		Course courseNew = courseRepository.save(course);
-		return modelMapper.map(courseNew, CourseModel.class);
+		if (course.getId() > 0) {
+			Course courseOld = (Course) courseRepository.getById(course.getId());
+			course.setCreatedAt(courseOld.getCreatedAt());
+		}
+		return modelMapper.map(courseRepository.save(course), CourseModel.class);
 	}
 	
 	
 	public FinalModel insertOrUpdateFinal(Final finalr) {
-		Final finalNew = finalRepository.save(finalr);
-		return modelMapper.map(finalNew, FinalModel.class);
+		if (finalr.getId() > 0) {
+			Final finalOld = (Final) finalRepository.findById(finalr.getId());
+			finalr.setCreatedAt(finalOld.getCreatedAt());
+		}
+		return modelMapper.map(finalRepository.save(finalr), FinalModel.class);
 	}
 	
 }

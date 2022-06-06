@@ -7,7 +7,6 @@ import com.unla.Grupo07OO22022.entities.Final;
 import com.unla.Grupo07OO22022.entities.OrderNote;
 import com.unla.Grupo07OO22022.models.CourseModel;
 import com.unla.Grupo07OO22022.models.FinalModel;
-import com.unla.Grupo07OO22022.models.OrderNoteModel;
 
 public interface IOrderNoteService {
 
@@ -17,7 +16,7 @@ public interface IOrderNoteService {
 	 
 	public List<OrderNote> getAll(boolean course);
 	
-	public OrderNoteModel insertOrUpdate(OrderNote orderNote);
+	//public OrderNoteModel insertOrUpdate(OrderNote orderNote);
 	
 	public CourseModel insertOrUpdateCourse(Course course);
 

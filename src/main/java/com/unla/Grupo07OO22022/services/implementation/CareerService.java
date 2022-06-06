@@ -33,9 +33,12 @@ public class CareerService implements ICareerService{
 	}
 
 	@Override
-	public CareerModel insertOrUpdate(Career careerParam) {
-		Career newCareer = careerRepository.save(careerParam);
-		return modelMapper.map(newCareer,CareerModel.class );
+	public CareerModel insertOrUpdate(Career career) {
+		if(career.getId() > 0) {
+			Career careerOld = careerRepository.findById(career.getId());
+			career.setCreatedAt(careerOld.getCreatedAt());
+		}		
+		return modelMapper.map(careerRepository.save(career), CareerModel.class );
 	}
 
 	@Override

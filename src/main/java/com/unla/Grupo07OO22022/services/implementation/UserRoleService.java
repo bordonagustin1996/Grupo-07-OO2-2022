@@ -33,8 +33,11 @@ public class UserRoleService implements IUserRoleService {
 	
 	@Override
 	public UserRoleModel insertOrUpdate(UserRole userRole) {
-		UserRole userRoleNew = userRoleRepository.save(userRole);
-		return modelMapper.map(userRoleNew, UserRoleModel.class);
+		if (userRole.getId() > 0) {
+			UserRole userRoleOld = userRoleRepository.findById(userRole.getId());
+			userRole.setCreatedAt(userRoleOld.getCreatedAt());
+		}
+		return modelMapper.map(userRoleRepository.save(userRole), UserRoleModel.class);
 	}
 
 	@Override

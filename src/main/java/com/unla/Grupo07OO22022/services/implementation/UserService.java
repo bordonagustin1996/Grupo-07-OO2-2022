@@ -30,12 +30,12 @@ public class UserService implements UserDetailsService, IUserService {
 	
 	@Override
 	public User findById(int id) {
-		return this.userRepository.findById(id);
+		return userRepository.findById(id);
 	}
 	
 	@Override
 	public User findByUsername(String userName) {
-		return this.userRepository.findByUsername(userName);
+		return userRepository.findByUsername(userName);
 	}
 	
 	@Override
@@ -46,17 +46,17 @@ public class UserService implements UserDetailsService, IUserService {
 	@Override
 	public UserModel insertOrUpdate(User user) {
 		if (user.getId() > 0) {
+			User userOld = userRepository.findById(user.getId());
 			if (user.getPassword().isBlank()) {
-				User userOld = userRepository.findById(user.getId());
 				user.setPassword(userOld.getPassword());
 			} else {
 				user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 			}
+			user.setCreatedAt(userOld.getCreatedAt());
 		} else {
 			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		}
-		User userNew = this.userRepository.save(user);
-		return this.modelMapper.map(userNew, UserModel.class);
+		return modelMapper.map(userRepository.save(user), UserModel.class);
 	}
 	
 	@Override

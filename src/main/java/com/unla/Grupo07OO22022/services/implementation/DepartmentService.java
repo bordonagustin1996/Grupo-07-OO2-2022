@@ -32,19 +32,20 @@ public class DepartmentService implements IDepartmentService{
 	}
 
 	@Override
-	public DepartmentModel insertOrUpdate(Department departmentParam) {
-		Department nuevoDepartment = departmentRepository.save(departmentParam);
-		return modelMapper.map(nuevoDepartment, DepartmentModel.class );
+	public DepartmentModel insertOrUpdate(Department department) {
+		if (department.getId() > 0) {
+			Department departmentOld = departmentRepository.findById(department.getId());
+			department.setCreatedAt(departmentOld.getCreatedAt());
+		}
+		return modelMapper.map(departmentRepository.save(department), DepartmentModel.class );
 	}
 
 	@Override
 	public boolean remove(int id) {
 		try {
-			
 			departmentRepository.deleteById(id);
-		return true;
-		
-		}catch(Exception e) {
+			return true;
+		} catch (Exception e) {
 			return false;
 		}
 	}

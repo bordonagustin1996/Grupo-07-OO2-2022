@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -56,14 +55,14 @@ public class UserRoleController {
 	}
 		
 	@PostMapping("/create")
-	public ModelAndView create(@Valid @ModelAttribute("userRole") UserRoleModel userRoleModel, BindingResult result) {
+	public ModelAndView create(@Valid @ModelAttribute("userRole") UserRoleModel userRoleModel, BindingResult bindingResult) {
 		ModelAndView mAV = new ModelAndView();
-		if(result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.USER_ROLE_NEW);
-			mAV.addObject("userRole", userRoleModel);			
-		}else {
-			this.userRoleService.insertOrUpdate(this.modelMapper.map(userRoleModel, UserRole.class));		
+			mAV.addObject("userRole", userRoleModel);
+		} else {
 			mAV.setViewName("redirect:/user-role");
+			userRoleService.insertOrUpdate(modelMapper.map(userRoleModel, UserRole.class));
 		}
 		return mAV;
 	}
@@ -83,28 +82,22 @@ public class UserRoleController {
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=roles_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);         
-        List<UserRole> userRoles = userRoleService.getAll();
-        UserRolePDFExporter exporter = new UserRolePDFExporter(userRoles);
+        UserRolePDFExporter exporter = new UserRolePDFExporter(userRoleService.getAll());
         exporter.export(response);         
     }
 	
 	@PostMapping("/update")
-	public ModelAndView update(@Valid @ModelAttribute("userRole") UserRoleModel userRoleModel, BindingResult result) {
+	public ModelAndView update(@Valid @ModelAttribute("userRole") UserRoleModel userRoleModel, BindingResult bindingResult) {
 		ModelAndView mAV = new ModelAndView();
-		UserRole userRole = modelMapper.map(userRoleModel, UserRole.class);
-		if(result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			mAV.setViewName(ViewRouteHelper.USER_ROLE_UPDATE);
-			mAV.addObject("userRole", userRoleModel);			
-		}else {
-			if (userRoleModel.getId() > 0) {
-				UserRole userRoleOld = userRoleService.findById(userRoleModel.getId());
-				userRole.setCreatedAt(userRoleOld.getCreatedAt());
-			}
-			this.userRoleService.insertOrUpdate(userRole);				
+			mAV.addObject("userRole", userRoleModel);
+		} else {
 			mAV.setViewName("redirect:/user-role");
+			userRoleService.insertOrUpdate(modelMapper.map(userRoleModel, UserRole.class));
 		}
-		return mAV;	
-	}	
+		return mAV;
+	}
 
 	@GetMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") int id) {

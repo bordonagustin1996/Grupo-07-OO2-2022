@@ -1,6 +1,5 @@
 package com.unla.Grupo07OO22022.models;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.unla.Grupo07OO22022.entities.UserRole;
@@ -16,12 +15,11 @@ public class UserModel {
 	
 	private String documentType;
 	
-	@Min(1)
 	private long documentNumber;
 	
 	private String email;
 	
-	@NotBlank(message = "El usuario es requerido")	
+	@NotBlank(message = "El username es requerido")	
 	private String username;
 		
 	private String password;		

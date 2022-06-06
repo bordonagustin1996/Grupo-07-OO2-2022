@@ -6,7 +6,7 @@ public class BuildingModel {
 
 	private int id;
 	
-	@NotBlank
+	@NotBlank(message = "El nombre es requerido")
 	private String name;
 	
 	public BuildingModel () {}

@@ -14,7 +14,7 @@ public class MatterModel {
 	@Max(9999)
 	private int code;
 	
-	@NotBlank 
+	@NotBlank(message = "El nombre es requerido")
 	private String name;
 	
 	private Career career;

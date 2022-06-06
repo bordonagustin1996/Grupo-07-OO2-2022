@@ -6,7 +6,7 @@ public class DepartmentModel {
 
 	private int id;
 	
-	@NotBlank
+	@NotBlank(message = "El nombre es requerido")
 	private String name;
 
 	public DepartmentModel() {}

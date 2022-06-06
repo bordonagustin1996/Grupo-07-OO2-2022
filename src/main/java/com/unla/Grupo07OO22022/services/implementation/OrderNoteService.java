@@ -56,12 +56,6 @@ public class OrderNoteService implements IOrderNoteService{
 		return orders;
 	}
 
-//	@Override
-//	public OrderNoteModel insertOrUpdate(OrderNote orderNote) {
-//		OrderNote orderNoteNew = orderNoteRepository.save(orderNote);
-//		return modelMapper.map(orderNoteNew, OrderNoteModel.class);
-//	}
-
 	@Override
 	public boolean remove(int id) {
 		try {
@@ -74,7 +68,7 @@ public class OrderNoteService implements IOrderNoteService{
 	
 	public CourseModel insertOrUpdateCourse(Course course) {
 		if (course.getId() > 0) {
-			Course courseOld = (Course) courseRepository.getById(course.getId());
+			Course courseOld = (Course) courseRepository.findById(course.getId());
 			course.setCreatedAt(courseOld.getCreatedAt());
 		}
 		return modelMapper.map(courseRepository.save(course), CourseModel.class);

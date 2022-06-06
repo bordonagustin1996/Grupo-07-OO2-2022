@@ -8,7 +8,7 @@ public class CareerModel {
 
 	private int id;
 	
-	@NotBlank
+	@NotBlank(message = "El nombre es requerido")
 	private String name;
 	
 	private Department department;

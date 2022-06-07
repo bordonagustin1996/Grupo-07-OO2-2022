@@ -25,6 +25,7 @@
 						<th>Código</th>											
 						<th>Fecha inicio</th>
 						<th>Presencialidad</th>															
+						<th>Confirmado</th>															
 						<th>Acciones</th>											
 					</tr>
 				</thead>
@@ -56,7 +57,10 @@
 						</td>						
 						<td>
 							<span th:text="${order.ftfPercentage} +'%'">
-						</td>						
+						</td>
+						<td>
+							<span th:text="${order.confirmed} ? 'Si' : 'No'">
+						</td>							
 						<td>
 							<a th:href="@{/order-note/course/{id}(id=${order.id})}" class="btn btn-primary">Ver</a>
 							<a th:href="@{/order-note/delete/{id}(id=${order.id})}" class="btn btn-danger">Eliminar</a>

@@ -110,6 +110,8 @@ public class OrderNoteController {
 			mAV.addObject("orderNote", courseModel);
 			mAV.addObject("matters", matterService.getAll());
 			mAV.addObject("classrooms", classroomService.getAll());
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			mAV.addObject("users", userService.findByUsername(user.getUsername()));
 		} else {
 			mAV.setViewName("redirect:/order-note/course");
 			orderNoteService.insertOrUpdateCourse(modelMapper.map(courseModel, Course.class));

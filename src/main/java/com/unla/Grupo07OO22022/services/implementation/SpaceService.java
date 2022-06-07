@@ -87,7 +87,7 @@ public class SpaceService implements ISpaceService {
 	@Override
 	public List<Space> getSpace(LocalDate startDate, Classroom classroom, char turn, int ftfPercentage, boolean evenWeek) {
 		LocalDate date = (evenWeek && ftfPercentage == 50) ? startDate.plusWeeks(1) : startDate;
-		LocalDate endDate = startDate.plusWeeks(15).plusDays(1);
+		LocalDate endDate = startDate.plusWeeks(14).plusDays(1);
 		List<Space> spaces = new ArrayList<Space>();		
 		while(date.isBefore(endDate)) {
 			Space space = findByDateAndTurnAndClassroomAndFree(date, turn, classroom, true);					

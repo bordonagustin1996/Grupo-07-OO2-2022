@@ -167,6 +167,11 @@ public class OrderNoteController {
 		if (orderNote instanceof Course) {
 			direct = ViewRouteHelper.COURSE_ROOT;
 		}
+		for (Space space : spaceService.findByOrderNoteOrderByDateAsc(orderNote)) {
+			space.setFree(true);
+			space.setOrderNote(null);
+			spaceService.insertOrUpdate(space);
+		}
 		orderNoteService.remove(orderNote.getId());
 		return new RedirectView(direct);
 	}

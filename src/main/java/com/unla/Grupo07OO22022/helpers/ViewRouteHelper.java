@@ -44,6 +44,9 @@ public class ViewRouteHelper {
 	
 	// ADD SPACE
 	public final static String ADD_SPACE_FORM = "space/form-add-space";
+	
+	// SEARCH SPACE
+	public final static String SEARCH_SPACE_FORM = "space/form-search-space";
 
 	// BUILDING
 	public final static String BUILDING_INDEX = "building/index";

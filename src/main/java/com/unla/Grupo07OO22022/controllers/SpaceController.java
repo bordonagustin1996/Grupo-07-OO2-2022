@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.Grupo07OO22022.entities.Space;
 import com.unla.Grupo07OO22022.helpers.ViewRouteHelper;
 import com.unla.Grupo07OO22022.models.AddSpaceModel;
+import com.unla.Grupo07OO22022.models.SearchSpaceModel;
 import com.unla.Grupo07OO22022.models.SpaceModel;
 import com.unla.Grupo07OO22022.services.IClassroomService;
 import com.unla.Grupo07OO22022.services.ISpaceService;
@@ -96,8 +97,8 @@ public class SpaceController {
 			mAV.addObject("space", spaceModel);
 			mAV.addObject("classrooms", classroomService.getAll());
 		} else {
-			spaceService.insertOrUpdate(modelMapper.map(spaceModel, Space.class));
 			mAV.setViewName("redirect:/space");
+			spaceService.insertOrUpdate(modelMapper.map(spaceModel, Space.class));
 		}
 		return mAV;
 	}
@@ -119,9 +120,24 @@ public class SpaceController {
 			mAV.setViewName(ViewRouteHelper.ADD_SPACE_FORM);
 			mAV.addObject("addSpace", addSpaceModel);
 		} else {
-			spaceService.addByDates(classroomService.getAll(), addSpaceModel.getStartDate(), addSpaceModel.getEndDate());
 			mAV.setViewName("redirect:/space");
+			spaceService.addByDates(classroomService.getAll(), addSpaceModel.getStartDate(), addSpaceModel.getEndDate());
 		}
+		return mAV;
+	}
+	
+	@GetMapping("/form-search")
+	public ModelAndView search() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.SEARCH_SPACE_FORM);
+		mAV.addObject("searchSpace", new SearchSpaceModel());
+		mAV.addObject("classrooms", classroomService.getAll());
+		return mAV;
+	}
+	
+	@PostMapping("/search")
+	public ModelAndView search(@ModelAttribute("searchSpace") SearchSpaceModel searchSpaceModel) {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.SPACE_INDEX);	
+		mAV.addObject("spaces", spaceService.findByDateAndTurnAndClassroom(searchSpaceModel.getDate(), searchSpaceModel.getTurn(), searchSpaceModel.getClassroom()));
 		return mAV;
 	}
 	

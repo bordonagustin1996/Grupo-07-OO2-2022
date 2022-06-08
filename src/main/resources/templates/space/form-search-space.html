@@ -11,13 +11,12 @@
 	<div class="container">
 		<div class="row d-flex justify-content-center">
 			<div class="col-md-6">
-				<form action="#" th:action="@{/space/update}" th:object="${space}" method="get">
+				<form action="#" th:action="@{/space/search}" th:object="${searchSpace}" method="post">
 					<div class="card">
 						<div class="card-header">
-							<h3>Espacio</h3>
+							<h3>Buscar espacio</h3>
 						</div>
 						<div class="card-body">
-							<input type="hidden" th:field="*{id}">
 							<div class="form-group mb-3">
 								<label>Fecha</label>
 								<input type="date" th:field="*{date}" class="form-control" required>
@@ -36,16 +35,9 @@
 									<option th:each="classroom : ${classrooms}" th:value="${classroom.id}" th:text="|${classroom.number} ${classroom.building.name}|">
 								</select>
 							</div>
-							<div class="mb-3 form-check">
-								<input type="checkbox" th:field="*{free}" class="form-check-input" disabled>
-								<label class="form-check-label">Libre</label>
-							</div>
-							<div th:if="${#fields.hasErrors('global')}">
-								<p th:each="error : ${#fields.errors('global')}" th:text="${error}" class="form-text text-danger">
-							</div>
 						</div>
 						<div class="card-footer">
-							<input type="submit" value="Editar" class="btn btn-primary" sec:authorize="hasAnyAuthority('ADMINISTRADOR')">
+							<input type="submit" value="Buscar" class="btn btn-primary">
 							<a href="/space" class="float-right btn btn-secondary">Volver</a>
 						</div>
 					</div>

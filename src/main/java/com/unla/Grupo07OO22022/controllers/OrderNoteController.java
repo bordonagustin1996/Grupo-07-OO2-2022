@@ -202,11 +202,14 @@ public class OrderNoteController {
 		List<Space> spaces = spaceService.getSpace(courseModel.getStartDate(), courseModel.getClassroom(), courseModel.getTurn(), courseModel.getFtfPercentage(), courseModel.isEvenWeek());
 		if ((spaces.size() < 15 && courseModel.getFtfPercentage() == 100) || (spaces.size() < 7 && courseModel.getFtfPercentage() == 50)) {
 			result.addError(new ObjectError("error", "No se puede confirmar este pedido ya que no hay suficientes espacios"));
-		} else {
+		} else {			
 			courseModel.setConfirmed(true);
 			Course course = modelMapper.map(courseModel, Course.class);
 			orderNoteService.insertOrUpdateCourse(course);
-			spaces.stream().forEach(space -> space.setOrderNote(course));
+			for(Space space :spaces) {
+				space.setOrderNote(course);
+				space.setFree(false);
+			}			
 			spaceService.saveAll(spaces);
 		}
 		return mAV;

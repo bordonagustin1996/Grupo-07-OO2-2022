@@ -91,8 +91,7 @@ public class SpaceService implements ISpaceService {
 		List<Space> spaces = new ArrayList<Space>();		
 		while(date.isBefore(endDate)) {
 			Space space = findByDateAndTurnAndClassroomAndFree(date, turn, classroom, true);					
-			if(space != null) {
-				space.setFree(false);
+			if(space != null) {				
 				spaces.add(space);
 			}			
 			date = (ftfPercentage == 50) ? date.plusWeeks(2): date.plusWeeks(1);

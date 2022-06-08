@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Gestión de aulas</title>
+        <title>Gestión de Aulas</title>
         <!-- Favicon-->
         <!-- <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}"/> -->
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -21,16 +21,22 @@
                 <!-- Top navigation-->
                 <nav th:replace="fragments/navbar :: navbar"></nav>
                 <!-- Page content-->
-                <div class="container-fluid">
-                    <h1 class="mt-4">Trabajo Practico Integrador - Grupo 7 - 2022</h1>
-                    <p>Integrantes:</p>
-                   	<p>-Gonzalo Ajuria</p>
-                   	<p>-Agustin Bordon</p>
-                    <p>-Ignacio Cruz</p>
-                    <p>-Ignacio Soloduja</p>                    
-                    <p>
-                       <img class="img-responsive center-box" th:src="@{/images/universidad.jpg}" height="auto">
-                    </p>
+                <div class="container-fluid text-center">
+                    <h1 class="mt-4">Proyecto Cuatrimestral - Orientación a Objetos II</h1>
+                    <h4 class="fw-bold">Grupo 07</h4>
+                    <a href="https://github.com/gmajuria" class="text-decoration-none">
+                   		<p>Gonzalo Ajuria</p>
+                    </a>
+                    <a href="https://github.com/bordonagustin1996" class="text-decoration-none">
+                   		<p>Agustin Bordon</p>
+                    </a>
+                    <a href="https://github.com/IgnacioIA" class="text-decoration-none">
+                    	<p>Ignacio Cruz</p>
+                    </a>
+                    <a href="https://github.com/xKraut95" class="text-decoration-none">
+                    	<p>Ignacio Soloduja</p>
+                    </a>               
+                    <img th:src="@{/images/logo.jpg}" class="rounded mx-auto d-block" alt="Unla" width="100">                    
                 </div>
             </div>
         </div>
